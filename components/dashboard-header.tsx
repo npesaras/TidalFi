@@ -1,6 +1,4 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,59 +9,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
-import { Waves, User, Settings, LogOut, Bell, Fish, TrendingUp, ShoppingCart, HelpCircle } from "lucide-react"
+import { Waves, User, Settings, LogOut, Bell, HelpCircle } from "lucide-react"
 
-interface DashboardHeaderProps {
-  userRole?: "farmer" | "investor" | "buyer"
-  forceRole?: "farmer" | "investor" | "buyer" // Force a specific role
-}
-
-export function DashboardHeader({ userRole: propUserRole, forceRole }: DashboardHeaderProps) {
-  const [userRole, setUserRole] = useState<"farmer" | "investor" | "buyer">("farmer")
-
-  useEffect(() => {
-    // Force role takes precedence, then prop, then localStorage
-    if (forceRole) {
-      setUserRole(forceRole)
-      localStorage.setItem("userRole", forceRole)
-    } else if (propUserRole) {
-      setUserRole(propUserRole)
-      localStorage.setItem("userRole", propUserRole)
-    } else {
-      const storedRole = localStorage.getItem("userRole") as "farmer" | "investor" | "buyer"
-      if (storedRole) {
-        setUserRole(storedRole)
-      }
-    }
-  }, [propUserRole, forceRole])
-
+export function DashboardHeader() {
   const handleLogout = () => {
-    localStorage.removeItem("userRole")
     localStorage.removeItem("isAuthenticated")
     window.location.href = "/"
-  }
-
-  const getRoleIcon = () => {
-    switch (userRole) {
-      case "farmer":
-        return <Fish className="h-4 w-4" />
-      case "investor":
-        return <TrendingUp className="h-4 w-4" />
-      case "buyer":
-        return <ShoppingCart className="h-4 w-4" />
-    }
-  }
-
-  const getRoleColor = () => {
-    switch (userRole) {
-      case "farmer":
-        return "bg-blue-100 text-blue-800"
-      case "investor":
-        return "bg-green-100 text-green-800"
-      case "buyer":
-        return "bg-purple-100 text-purple-800"
-    }
   }
 
   return (
@@ -76,24 +27,17 @@ export function DashboardHeader({ userRole: propUserRole, forceRole }: Dashboard
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href={`/dashboard/${userRole}`} className="text-gray-600 hover:text-blue-600 font-medium">
+            <Link href="/dashboard" className="text-gray-600 hover:text-blue-600 font-medium">
               Dashboard
             </Link>
-            {userRole === "farmer" && (
-              <>
-                <Link href={`/dashboard/farmer/pond`} className="text-gray-600 hover:text-blue-600">
-                  My Pond
-                </Link>
-                <Link href={`/dashboard/farmer/tokens`} className="text-gray-600 hover:text-blue-600">
-                  My Tokens
-                </Link>
-              </>
-            )}
-            <Link href={`/marketplace?role=${userRole}`} className="text-gray-600 hover:text-blue-600">
-              Marketplace
+            <Link href="/dashboard/pond" className="text-gray-600 hover:text-blue-600">
+              My Pond
             </Link>
-            <Link href={`/governance?role=${userRole}`} className="text-gray-600 hover:text-blue-600">
-              Governance
+            <Link href="/dashboard/tokens" className="text-gray-600 hover:text-blue-600">
+              My Tokens
+            </Link>
+            <Link href="/marketplace" className="text-gray-600 hover:text-blue-600">
+              Marketplace
             </Link>
             <Link href="/help" className="text-gray-600 hover:text-blue-600">
               Help
@@ -102,11 +46,6 @@ export function DashboardHeader({ userRole: propUserRole, forceRole }: Dashboard
         </div>
 
         <div className="flex items-center space-x-4">
-          <Badge className={getRoleColor()}>
-            {getRoleIcon()}
-            <span className="ml-1 capitalize">{userRole}</span>
-          </Badge>
-
           <Button variant="ghost" size="sm">
             <Bell className="h-4 w-4" />
           </Button>
@@ -118,7 +57,7 @@ export function DashboardHeader({ userRole: propUserRole, forceRole }: Dashboard
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account ({userRole})</DropdownMenuLabel>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/profile">

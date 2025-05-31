@@ -1,11 +1,30 @@
-import Link from "next/link"
+"use client"
+
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Fish, Waves, TrendingUp, Shield, Users, Leaf } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Waves, Fish, Shield, TrendingUp, Users, BarChart3, Globe } from "lucide-react"
+import Link from "next/link"
 
-export default function HomePage() {
+export default function LandingPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated")
+    setIsAuthenticated(authStatus === "true")
+  }, [])
+
+  const handleGetStarted = () => {
+    if (isAuthenticated) {
+      window.location.href = "/dashboard"
+    } else {
+      window.location.href = "/auth"
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -13,128 +32,176 @@ export default function HomePage() {
             <Waves className="h-8 w-8 text-blue-600" />
             <span className="text-2xl font-bold text-blue-900">TidalFi</span>
           </div>
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link href="#how-it-works" className="text-gray-600 hover:text-blue-600">
-              How It Works
-            </Link>
-            <Link href="#marketplace" className="text-gray-600 hover:text-blue-600">
-              Marketplace
-            </Link>
-            <Link href="#sustainability" className="text-gray-600 hover:text-blue-600">
-              Sustainability
-            </Link>
-            <Link href="#about" className="text-gray-600 hover:text-blue-600">
-              About
-            </Link>
-          </nav>
-          <div className="flex items-center space-x-3">
-            <Button variant="outline" asChild>
-              <Link href="/auth">Login</Link>
+          <div className="flex items-center space-x-4">
+            <Button variant="ghost" asChild>
+              <Link href="/about">About</Link>
             </Button>
-            <Button asChild>
-              <Link href="/auth">Get Started</Link>
+            <Button variant="ghost" asChild>
+              <Link href="/help">Help</Link>
             </Button>
+            <Button onClick={handleGetStarted}>{isAuthenticated ? "Go to Dashboard" : "Get Started"}</Button>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Tokenize the Ocean's
-            <span className="text-blue-600 block">Sustainable Future</span>
+      <section className="container mx-auto px-4 py-20 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            Revolutionize Your <span className="text-blue-600">Fish Farming</span> Business
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Connect sustainable fish farmers with global investors and buyers through blockchain-powered tokenization.
-            Transparent, traceable, and profitable aquaculture for everyone.
+          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            Transform your aquaculture operations with blockchain-powered tokenization, real-time IoT monitoring, and
+            direct marketplace access to premium restaurants.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link href="/auth?role=farmer">I'm a Farmer</Link>
+            <Button size="lg" onClick={handleGetStarted} className="text-lg px-8 py-3">
+              Start Farming Smarter
             </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/auth?role=investor">I'm an Investor</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/auth?role=buyer">I'm a Buyer</Link>
+            <Button size="lg" variant="outline" className="text-lg px-8 py-3" asChild>
+              <Link href="/demo">Watch Demo</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section id="how-it-works" className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">How TidalFi Works</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card>
-              <CardHeader>
-                <Fish className="h-12 w-12 text-blue-600 mb-4" />
-                <CardTitle>Farmers Tokenize</CardTitle>
-                <CardDescription>
-                  Sustainable fish farmers create tokens representing their future harvests, backed by IoT monitoring
-                  and sustainability certifications.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-            <Card>
-              <CardHeader>
-                <TrendingUp className="h-12 w-12 text-green-600 mb-4" />
-                <CardTitle>Investors Fund</CardTitle>
-                <CardDescription>
-                  Global investors purchase tokens to fund sustainable aquaculture operations and earn returns from
-                  successful harvests.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Users className="h-12 w-12 text-purple-600 mb-4" />
-                <CardTitle>Buyers Purchase</CardTitle>
-                <CardDescription>
-                  Restaurants and retailers buy tokens to secure premium, traceable fish with verified sustainability
-                  credentials.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
+      {/* Features Section */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Everything You Need to Scale Your Fish Farm</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            From pond monitoring to marketplace sales, TidalFi provides the complete toolkit for modern aquaculture
+            success.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <Fish className="h-12 w-12 text-blue-600 mb-4" />
+              <CardTitle>Token Creation</CardTitle>
+              <CardDescription>
+                Transform your fish harvests into tradeable tokens and access new funding sources
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <BarChart3 className="h-12 w-12 text-green-600 mb-4" />
+              <CardTitle>IoT Monitoring</CardTitle>
+              <CardDescription>
+                Real-time water quality, temperature, and fish health monitoring with smart alerts
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <Globe className="h-12 w-12 text-purple-600 mb-4" />
+              <CardTitle>Restaurant Marketplace</CardTitle>
+              <CardDescription>
+                Connect directly with premium restaurants and secure better prices for your harvest
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <Shield className="h-12 w-12 text-orange-600 mb-4" />
+              <CardTitle>Sustainability Tracking</CardTitle>
+              <CardDescription>
+                Monitor and showcase your environmental impact with comprehensive sustainability metrics
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <TrendingUp className="h-12 w-12 text-red-600 mb-4" />
+              <CardTitle>Performance Analytics</CardTitle>
+              <CardDescription>
+                Track growth rates, feeding efficiency, and profitability with detailed analytics
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <Users className="h-12 w-12 text-indigo-600 mb-4" />
+              <CardTitle>Community Network</CardTitle>
+              <CardDescription>
+                Connect with other farmers, share best practices, and learn from industry experts
+              </CardDescription>
+            </CardHeader>
+          </Card>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-16">
+      {/* Benefits Section */}
+      <section className="bg-white py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Platform Features</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="text-center">
-              <Shield className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Blockchain Security</h3>
-              <p className="text-gray-600">
-                Built on ICP with Internet Identity for secure, decentralized transactions
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose TidalFi?</h2>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Maximize Your Farm's Potential</h3>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <Badge className="bg-green-100 text-green-800 p-2">
+                    <TrendingUp className="h-4 w-4" />
+                  </Badge>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Increase Revenue</h4>
+                    <p className="text-gray-600">Access premium restaurant markets and secure better prices</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <Badge className="bg-blue-100 text-blue-800 p-2">
+                    <BarChart3 className="h-4 w-4" />
+                  </Badge>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Optimize Operations</h4>
+                    <p className="text-gray-600">Real-time monitoring and AI-driven insights improve efficiency</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <Badge className="bg-purple-100 text-purple-800 p-2">
+                    <Shield className="h-4 w-4" />
+                  </Badge>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Ensure Sustainability</h4>
+                    <p className="text-gray-600">Track and improve your environmental impact</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-blue-100 to-green-100 rounded-2xl p-8 text-center">
+              <Fish className="h-24 w-24 text-blue-600 mx-auto mb-6" />
+              <h4 className="text-xl font-bold text-gray-900 mb-4">Join the Future of Aquaculture</h4>
+              <p className="text-gray-600 mb-6">
+                Be part of the sustainable fishing revolution with blockchain technology
               </p>
-            </div>
-            <div className="text-center">
-              <Leaf className="h-12 w-12 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Sustainability Tracking</h3>
-              <p className="text-gray-600">Real-time IoT monitoring and third-party sustainability certifications</p>
-            </div>
-            <div className="text-center">
-              <TrendingUp className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">DAO Governance</h3>
-              <p className="text-gray-600">Community-driven platform decisions and sustainability standards</p>
+              <Button size="lg" onClick={handleGetStarted}>
+                Get Started Today
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Dive In?</h2>
-          <p className="text-xl mb-8 opacity-90">Join the sustainable aquaculture revolution today</p>
-          <Button size="lg" variant="secondary" asChild>
-            <Link href="/auth">Start Your Journey</Link>
+      <section className="container mx-auto px-4 py-20 text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Ready to Transform Your Fish Farm?</h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Join thousands of farmers who are already using TidalFi to optimize their operations and increase their
+            profits.
+          </p>
+          <Button size="lg" onClick={handleGetStarted} className="text-lg px-8 py-3">
+            Start Your Journey
           </Button>
         </div>
       </section>
@@ -145,22 +212,30 @@ export default function HomePage() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <Waves className="h-6 w-6" />
+                <Waves className="h-6 w-6 text-blue-400" />
                 <span className="text-xl font-bold">TidalFi</span>
               </div>
-              <p className="text-gray-400">Sustainable aquaculture through blockchain innovation</p>
+              <p className="text-gray-400">
+                Revolutionizing aquaculture with blockchain technology and sustainable practices.
+              </p>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Platform</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="/marketplace">Marketplace</Link>
+                  <Link href="/features" className="hover:text-white">
+                    Features
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/governance">Governance</Link>
+                  <Link href="/pricing" className="hover:text-white">
+                    Pricing
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/sustainability">Sustainability</Link>
+                  <Link href="/demo" className="hover:text-white">
+                    Demo
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -168,27 +243,39 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Support</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="/help">Help Center</Link>
+                  <Link href="/help" className="hover:text-white">
+                    Help Center
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/docs">Documentation</Link>
+                  <Link href="/contact" className="hover:text-white">
+                    Contact
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/contact">Contact</Link>
+                  <Link href="/community" className="hover:text-white">
+                    Community
+                  </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
+              <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="/privacy">Privacy Policy</Link>
+                  <Link href="/about" className="hover:text-white">
+                    About
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/terms">Terms of Service</Link>
+                  <Link href="/blog" className="hover:text-white">
+                    Blog
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/compliance">Compliance</Link>
+                  <Link href="/careers" className="hover:text-white">
+                    Careers
+                  </Link>
                 </li>
               </ul>
             </div>
