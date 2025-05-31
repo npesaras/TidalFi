@@ -24,6 +24,8 @@ import {
   Activity,
   CheckCircle,
   AlertTriangle,
+  FileText,
+  Users,
 } from "lucide-react"
 import { DashboardHeader } from "@/components/dashboard-header"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend } from "recharts"
@@ -305,6 +307,7 @@ export default function MyTokensPage() {
             <TabsTrigger value="all-tokens">All Tokens</TabsTrigger>
             <TabsTrigger value="performance">Performance</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="optimization">Optimization</TabsTrigger>
             <TabsTrigger value="history">History</TabsTrigger>
           </TabsList>
 
@@ -514,6 +517,83 @@ export default function MyTokensPage() {
                 )}
               </CardContent>
             </Card>
+            {/* Token Management Tools */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Bulk Actions</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button className="w-full" variant="outline">
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    Export Analytics
+                  </Button>
+                  <Button className="w-full" variant="outline">
+                    <Users className="h-4 w-4 mr-2" />
+                    Investor Report
+                  </Button>
+                  <Button className="w-full" variant="outline">
+                    <FileText className="h-4 w-4 mr-2" />
+                    Generate Certificates
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Market Insights</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-sm">Avg Market Price</span>
+                    <span className="font-medium">$11.20/kg</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm">Your Avg Price</span>
+                    <span className="font-medium text-green-600">$11.85/kg</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm">Premium</span>
+                    <span className="font-medium text-green-600">+5.8%</span>
+                  </div>
+                  <Button className="w-full" variant="outline" size="sm">
+                    View Market Trends
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Upcoming Harvests</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">TF-002 (5 days)</span>
+                      <Badge variant="default" size="sm">
+                        Ready Soon
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">TF-005 (8 days)</span>
+                      <Badge variant="secondary" size="sm">
+                        Growing
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">TF-004 (18 days)</span>
+                      <Badge variant="secondary" size="sm">
+                        Growing
+                      </Badge>
+                    </div>
+                  </div>
+                  <Button className="w-full" variant="outline" size="sm">
+                    <Calendar className="h-4 w-4 mr-2" />
+                    Harvest Calendar
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="performance" className="space-y-6">
@@ -814,6 +894,172 @@ export default function MyTokensPage() {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="optimization" className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Performance Recommendations</CardTitle>
+                  <CardDescription>AI-powered suggestions to improve your tokens</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <div className="flex items-start space-x-3">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                        <div>
+                          <h4 className="font-medium text-green-800">Optimize Feeding Schedule</h4>
+                          <p className="text-sm text-green-700 mt-1">
+                            TF-003 could benefit from adjusted feeding times. Potential 8% growth improvement.
+                          </p>
+                          <Button size="sm" className="mt-2" variant="outline">
+                            Apply Suggestion
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="flex items-start space-x-3">
+                        <TrendingUp className="h-5 w-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <h4 className="font-medium text-blue-800">Market Timing Opportunity</h4>
+                          <p className="text-sm text-blue-700 mt-1">
+                            Sea Bass prices are trending up. Consider early harvest for TF-006.
+                          </p>
+                          <Button size="sm" className="mt-2" variant="outline">
+                            View Analysis
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                      <div className="flex items-start space-x-3">
+                        <Users className="h-5 w-5 text-purple-600 mt-0.5" />
+                        <div>
+                          <h4 className="font-medium text-purple-800">Investor Engagement</h4>
+                          <p className="text-sm text-purple-700 mt-1">
+                            Send progress updates to boost investor confidence and future funding.
+                          </p>
+                          <Button size="sm" className="mt-2" variant="outline">
+                            Send Updates
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Token Health Score</CardTitle>
+                  <CardDescription>Overall health assessment of your token portfolio</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-green-600 mb-2">87/100</div>
+                      <p className="text-gray-600">Portfolio Health Score</p>
+                      <Badge variant="default" className="mt-2">
+                        Excellent
+                      </Badge>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <span className="text-sm">Growth Performance</span>
+                          <span className="font-medium">92/100</span>
+                        </div>
+                        <Progress value={92} className="h-2" />
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <span className="text-sm">Funding Efficiency</span>
+                          <span className="font-medium">85/100</span>
+                        </div>
+                        <Progress value={85} className="h-2" />
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <span className="text-sm">Market Positioning</span>
+                          <span className="font-medium">89/100</span>
+                        </div>
+                        <Progress value={89} className="h-2" />
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <span className="text-sm">Risk Management</span>
+                          <span className="font-medium">83/100</span>
+                        </div>
+                        <Progress value={83} className="h-2" />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Optimization Opportunities</CardTitle>
+                <CardDescription>Specific actions to improve token performance</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="space-y-4">
+                    <h4 className="font-semibold">Growth Optimization</h4>
+                    <div className="space-y-3">
+                      <div className="p-3 border rounded-lg">
+                        <h5 className="font-medium">Feed Conversion</h5>
+                        <p className="text-sm text-gray-600">Improve FCR by 0.2 points</p>
+                        <p className="text-xs text-green-600">Potential: +$2,400 revenue</p>
+                      </div>
+                      <div className="p-3 border rounded-lg">
+                        <h5 className="font-medium">Water Quality</h5>
+                        <p className="text-sm text-gray-600">Optimize pH levels</p>
+                        <p className="text-xs text-green-600">Potential: +5% growth rate</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="font-semibold">Market Optimization</h4>
+                    <div className="space-y-3">
+                      <div className="p-3 border rounded-lg">
+                        <h5 className="font-medium">Pricing Strategy</h5>
+                        <p className="text-sm text-gray-600">Adjust pricing for premium market</p>
+                        <p className="text-xs text-green-600">Potential: +8% price premium</p>
+                      </div>
+                      <div className="p-3 border rounded-lg">
+                        <h5 className="font-medium">Harvest Timing</h5>
+                        <p className="text-sm text-gray-600">Optimize harvest schedule</p>
+                        <p className="text-xs text-green-600">Potential: +$1,800 revenue</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="font-semibold">Risk Mitigation</h4>
+                    <div className="space-y-3">
+                      <div className="p-3 border rounded-lg">
+                        <h5 className="font-medium">Diversification</h5>
+                        <p className="text-sm text-gray-600">Add more species variety</p>
+                        <p className="text-xs text-blue-600">Reduce portfolio risk</p>
+                      </div>
+                      <div className="p-3 border rounded-lg">
+                        <h5 className="font-medium">Insurance</h5>
+                        <p className="text-sm text-gray-600">Consider harvest insurance</p>
+                        <p className="text-xs text-blue-600">Protect against losses</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="history" className="space-y-6">

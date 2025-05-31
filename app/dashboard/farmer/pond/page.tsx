@@ -30,6 +30,8 @@ import {
   Gauge,
   WifiOff,
   Wifi,
+  Camera,
+  Settings,
 } from "lucide-react"
 import { DashboardHeader } from "@/components/dashboard-header"
 
@@ -609,6 +611,33 @@ export default function MyPondPage() {
                         </CardContent>
                       </Card>
 
+                      {/* Quick Actions */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Quick Actions</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid md:grid-cols-4 gap-4">
+                            <Button className="h-20 flex-col space-y-2" variant="outline">
+                              <Fish className="h-6 w-6" />
+                              <span>Manual Feed</span>
+                            </Button>
+                            <Button className="h-20 flex-col space-y-2" variant="outline">
+                              <Droplets className="h-6 w-6" />
+                              <span>Water Change</span>
+                            </Button>
+                            <Button className="h-20 flex-col space-y-2" variant="outline">
+                              <Heart className="h-6 w-6" />
+                              <span>Health Check</span>
+                            </Button>
+                            <Button className="h-20 flex-col space-y-2" variant="outline">
+                              <AlertTriangle className="h-6 w-6" />
+                              <span>Report Issue</span>
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+
                       {/* Alerts and Recent Events */}
                       <div className="grid md:grid-cols-2 gap-6">
                         <Card>
@@ -721,6 +750,58 @@ export default function MyPondPage() {
                                 </div>
                               </Card>
                             ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Live Camera Feed */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Live Camera Feed</CardTitle>
+                          <CardDescription>Real-time visual monitoring of your pond</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid md:grid-cols-2 gap-6">
+                            <div className="space-y-4">
+                              <div className="aspect-video bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center relative">
+                                <div className="text-center">
+                                  <Eye className="h-12 w-12 text-blue-600 mx-auto mb-2" />
+                                  <p className="font-medium">Main Camera</p>
+                                  <p className="text-sm text-gray-600">Pond Overview</p>
+                                </div>
+                                <Badge className="absolute top-2 right-2 bg-red-600">LIVE</Badge>
+                              </div>
+                              <div className="flex space-x-2">
+                                <Button size="sm" variant="outline" className="flex-1">
+                                  <Camera className="h-4 w-4 mr-2" />
+                                  Capture
+                                </Button>
+                                <Button size="sm" variant="outline" className="flex-1">
+                                  <Eye className="h-4 w-4 mr-2" />
+                                  Fullscreen
+                                </Button>
+                              </div>
+                            </div>
+                            <div className="space-y-4">
+                              <div className="aspect-video bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center relative">
+                                <div className="text-center">
+                                  <Fish className="h-12 w-12 text-green-600 mx-auto mb-2" />
+                                  <p className="font-medium">Feeding Area</p>
+                                  <p className="text-sm text-gray-600">Close-up View</p>
+                                </div>
+                                <Badge className="absolute top-2 right-2 bg-red-600">LIVE</Badge>
+                              </div>
+                              <div className="flex space-x-2">
+                                <Button size="sm" variant="outline" className="flex-1">
+                                  <Camera className="h-4 w-4 mr-2" />
+                                  Capture
+                                </Button>
+                                <Button size="sm" variant="outline" className="flex-1">
+                                  <Eye className="h-4 w-4 mr-2" />
+                                  Fullscreen
+                                </Button>
+                              </div>
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
@@ -964,6 +1045,60 @@ export default function MyPondPage() {
                               <div className="text-2xl font-bold text-purple-600">{pond.oxygenSaturation}%</div>
                               <p className="text-sm text-gray-600">O₂ Saturation</p>
                               <p className="text-xs text-purple-600">Optimal range</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Automated Systems */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Automated Systems</CardTitle>
+                          <CardDescription>Control and monitor automated pond operations</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid md:grid-cols-2 gap-6">
+                            <div className="space-y-4">
+                              <h4 className="font-semibold">Feeding System</h4>
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between p-3 border rounded-lg">
+                                  <span>Auto-Feeder Status</span>
+                                  <Badge variant="default">Active</Badge>
+                                </div>
+                                <div className="flex items-center justify-between p-3 border rounded-lg">
+                                  <span>Feed Level</span>
+                                  <span className="font-medium">78%</span>
+                                </div>
+                                <div className="flex items-center justify-between p-3 border rounded-lg">
+                                  <span>Next Refill</span>
+                                  <span className="font-medium">In 3 days</span>
+                                </div>
+                                <Button className="w-full" variant="outline">
+                                  <Settings className="h-4 w-4 mr-2" />
+                                  Configure Feeding
+                                </Button>
+                              </div>
+                            </div>
+                            <div className="space-y-4">
+                              <h4 className="font-semibold">Water Management</h4>
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between p-3 border rounded-lg">
+                                  <span>Filtration System</span>
+                                  <Badge variant="default">Running</Badge>
+                                </div>
+                                <div className="flex items-center justify-between p-3 border rounded-lg">
+                                  <span>Oxygenation</span>
+                                  <Badge variant="default">Optimal</Badge>
+                                </div>
+                                <div className="flex items-center justify-between p-3 border rounded-lg">
+                                  <span>Temperature Control</span>
+                                  <Badge variant="default">Auto</Badge>
+                                </div>
+                                <Button className="w-full" variant="outline">
+                                  <Settings className="h-4 w-4 mr-2" />
+                                  Water Settings
+                                </Button>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
