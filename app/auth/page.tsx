@@ -49,7 +49,7 @@ export default function AuthPage() {
           </div>
 
           <Tabs value={selectedRole} onValueChange={setSelectedRole} className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            {/* <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="farmer" className="flex items-center gap-2">
                 <Fish className="h-4 w-4" />
                 Farmer
@@ -62,7 +62,7 @@ export default function AuthPage() {
                 <ShoppingCart className="h-4 w-4" />
                 Buyer
               </TabsTrigger>
-            </TabsList>
+            </TabsList> */}
 
             <TabsContent value="farmer" className="mt-8">
               <Card>
@@ -102,7 +102,7 @@ export default function AuthPage() {
                       </ul>
                     </div>
                   </div>
-                  <Button onClick={() => handleInternetIdentityLogin("farmer")} className="w-full" size="lg">
+                  <Button onClick={() => handleInternetIdentityLogin("farmer")} className="w-full bg-blue-700 hover:bg-blue-600" size="lg">
                     <Shield className="h-4 w-4 mr-2" />
                     Continue with Internet Identity
                     <ArrowRight className="h-4 w-4 ml-2" />
@@ -111,7 +111,7 @@ export default function AuthPage() {
               </Card>
             </TabsContent>
 
-            <TabsContent value="investor" className="mt-8">
+            {/* <TabsContent value="investor" className="mt-8">
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
@@ -203,7 +203,7 @@ export default function AuthPage() {
                   </Button>
                 </CardContent>
               </Card>
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
 
           <div className="mt-8 text-center">

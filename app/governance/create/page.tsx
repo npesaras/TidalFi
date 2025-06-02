@@ -15,7 +15,8 @@ import { DashboardHeader } from "@/components/dashboard-header"
 
 export default function CreateProposalPage() {
   const searchParams = useSearchParams()
-  const [userRole, setUserRole] = useState<"farmer" | "investor" | "buyer">("farmer")
+  // const [userRole, setUserRole] = useState<"farmer" | "investor" | "buyer">("farmer")
+  const userRole = "farmer"
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -25,16 +26,16 @@ export default function CreateProposalPage() {
     requiresQuorum: true,
   })
 
-  useEffect(() => {
-    const roleFromUrl = searchParams.get("role") as "farmer" | "investor" | "buyer"
-    const storedRole = localStorage.getItem("userRole") as "farmer" | "investor" | "buyer"
+  // useEffect(() => {
+  //   const roleFromUrl = searchParams.get("role") as "farmer" | "investor" | "buyer"
+  //   const storedRole = localStorage.getItem("userRole") as "farmer" | "investor" | "buyer"
 
-    if (roleFromUrl) {
-      setUserRole(roleFromUrl)
-    } else if (storedRole) {
-      setUserRole(storedRole)
-    }
-  }, [searchParams])
+  //   if (roleFromUrl) {
+  //     setUserRole(roleFromUrl)
+  //   } else if (storedRole) {
+  //     setUserRole(storedRole)
+  //   }
+  // }, [searchParams])
 
   const handleSubmit = () => {
     console.log("Creating proposal:", formData)

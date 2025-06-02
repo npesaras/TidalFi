@@ -55,7 +55,7 @@ export default function TokenizePage() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
-            <Button variant="ghost" asChild>
+            <Button variant="ghost" className="hover:bg-blue-600/15 transition-all duration-300 ease-in-out" asChild>
               <Link href="/dashboard/farmer">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
@@ -70,7 +70,7 @@ export default function TokenizePage() {
           </div>
 
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Create Fish Harvest Token</h1>
+            <h1 className="text-3xl font-bold text-blue-600 mb-4">Create Fish Harvest Token</h1>
             <p className="text-gray-600">Tokenize your sustainable fish harvest to access global funding</p>
           </div>
 
@@ -80,7 +80,7 @@ export default function TokenizePage() {
                 <div className="space-y-6">
                   <div className="text-center mb-6">
                     <Fish className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold">Harvest Information</h2>
+                    <h2 className="text-2xl text-blue-600 font-bold">Harvest Information</h2>
                     <p className="text-gray-600">Tell us about your fish harvest</p>
                   </div>
 
@@ -95,11 +95,11 @@ export default function TokenizePage() {
                           <SelectValue placeholder="Select species" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="atlantic-salmon">Atlantic Salmon</SelectItem>
-                          <SelectItem value="rainbow-trout">Rainbow Trout</SelectItem>
-                          <SelectItem value="sea-bass">Sea Bass</SelectItem>
-                          <SelectItem value="sea-bream">Sea Bream</SelectItem>
-                          <SelectItem value="arctic-char">Arctic Char</SelectItem>
+                          <SelectItem className="hover:bg-blue-600/15 transition-all duration-300 ease-in-out" value="atlantic-salmon">Atlantic Salmon</SelectItem>
+                          <SelectItem className="hover:bg-blue-600/15 transition-all duration-300 ease-in-out" value="rainbow-trout">Rainbow Trout</SelectItem>
+                          <SelectItem className="hover:bg-blue-600/15 transition-all duration-300 ease-in-out" value="sea-bass">Sea Bass</SelectItem>
+                          <SelectItem className="hover:bg-blue-600/15 transition-all duration-300 ease-in-out" value="sea-bream">Sea Bream</SelectItem>
+                          <SelectItem className="hover:bg-blue-600/15 transition-all duration-300 ease-in-out" value="arctic-char">Arctic Char</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -177,7 +177,7 @@ export default function TokenizePage() {
                 <div className="space-y-6">
                   <div className="text-center mb-6">
                     <Leaf className="h-12 w-12 text-green-600 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold">Sustainability & Certifications</h2>
+                    <h2 className="text-2xl text-green-600 font-bold">Sustainability & Certifications</h2>
                     <p className="text-gray-600">Showcase your environmental credentials</p>
                   </div>
 
@@ -265,7 +265,7 @@ export default function TokenizePage() {
                         </CardHeader>
                         <CardContent className="text-center">
                           <div className="text-4xl font-bold text-green-600 mb-2">92/100</div>
-                          <Badge variant="default" className="mb-4">
+                          <Badge variant="default" className="mb-4 bg-green-600 hover:bg-green-700 hover:cursor-default text-white">
                             Excellent
                           </Badge>
                           <p className="text-sm text-gray-600">
@@ -283,7 +283,7 @@ export default function TokenizePage() {
                 <div className="space-y-6">
                   <div className="text-center mb-6">
                     <Camera className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold">Documentation & Media</h2>
+                    <h2 className="text-2xl text-purple-600 font-bold">Documentation & Media</h2>
                     <p className="text-gray-600">Upload images and documents to build investor confidence</p>
                   </div>
 
@@ -332,7 +332,7 @@ export default function TokenizePage() {
                           <h4 className="font-medium">Water Quality Sensors</h4>
                           <p className="text-sm text-gray-600">Temperature, pH, oxygen monitoring</p>
                         </div>
-                        <Badge variant="default">Connected</Badge>
+                        <Badge variant="default" className="bg-blue-600 hover:bg-blue-700 hover:cursor-default text-white">Connected</Badge>
                       </div>
                     </CardContent>
                   </Card>
@@ -343,14 +343,14 @@ export default function TokenizePage() {
                 <div className="space-y-6">
                   <div className="text-center mb-6">
                     <DollarSign className="h-12 w-12 text-green-600 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold">Token Configuration</h2>
+                    <h2 className="text-2xl text-green-600 font-bold">Token Configuration</h2>
                     <p className="text-gray-600">Set up your token parameters and launch</p>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <Card>
                       <CardHeader>
-                        <CardTitle>Token Summary</CardTitle>
+                        <CardTitle className="text-green-600">Token Summary</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="flex justify-between">
@@ -385,7 +385,7 @@ export default function TokenizePage() {
 
                     <Card>
                       <CardHeader>
-                        <CardTitle>Investment Settings</CardTitle>
+                        <CardTitle className="text-green-600">Investment Settings</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-2">
@@ -410,7 +410,7 @@ export default function TokenizePage() {
 
                   <Card>
                     <CardHeader>
-                      <CardTitle>Ready to Launch</CardTitle>
+                      <CardTitle className="text-green-600">Ready to Launch</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
@@ -442,7 +442,7 @@ export default function TokenizePage() {
                 </Button>
 
                 {currentStep < totalSteps ? (
-                  <Button onClick={handleNext}>Next</Button>
+                  <Button onClick={handleNext} className="bg-blue-600 hover:bg-blue-700">Next</Button>
                 ) : (
                   <Button onClick={handleSubmit} className="bg-green-600 hover:bg-green-700">
                     Launch Token

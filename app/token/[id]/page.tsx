@@ -8,8 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+// import { Input } from "@/components/ui/input"
+// import { Label } from "@/components/ui/label"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -19,12 +19,12 @@ import {
   Thermometer,
   Droplets,
   Activity,
-  Star,
-  ShoppingCart,
+  // Star,
+  // ShoppingCart,
   Camera,
   FileText,
   ArrowLeft,
-  Heart,
+  // Heart,
   Share2,
   AlertTriangle,
   CheckCircle,
@@ -171,19 +171,20 @@ export default function TokenDetailsPage() {
   const token = getTokenData(tokenId)
   const [investmentAmount, setInvestmentAmount] = useState("")
   const [isWishlisted, setIsWishlisted] = useState(false)
-  const [userRole, setUserRole] = useState<"farmer" | "investor" | "buyer">("investor")
+  // const [userRole, setUserRole] = useState<"farmer" | "investor" | "buyer">("investor")
+  const userRole = "farmer"
 
-  useEffect(() => {
-    // Get role from URL params first, then localStorage
-    const roleFromUrl = searchParams.get("role") as "farmer" | "investor" | "buyer"
-    const storedRole = localStorage.getItem("userRole") as "farmer" | "investor" | "buyer"
+  // useEffect(() => {
+  //   // Get role from URL params first, then localStorage
+  //   const roleFromUrl = searchParams.get("role") as "farmer" | "investor" | "buyer"
+  //   const storedRole = localStorage.getItem("userRole") as "farmer" | "investor" | "buyer"
 
-    if (roleFromUrl) {
-      setUserRole(roleFromUrl)
-    } else if (storedRole) {
-      setUserRole(storedRole)
-    }
-  }, [searchParams])
+  //   if (roleFromUrl) {
+  //     setUserRole(roleFromUrl)
+  //   } else if (storedRole) {
+  //     setUserRole(storedRole)
+  //   }
+  // }, [searchParams])
 
   const handleInvestment = () => {
     console.log(`Investing $${investmentAmount} in token ${tokenId}`)
@@ -191,25 +192,27 @@ export default function TokenDetailsPage() {
   }
 
   const getBackLink = () => {
-    switch (userRole) {
-      case "farmer":
-        return "/dashboard/farmer/tokens"
-      case "buyer":
-        return "/marketplace?role=buyer"
-      default:
-        return "/marketplace"
-    }
+    // switch (userRole) {
+    //   case "farmer":
+    //     return "/dashboard/farmer/tokens"
+    //   case "buyer":
+    //     return "/marketplace?role=buyer"
+    //   default:
+    //     return "/marketplace"
+    // }
+    return "/dashboard/farmer/tokens"
   }
 
   const getBackText = () => {
-    switch (userRole) {
-      case "farmer":
-        return "Back to My Tokens"
-      case "buyer":
-        return "Back to Marketplace"
-      default:
-        return "Back to Marketplace"
-    }
+    // switch (userRole) {
+    //   case "farmer":
+    //     return "Back to My Tokens"
+    //   case "buyer":
+    //     return "Back to Marketplace"
+    //   default:
+    //     return "Back to Marketplace"
+    // }
+    return "Back to My Tokens"
   }
 
   return (
@@ -226,7 +229,7 @@ export default function TokenDetailsPage() {
             </Link>
           </Button>
           <div className="flex items-center space-x-2">
-            {userRole !== "farmer" && (
+            {/* {userRole !== "farmer" && (
               <Button
                 variant="outline"
                 size="sm"
@@ -236,17 +239,22 @@ export default function TokenDetailsPage() {
                 <Heart className={`h-4 w-4 mr-2 ${isWishlisted ? "fill-current" : ""}`} />
                 {isWishlisted ? "Wishlisted" : "Add to Wishlist"}
               </Button>
-            )}
+            )} */}
             <Button variant="outline" size="sm">
               <Share2 className="h-4 w-4 mr-2" />
               Share
             </Button>
-            {userRole === "farmer" && (
+
+            <Button variant="outline" size="sm">
+              <Edit className="h-4 w-4 mr-2" />
+              Edit Token
+            </Button>
+            {/* {userRole === "farmer" && (
               <Button variant="outline" size="sm">
                 <Edit className="h-4 w-4 mr-2" />
                 Edit Token
               </Button>
-            )}
+            )} */}
           </div>
         </div>
 
@@ -752,218 +760,75 @@ export default function TokenDetailsPage() {
 
           {/* Right Column - Context-specific Panel */}
           <div className="space-y-6">
-            {userRole === "farmer" ? (
-              <>
-                {/* Farmer Management Panel */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Token Management</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="text-gray-600">Token Status</p>
-                        <p className="font-bold text-lg">Active</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Progress</p>
-                        <p className="font-bold text-lg">{token.investment.fundingProgress}%</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Total Investors</p>
-                        <p className="font-medium">{token.investment.investors}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Days Remaining</p>
-                        <p className="font-medium">{token.investment.daysLeft}</p>
-                      </div>
-                    </div>
+            {/* Farmer Management Panel */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Token Management</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="text-gray-600">Token Status</p>
+                    <p className="font-bold text-lg">Active</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Progress</p>
+                    <p className="font-bold text-lg">{token.investment.fundingProgress}%</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Total Investors</p>
+                    <p className="font-medium">{token.investment.investors}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Days Remaining</p>
+                    <p className="font-medium">{token.investment.daysLeft}</p>
+                  </div>
+                </div>
 
-                    <Separator />
+                <Separator />
 
-                    <div className="space-y-3">
-                      <Button className="w-full" size="lg">
-                        <Settings className="h-4 w-4 mr-2" />
-                        Manage Token
-                      </Button>
-                      <Button variant="outline" className="w-full">
-                        <Users className="h-4 w-4 mr-2" />
-                        Contact Investors
-                      </Button>
-                      <Button variant="outline" className="w-full">
-                        <BarChart3 className="h-4 w-4 mr-2" />
-                        View Analytics
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="space-y-3">
+                  <Button className="w-full" size="lg">
+                    <Settings className="h-4 w-4 mr-2" />
+                    Manage Token
+                  </Button>
+                  <Button variant="outline" className="w-full">
+                    <Users className="h-4 w-4 mr-2" />
+                    Contact Investors
+                  </Button>
+                  <Button variant="outline" className="w-full">
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    View Analytics
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
-                {/* Revenue Tracking */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Revenue Tracking</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Funds Raised</span>
-                        <span className="font-bold text-green-600">${token.investment.funded.toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Target Amount</span>
-                        <span className="font-medium">${token.investment.totalValue.toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Remaining</span>
-                        <span className="font-medium">
-                          ${(token.investment.totalValue - token.investment.funded).toLocaleString()}
-                        </span>
-                      </div>
-                      <Progress value={token.investment.fundingProgress} className="h-3" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </>
-            ) : (
-              <>
-                {/* Farmer Profile for non-farmers */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Farmer Profile</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
-                        <Avatar className="h-12 w-12">
-                          <AvatarImage src={token.farmer.avatar || "/placeholder.svg"} />
-                          <AvatarFallback>
-                            {token.farmer.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <h3 className="font-semibold">{token.farmer.name}</h3>
-                          <p className="text-sm text-gray-600 flex items-center">
-                            <MapPin className="h-3 w-3 mr-1" />
-                            {token.farmer.location}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="text-gray-600">Rating</p>
-                          <div className="flex items-center">
-                            <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                            <span className="font-medium">{token.farmer.rating}</span>
-                          </div>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Total Harvests</p>
-                          <p className="font-medium">{token.farmer.totalHarvests}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Sustainability</p>
-                          <p className="font-medium">{token.farmer.sustainabilityScore}/100</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Since</p>
-                          <p className="font-medium">{token.farmer.joinDate}</p>
-                        </div>
-                      </div>
-
-                      <p className="text-sm text-gray-600">{token.farmer.bio}</p>
-
-                      <div className="flex flex-wrap gap-2">
-                        {token.farmer.certifications.map((cert) => (
-                          <Badge key={cert} variant="outline" className="text-xs">
-                            {cert}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <Button variant="outline" className="w-full">
-                        View Full Profile
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Investment Panel for non-farmers */}
-                {userRole === "investor" && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Investment Details</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="text-gray-600">Token Price</p>
-                          <p className="font-bold text-lg">${token.investment.tokenPrice}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Available</p>
-                          <p className="font-bold text-lg">{token.investment.availableTokens}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Min Investment</p>
-                          <p className="font-medium">${token.investment.minInvestment}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Max Investment</p>
-                          <p className="font-medium">${token.investment.maxInvestment}</p>
-                        </div>
-                      </div>
-
-                      <Separator />
-
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="investment-amount">Investment Amount ($)</Label>
-                          <Input
-                            id="investment-amount"
-                            type="number"
-                            placeholder="Enter amount"
-                            value={investmentAmount}
-                            onChange={(e) => setInvestmentAmount(e.target.value)}
-                            min={token.investment.minInvestment}
-                            max={token.investment.maxInvestment}
-                          />
-                          <p className="text-xs text-gray-600 mt-1">
-                            Min: ${token.investment.minInvestment} • Max: ${token.investment.maxInvestment}
-                          </p>
-                        </div>
-
-                        {investmentAmount && (
-                          <div className="p-3 bg-blue-50 rounded-lg text-sm">
-                            <p>
-                              You will receive:{" "}
-                              <span className="font-bold">
-                                {Math.floor(Number(investmentAmount) / token.investment.tokenPrice)} tokens
-                              </span>
-                            </p>
-                            <p>
-                              Representing:{" "}
-                              <span className="font-bold">
-                                {((Number(investmentAmount) / token.investment.totalValue) * 100).toFixed(2)}%
-                              </span>{" "}
-                              of harvest
-                            </p>
-                          </div>
-                        )}
-
-                        <Button onClick={handleInvestment} className="w-full" size="lg" disabled={!investmentAmount}>
-                          <ShoppingCart className="h-4 w-4 mr-2" />
-                          Invest Now
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </>
-            )}
+            {/* Revenue Tracking */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Revenue Tracking</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Funds Raised</span>
+                    <span className="font-bold text-green-600">${token.investment.funded.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Target Amount</span>
+                    <span className="font-medium">${token.investment.totalValue.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Remaining</span>
+                    <span className="font-medium">
+                      ${(token.investment.totalValue - token.investment.funded).toLocaleString()}
+                    </span>
+                  </div>
+                  <Progress value={token.investment.fundingProgress} className="h-3" />
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Recent Transactions */}
             <Card>

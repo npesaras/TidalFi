@@ -13,20 +13,21 @@ import Link from "next/link"
 
 export default function GovernancePage() {
   const searchParams = useSearchParams()
-  const [userRole, setUserRole] = useState<"farmer" | "investor" | "buyer">("farmer")
+  // const [userRole, setUserRole] = useState<"farmer" | "investor" | "buyer">("farmer")
+  const userRole = "farmer"
 
-  useEffect(() => {
-    // Get user role from URL params or localStorage
-    const roleFromUrl = searchParams.get("role") as "farmer" | "investor" | "buyer"
-    const storedRole = localStorage.getItem("userRole") as "farmer" | "investor" | "buyer"
+  // useEffect(() => {
+  //   // Get user role from URL params or localStorage
+  //   const roleFromUrl = searchParams.get("role") as "farmer" | "investor" | "buyer"
+  //   const storedRole = localStorage.getItem("userRole") as "farmer" | "investor" | "buyer"
 
-    if (roleFromUrl) {
-      setUserRole(roleFromUrl)
-      localStorage.setItem("userRole", roleFromUrl)
-    } else if (storedRole) {
-      setUserRole(storedRole)
-    }
-  }, [searchParams])
+  //   if (roleFromUrl) {
+  //     setUserRole(roleFromUrl)
+  //     localStorage.setItem("userRole", roleFromUrl)
+  //   } else if (storedRole) {
+  //     setUserRole(storedRole)
+  //   }
+  // }, [searchParams])
 
   return (
     <div className="min-h-screen bg-gray-50">

@@ -85,7 +85,9 @@ export default function FarmerDashboard() {
                   <CardDescription>Token {harvest.id}</CardDescription>
                 </div>
               </div>
-              <Badge variant={harvest.status === "Ready Soon" ? "default" : "secondary"}>{harvest.status}</Badge>
+              <Badge variant={harvest.status === "Ready Soon" ? "default" : "secondary"} className={`${harvest.status === "Ready Soon" ? "bg-blue-700 hover:bg-blue-600" : ""}`}>
+                {harvest.status}
+              </Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -123,7 +125,7 @@ export default function FarmerDashboard() {
                 <Link href={`/token/${harvest.id}`}>View Details</Link>
               </Button>
               {harvest.status === "Ready Soon" && (
-                <Button size="sm" className="flex-1">
+                <Button size="sm" className="flex-1 bg-blue-700 hover:bg-blue-600" >
                   Initiate Harvest
                 </Button>
               )}
@@ -166,12 +168,17 @@ export default function FarmerDashboard() {
                   <p className="text-sm text-gray-600">Harvest Date</p>
                   <p className="font-medium">{harvest.harvestDate}</p>
                 </div>
-                <Badge variant={harvest.status === "Ready Soon" ? "default" : "secondary"}>{harvest.status}</Badge>
+                <Badge 
+                  className={`${harvest.status === "Ready Soon" ? "bg-blue-700 hover:bg-blue-600 hover:cursor-default transition-all duration-300 ease-in-out" : ""}`} 
+                  variant={harvest.status === "Ready Soon" ? "default" : "secondary"}
+                >
+                  {harvest.status}
+                </Badge>
                 <div className="flex space-x-2">
                   <Button variant="outline" size="sm" asChild>
                     <Link href={`/token/${harvest.id}`}>View</Link>
                   </Button>
-                  {harvest.status === "Ready Soon" && <Button size="sm">Harvest</Button>}
+                  {harvest.status === "Ready Soon" && <Button size="sm" className="bg-blue-700 hover:bg-blue-600">Harvest</Button>}
                 </div>
               </div>
             </div>
@@ -188,10 +195,10 @@ export default function FarmerDashboard() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Farmer Dashboard</h1>
+            <h1 className="text-3xl font-bold text-blue-700">Farmer Dashboard</h1>
             <p className="text-gray-600">Manage your fish harvests and tokens</p>
           </div>
-          <Button asChild>
+          <Button className="bg-blue-700 hover:bg-blue-600" asChild>
             <Link href="/tokenize">
               <Plus className="h-4 w-4 mr-2" />
               Create New Token
@@ -207,7 +214,7 @@ export default function FarmerDashboard() {
               <Fish className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">12</div>
+              <div className="text-2xl font-bold text-blue-600">12</div>
               <p className="text-xs text-muted-foreground">+2 from last month</p>
             </CardContent>
           </Card>
@@ -217,7 +224,7 @@ export default function FarmerDashboard() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231</div>
+              <div className="text-2xl font-bold text-green-600">$45,231</div>
               <p className="text-xs text-muted-foreground">+20.1% from last month</p>
             </CardContent>
           </Card>
@@ -227,7 +234,7 @@ export default function FarmerDashboard() {
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Optimal</div>
+              <div className="text-2xl text-blue-600 font-bold">Optimal</div>
               <p className="text-xs text-muted-foreground">All systems running</p>
             </CardContent>
           </Card>
@@ -237,7 +244,7 @@ export default function FarmerDashboard() {
               <Thermometer className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">3</div>
+              <div className="text-2xl font-bold text-blue-600">3</div>
               <p className="text-xs text-muted-foreground">2 ready for harvest</p>
             </CardContent>
           </Card>
@@ -256,7 +263,7 @@ export default function FarmerDashboard() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Active Harvest Tokens</CardTitle>
+                    <CardTitle className="text-blue-600">Active Harvest Tokens</CardTitle>
                     <CardDescription>Your current tokenized fish harvests</CardDescription>
                   </div>
                   <ToggleGroup
@@ -281,7 +288,7 @@ export default function FarmerDashboard() {
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Monthly Revenue</CardTitle>
+                  <CardTitle className="text-blue-600">Monthly Revenue</CardTitle>
                   <CardDescription>Revenue trends over the past 12 months</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -297,7 +304,7 @@ export default function FarmerDashboard() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Revenue by Species</CardTitle>
+                  <CardTitle className="text-blue-600">Revenue by Species</CardTitle>
                   <CardDescription>Breakdown of earnings by fish type</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -307,28 +314,28 @@ export default function FarmerDashboard() {
                         <div className="w-4 h-4 bg-blue-500 rounded"></div>
                         <span>Atlantic Salmon</span>
                       </div>
-                      <span className="font-semibold">$18,450 (41%)</span>
+                      <span className="font-semibold text-blue-600">$18,450 (41%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-green-500 rounded"></div>
                         <span>Sea Bass</span>
                       </div>
-                      <span className="font-semibold">$15,230 (34%)</span>
+                      <span className="font-semibold text-green-600">$15,230 (34%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-purple-500 rounded"></div>
                         <span>Rainbow Trout</span>
                       </div>
-                      <span className="font-semibold">$8,890 (20%)</span>
+                      <span className="font-semibold text-purple-600">$8,890 (20%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-orange-500 rounded"></div>
                         <span>Arctic Char</span>
                       </div>
-                      <span className="font-semibold">$2,661 (5%)</span>
+                      <span className="font-semibold text-orange-600">$2,661 (5%)</span>
                     </div>
                   </div>
                 </CardContent>
@@ -337,7 +344,7 @@ export default function FarmerDashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Revenue Analytics</CardTitle>
+                <CardTitle className="text-blue-600">Revenue Analytics</CardTitle>
                 <CardDescription>Detailed revenue performance metrics</CardDescription>
               </CardHeader>
               <CardContent>
@@ -348,12 +355,12 @@ export default function FarmerDashboard() {
                     <p className="text-xs text-green-600">+20.1% vs last year</p>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">$3,769</div>
+                    <div className="text-2xl font-bold text-green-600">$3,769</div>
                     <p className="text-sm text-gray-600">Avg Monthly</p>
                     <p className="text-xs text-blue-600">+15.3% vs last year</p>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">$9.85</div>
+                    <div className="text-2xl font-bold text-green-600">$9.85</div>
                     <p className="text-sm text-gray-600">Avg Price/kg</p>
                     <p className="text-xs text-purple-600">+8.2% vs last year</p>
                   </div>
@@ -371,7 +378,7 @@ export default function FarmerDashboard() {
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Token Success Rate</CardTitle>
+                  <CardTitle className="text-blue-600">Token Success Rate</CardTitle>
                   <CardDescription>Performance of your tokenized harvests</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -387,7 +394,7 @@ export default function FarmerDashboard() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Funding Speed Trends</CardTitle>
+                  <CardTitle className="text-blue-600">Funding Speed Trends</CardTitle>
                   <CardDescription>How quickly your tokens get funded</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -404,7 +411,7 @@ export default function FarmerDashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Token Performance Metrics</CardTitle>
+                <CardTitle className="text-blue-600">Token Performance Metrics</CardTitle>
                 <CardDescription>Key performance indicators for your tokens</CardDescription>
               </CardHeader>
               <CardContent>
@@ -435,7 +442,7 @@ export default function FarmerDashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Investor Satisfaction</CardTitle>
+                <CardTitle className="text-blue-600">Investor Satisfaction</CardTitle>
                 <CardDescription>Feedback and ratings from your investors</CardDescription>
               </CardHeader>
               <CardContent>
@@ -454,7 +461,7 @@ export default function FarmerDashboard() {
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>IoT Monitoring</CardTitle>
+                  <CardTitle className="text-blue-600">IoT Monitoring</CardTitle>
                   <CardDescription>Real-time environmental data</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -486,26 +493,26 @@ export default function FarmerDashboard() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>System Status</CardTitle>
+                  <CardTitle className="text-blue-600">System Status</CardTitle>
                   <CardDescription>Equipment and monitoring status</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span>Water Quality Sensors</span>
-                      <Badge variant="default">Active</Badge>
+                      <Badge className="bg-blue-700 hover:bg-blue-600 hover:cursor-default transition-all duration-500 ease-in-out" variant="default">Active</Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span>Feeding Systems</span>
-                      <Badge variant="default">Active</Badge>
+                      <Badge className="bg-blue-700 hover:bg-blue-600 hover:cursor-default transition-all duration-500 ease-in-out" variant="default">Active</Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span>Camera Monitoring</span>
-                      <Badge variant="default">Active</Badge>
+                      <Badge className="bg-blue-700 hover:bg-blue-600 hover:cursor-default transition-all duration-500 ease-in-out" variant="default">Active</Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span>Data Logging</span>
-                      <Badge variant="default">Active</Badge>
+                      <Badge className="bg-blue-700 hover:bg-blue-600 hover:cursor-default transition-all duration-500 ease-in-out" variant="default">Active</Badge>
                     </div>
                   </div>
                 </CardContent>
