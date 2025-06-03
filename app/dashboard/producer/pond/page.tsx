@@ -27,126 +27,32 @@ import {
   Droplets,
 } from "lucide-react"
 
+// Import shared pond data
+import { 
+  ponds, 
+  getPondById, 
+  getTotalPonds, 
+  getTotalCapacity, 
+  getTotalCurrentStock, 
+  getTotalActiveTokens, 
+  getTotalValue 
+} from "@/lib/data/ponds"
+
+// Import shared tokens data
+import { 
+  tokens, 
+  getTokenById, 
+  getTokensByPond, 
+  getTotalTokensCount, 
+  getTotalTokenValue, 
+  getTokensByStatus, 
+  getActiveTokensCount 
+} from "@/lib/data/tokens"
 
 export default function MyPondPage() {
   const [selectedPond, setSelectedPond] = useState<string>("all")
 
-  const ponds = [
-    {
-      id: "pond-a",
-      name: "Pond A",
-      location: "North Sector",
-      size: "2,500 m²",
-      capacity: "15,000 kg",
-      currentStock: "12,500 kg",
-      utilization: 83,
-      status: "optimal",
-      waterTemp: "18.5°C",
-      oxygenLevel: "8.2 mg/L",
-      phLevel: "7.1",
-      lastFed: "2 hours ago",
-      activeTokens: 3,
-      totalValue: "$45,000",
-      image: "/images/pond-a.jpg", // Placeholder image path
-    },
-    {
-      id: "pond-b",
-      name: "Pond B",
-      location: "East Sector",
-      size: "1,800 m²",
-      capacity: "10,000 kg",
-      currentStock: "8,200 kg",
-      utilization: 82,
-      status: "good",
-      waterTemp: "17.8°C",
-      oxygenLevel: "7.9 mg/L",
-      phLevel: "7.3",
-      lastFed: "1 hour ago",
-      activeTokens: 2,
-      totalValue: "$28,000",
-      image: "/images/pond-b.jpg", // Placeholder image path
-    },
-    {
-      id: "pond-c",
-      name: "Pond C",
-      location: "South Sector",
-      size: "3,200 m²",
-      capacity: "20,000 kg",
-      currentStock: "16,800 kg",
-      utilization: 84,
-      status: "attention",
-      waterTemp: "19.2°C",
-      oxygenLevel: "7.5 mg/L",
-      phLevel: "6.9",
-      lastFed: "30 minutes ago",
-      activeTokens: 4,
-      totalValue: "$62,000",
-      image: "/images/pond-c.jpg", // Placeholder image path
-    },
-  ]
-
-  const tokens = [
-    {
-      id: "TF-001",
-      species: "Atlantic Salmon",
-      pond: "pond-a",
-      quantity: "2,500 kg",
-      harvestDate: "2024-03-15",
-      progress: 75,
-      status: "Growing",
-      funded: "$18,750",
-      total: "$25,000",
-      daysRemaining: 12,
-    },
-    {
-      id: "TF-002",
-      species: "Rainbow Trout",
-      pond: "pond-b",
-      quantity: "1,800 kg",
-      harvestDate: "2024-02-28",
-      progress: 90,
-      status: "Ready Soon",
-      funded: "$13,500",
-      total: "$15,000",
-      daysRemaining: 5,
-    },
-    {
-      id: "TF-003",
-      species: "Sea Bass",
-      pond: "pond-c",
-      quantity: "3,200 kg",
-      harvestDate: "2024-04-20",
-      progress: 45,
-      status: "Growing",
-      funded: "$28,800",
-      total: "$32,000",
-      daysRemaining: 28,
-    },
-    {
-      id: "TF-004",
-      species: "Arctic Char",
-      pond: "pond-a",
-      quantity: "1,500 kg",
-      harvestDate: "2024-04-10",
-      progress: 65,
-      status: "Growing",
-      funded: "$11,700",
-      total: "$18,000",
-      daysRemaining: 18,
-    },
-    {
-      id: "TF-005",
-      species: "Sea Bream",
-      pond: "pond-c",
-      quantity: "2,100 kg",
-      harvestDate: "2024-03-25",
-      progress: 80,
-      status: "Growing",
-      funded: "$16,800",
-      total: "$21,000",
-      daysRemaining: 8,
-    },
-  ]
+  // Remove the hardcoded tokens array - now using shared data from /lib/data/tokens.ts
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -178,8 +84,9 @@ export default function MyPondPage() {
     }
   }
 
-  const filteredTokens = selectedPond === "all" ? tokens : tokens.filter((token) => token.pond === selectedPond)
-  const selectedPondData = ponds.find((pond) => pond.id === selectedPond)
+  // Updated to use shared tokens data
+  const filteredTokens = selectedPond === "all" ? tokens : getTokensByPond(selectedPond)
+  const selectedPondData = selectedPond === "all" ? null : getPondById(selectedPond)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -209,7 +116,7 @@ export default function MyPondPage() {
         
         <Tabs defaultValue="overview" className="space-y-6">
           <TabsContent value="overview" className="space-y-6">
-            {/* Summary Stats */}
+            {/* Summary Stats - Updated to use shared data functions */}
             {selectedPond === "all" && (
               <div className="grid md:grid-cols-4 gap-6">
                 <Card>
@@ -217,8 +124,8 @@ export default function MyPondPage() {
                     <CardTitle className="text-sm font-medium text-gray-600">Total Ponds</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-gray-900">{ponds.length}</div>
-                    <p className="text-sm text-gray-600 mt-1">3 active ponds</p>
+                    <div className="text-3xl font-bold text-gray-900">{getTotalPonds()}</div>
+                    <p className="text-sm text-gray-600 mt-1">{getTotalPonds()} active ponds</p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -226,8 +133,8 @@ export default function MyPondPage() {
                     <CardTitle className="text-sm font-medium text-gray-600">Total Capacity</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-gray-900">45,000 kg</div>
-                    <p className="text-sm text-blue-600 mt-1">37,500 kg current stock</p>
+                    <div className="text-3xl font-bold text-gray-900">{getTotalCapacity()}</div>
+                    <p className="text-sm text-blue-600 mt-1">{getTotalCurrentStock()} current stock</p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -235,7 +142,7 @@ export default function MyPondPage() {
                     <CardTitle className="text-sm font-medium text-gray-600">Active Tokens</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-gray-900">9</div>
+                    <div className="text-3xl font-bold text-gray-900">{getActiveTokensCount()}</div>
                     <p className="text-sm text-green-600 mt-1">+2 from last month</p>
                   </CardContent>
                 </Card>
@@ -244,14 +151,14 @@ export default function MyPondPage() {
                     <CardTitle className="text-sm font-medium text-gray-600">Total Value</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-gray-900">₱135,000</div>
+                    <div className="text-3xl font-bold text-gray-900">${getTotalTokenValue().toLocaleString()}</div>
                     <p className="text-sm text-gray-600 mt-1">Token value across ponds</p>
                   </CardContent>
                 </Card>
               </div>
             )}
 
-            {/* Pond Status Cards */}
+            {/* Pond Status Cards - Now using shared pond data */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(selectedPond === "all" ? ponds : ponds.filter((pond) => pond.id === selectedPond)).map((pond) => (
                 <Card key={pond.id} className="hover:shadow-lg transition-shadow">
@@ -265,14 +172,6 @@ export default function MyPondPage() {
                           <p className="text-xs text-gray-500">{pond.image}</p>
                         </div>
                       </div>
-                      {/* Replace with actual image when available:
-                      <Image
-                        src={pond.image}
-                        alt={`${pond.name} - ${pond.location}`}
-                        fill
-                        className="object-cover"
-                      />
-                      */}
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -308,7 +207,7 @@ export default function MyPondPage() {
                       </div>
                       <div>
                         <p className="text-gray-600">Active Tokens</p>
-                        <p className="font-medium">{pond.activeTokens}</p>
+                        <p className="font-medium">{getTokensByPond(pond.id).length}</p>
                       </div>
                     </div>
 
