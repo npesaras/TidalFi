@@ -83,7 +83,6 @@ export default function ProducerDashboard() {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <Fish className="h-8 w-8 text-blue-600" />
                 <div>
                   <CardTitle className="text-lg">{token.species}</CardTitle>
                   <CardDescription>Token {token.id}</CardDescription>
@@ -147,7 +146,6 @@ export default function ProducerDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <Fish className="h-10 w-10 text-blue-600" />
                 <div>
                   <h3 className="font-semibold text-lg">{token.species}</h3>
                   <p className="text-sm text-gray-600">
@@ -159,10 +157,6 @@ export default function ProducerDashboard() {
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Quantity</p>
                   <p className="font-medium">{token.quantity}</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-600">Progress</p>
-                  <p className="font-medium">{token.progress}%</p>
                 </div>
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Funding</p>
@@ -272,7 +266,6 @@ export default function ProducerDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Activity className="h-5 w-5 mr-2" />
                   Overall Pond Utilization
                 </CardTitle>
                 <CardDescription>
@@ -383,7 +376,6 @@ export default function ProducerDashboard() {
                   
                   {recentTokens.length === 0 && (
                     <div className="text-center py-8">
-                      <Fish className="h-16 w-16 mx-auto text-gray-400 mb-4" />
                       <p className="text-gray-600 mb-4">No tokens created yet</p>
                       <Button asChild>
                         <Link href="/tokenize">
@@ -492,7 +484,37 @@ export default function ProducerDashboard() {
               </CardContent>
             </Card>
           </TabsContent>
-
+          {/* Revenue Analytics Card */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Revenue Analytics</CardTitle>
+              <CardDescription>Detailed revenue performance metrics</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="text-2xl font-bold">₱500,231</div>
+                  <p className="text-sm text-gray-600">Total Revenue</p>
+                  <p className="text-xs text-green-600">+20.1% vs last year</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold">₱41,686</div>
+                  <p className="text-sm text-gray-600">Avg Monthly</p>
+                  <p className="text-xs text-blue-600">+15.3% vs last year</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold">₱156.25</div>
+                  <p className="text-sm text-gray-600">Avg Price/kg</p>
+                  <p className="text-xs text-purple-600">+8.2% vs last year</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold">3,201kg</div>
+                  <p className="text-sm text-gray-600">Total Volume</p>
+                  <p className="text-xs text-orange-600">+11.5% vs last year</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
           <TabsContent value="revenue" className="space-y-6">
             {/* Keep all your original revenue content here */}
             <div className="grid md:grid-cols-2 gap-6">
@@ -563,67 +585,28 @@ export default function ProducerDashboard() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                        <span>Atlantic Salmon</span>
+                        <span>Tilapia</span>
                       </div>
                       <span className="font-semibold">₱180,450 (36%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-green-500 rounded"></div>
-                        <span>Rainbow Trout</span>
+                        <span>Milkfish</span>
                       </div>
                       <span className="font-semibold">₱150,230 (30%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-purple-500 rounded"></div>
-                        <span>Sea Bass</span>
+                        <span>Pompano</span>
                       </div>
                       <span className="font-semibold">₱120,890 (24%)</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 bg-orange-500 rounded"></div>
-                        <span>Arctic Char</span>
-                      </div>
-                      <span className="font-semibold">₱48,661 (10%)</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
-
-            {/* Revenue Analytics Card */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Revenue Analytics</CardTitle>
-                <CardDescription>Detailed revenue performance metrics</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-4 gap-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">₱500,231</div>
-                    <p className="text-sm text-gray-600">Total Revenue</p>
-                    <p className="text-xs text-green-600">+20.1% vs last year</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">₱41,686</div>
-                    <p className="text-sm text-gray-600">Avg Monthly</p>
-                    <p className="text-xs text-blue-600">+15.3% vs last year</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">₱156.25</div>
-                    <p className="text-sm text-gray-600">Avg Price/kg</p>
-                    <p className="text-xs text-purple-600">+8.2% vs last year</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-600">3,201kg</div>
-                    <p className="text-sm text-gray-600">Total Volume</p>
-                    <p className="text-xs text-orange-600">+11.5% vs last year</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           <TabsContent value="performance" className="space-y-6">
