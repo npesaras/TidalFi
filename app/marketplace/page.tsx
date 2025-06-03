@@ -97,44 +97,6 @@ export default function MarketplacePage() {
           </TabsList>
 
           <TabsContent value="restaurants" className="space-y-6">
-            <div className="grid md:grid-cols-3 gap-6 mb-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Active Restaurant Partners</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600">47</div>
-                    <p className="text-sm text-gray-600">Premium restaurants</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Average Order Value</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-green-600">$2,850</div>
-                    <p className="text-sm text-gray-600">Per restaurant order</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Repeat Order Rate</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-purple-600">89%</div>
-                    <p className="text-sm text-gray-600">Customer satisfaction</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
