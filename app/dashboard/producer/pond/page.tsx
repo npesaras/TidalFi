@@ -214,48 +214,44 @@ export default function MyPondPage() {
             {selectedPond === "all" && (
               <div className="grid md:grid-cols-4 gap-6">
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Ponds</CardTitle>
-                    <Waves className="h-4 w-4 text-muted-foreground" />
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium text-gray-600">Total Ponds</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{ponds.length}</div>
-                    <p className="text-xs text-muted-foreground">3 active ponds</p>
+                    <div className="text-3xl font-bold text-gray-900">{ponds.length}</div>
+                    <p className="text-sm text-gray-600 mt-1">3 active ponds</p>
                   </CardContent>
                 </Card>
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Capacity</CardTitle>
-                    <Fish className="h-4 w-4 text-muted-foreground" />
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium text-gray-600">Total Capacity</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">45,000 kg</div>
-                    <p className="text-xs text-muted-foreground">37,500 kg current stock</p>
+                    <div className="text-3xl font-bold text-gray-900">45,000 kg</div>
+                    <p className="text-sm text-blue-600 mt-1">37,500 kg current stock</p>
                   </CardContent>
                 </Card>
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Active Tokens</CardTitle>
-                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium text-gray-600">Active Tokens</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">9</div>
-                    <p className="text-xs text-muted-foreground">Across all ponds</p>
+                    <div className="text-3xl font-bold text-gray-900">9</div>
+                    <p className="text-sm text-green-600 mt-1">+2 from last month</p>
                   </CardContent>
                 </Card>
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Value</CardTitle>
-                    <BarChart3 className="h-4 w-4 text-muted-foreground" />
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium text-gray-600">Total Value</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">$135,000</div>
-                    <p className="text-xs text-muted-foreground">Token value across ponds</p>
+                    <div className="text-3xl font-bold text-gray-900">₱135,000</div>
+                    <p className="text-sm text-gray-600 mt-1">Token value across ponds</p>
                   </CardContent>
                 </Card>
               </div>
             )}
-            
+
             {/* Pond Status Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(selectedPond === "all" ? ponds : ponds.filter((pond) => pond.id === selectedPond)).map((pond) => (
