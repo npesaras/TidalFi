@@ -37,54 +37,6 @@ export default function MarketplacePage() {
             <h1 className="text-3xl font-bold text-gray-900">Marketplace Analytics</h1>
             <p className="text-gray-600">Monitor demand and pricing for your fish species</p>
           </div>
-          <Button asChild>
-            <Link href="/tokenize">
-              <Plus className="h-4 w-4 mr-2" />
-              Create New Token
-            </Link>
-          </Button>
-        </div>
-
-        {/* Search and Filters */}
-        <div className="bg-white rounded-lg border p-6 mb-8">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input 
-                  placeholder="Search by species, restaurant, or location..." 
-                  className="pl-10"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
-            <Select value={selectedSpecies} onValueChange={setSelectedSpecies}>
-              <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="Species" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="salmon">Atlantic Salmon</SelectItem>
-                <SelectItem value="trout">Rainbow Trout</SelectItem>
-                <SelectItem value="seabass">Sea Bass</SelectItem>
-                <SelectItem value="seabream">Sea Bream</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={priceRange} onValueChange={setPriceRange}>
-              <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="Price Range" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0-5000">$0 - $5,000</SelectItem>
-                <SelectItem value="5000-10000">$5,000 - $10,000</SelectItem>
-                <SelectItem value="10000+">$10,000+</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button>
-              <Filter className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
-          </div>
         </div>
 
         {/* Producer-focused Marketplace */}
