@@ -1,15 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useParams, useSearchParams } from "next/navigation"
+import { useState } from "react"
+import { useParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -20,11 +18,9 @@ import {
   Droplets,
   Activity,
   Star,
-  ShoppingCart,
   Camera,
   FileText,
   ArrowLeft,
-  Heart,
   Share2,
   AlertTriangle,
   CheckCircle,
@@ -69,13 +65,9 @@ const getTokenData = (id: string) => {
         totalValue: 25000,
         funded: 18750,
         fundingProgress: 75,
-        minInvestment: 500,
-        maxInvestment: 5000,
         investors: 37,
         expectedROI: "12-15%",
         daysLeft: 12,
-        tokenPrice: 10.0,
-        availableTokens: 625,
         soldTokens: 1875,
       },
       sustainability: {
@@ -120,7 +112,7 @@ const getTokenData = (id: string) => {
         },
         {
           date: "2024-01-10",
-          event: "Investor milestone reached",
+          event: "Funding milestone reached",
           type: "funding",
           details: "75% funding target achieved",
         },
@@ -148,11 +140,6 @@ const getTokenData = (id: string) => {
           type: "purchase",
         },
       ],
-      images: [
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-      ],
       documents: [
         { name: "Sustainability Report Q4 2023", type: "PDF", size: "2.4 MB" },
         { name: "Health Inspection Certificate", type: "PDF", size: "1.1 MB" },
@@ -166,87 +153,31 @@ const getTokenData = (id: string) => {
 
 export default function TokenDetailsPage() {
   const params = useParams()
-  const searchParams = useSearchParams()
   const tokenId = params.id as string
   const token = getTokenData(tokenId)
-  const [investmentAmount, setInvestmentAmount] = useState("")
-  const [isWishlisted, setIsWishlisted] = useState(false)
-  const [userRole, setUserRole] = useState<"producer" | "investor" | "buyer">("investor")
-
-  useEffect(() => {
-    // Get role from URL params first, then localStorage
-    const roleFromUrl = searchParams.get("role") as "producer" | "investor" | "buyer"
-    const storedRole = localStorage.getItem("userRole") as "producer" | "investor" | "buyer"
-
-    if (roleFromUrl) {
-      setUserRole(roleFromUrl)
-    } else if (storedRole) {
-      setUserRole(storedRole)
-    }
-  }, [searchParams])
-
-  const handleInvestment = () => {
-    console.log(`Investing $${investmentAmount} in token ${tokenId}`)
-    // Investment logic would go here
-  }
-
-  const getBackLink = () => {
-    switch (userRole) {
-      case "producer":
-        return "/dashboard/producer/tokens"
-      case "buyer":
-        return "/marketplace?role=buyer"
-      default:
-        return "/marketplace"
-    }
-  }
-
-  const getBackText = () => {
-    switch (userRole) {
-      case "producer":
-        return "Back to My Tokens"
-      case "buyer":
-        return "Back to Marketplace"
-      default:
-        return "Back to Marketplace"
-    }
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardHeader userRole={userRole} />
+      <DashboardHeader userRole="producer" />
 
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <Button variant="ghost" asChild>
-            <Link href={getBackLink()}>
+            <Link href="/dashboard/producer">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              {getBackText()}
+              Back to Dashboard
             </Link>
           </Button>
           <div className="flex items-center space-x-2">
-            {userRole !== "producer" && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsWishlisted(!isWishlisted)}
-                className={isWishlisted ? "text-red-600 border-red-600" : ""}
-              >
-                <Heart className={`h-4 w-4 mr-2 ${isWishlisted ? "fill-current" : ""}`} />
-                {isWishlisted ? "Wishlisted" : "Add to Wishlist"}
-              </Button>
-            )}
             <Button variant="outline" size="sm">
               <Share2 className="h-4 w-4 mr-2" />
               Share
             </Button>
-            {userRole === "producer" && (
-              <Button variant="outline" size="sm">
-                <Edit className="h-4 w-4 mr-2" />
-                Edit Token
-              </Button>
-            )}
+            <Button variant="outline" size="sm">
+              <Edit className="h-4 w-4 mr-2" />
+              Edit Token
+            </Button>
           </div>
         </div>
 
@@ -271,11 +202,9 @@ export default function TokenDetailsPage() {
                     <Badge variant="default" className="text-sm">
                       Active
                     </Badge>
-                    {userRole === "producer" && (
-                      <Badge variant="outline" className="text-sm">
-                        Your Token
-                      </Badge>
-                    )}
+                    <Badge variant="outline" className="text-sm">
+                      Your Token
+                    </Badge>
                   </div>
                 </div>
               </CardHeader>
@@ -348,13 +277,13 @@ export default function TokenDetailsPage() {
 
             {/* Detailed Tabs */}
             <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className={userRole === "producer" ? "grid w-full grid-cols-6" : "grid w-full grid-cols-5"}>
+              <TabsList className="grid w-full grid-cols-6">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="sustainability">Sustainability</TabsTrigger>
                 <TabsTrigger value="monitoring">Live Data</TabsTrigger>
                 <TabsTrigger value="timeline">Timeline</TabsTrigger>
                 <TabsTrigger value="documents">Documents</TabsTrigger>
-                {userRole === "producer" && <TabsTrigger value="investors">Investors</TabsTrigger>}
+                <TabsTrigger value="investors">Investors</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-6">
@@ -702,268 +631,123 @@ export default function TokenDetailsPage() {
                 </Card>
               </TabsContent>
 
-              {userRole === "producer" && (
-                <TabsContent value="investors" className="space-y-6">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Investor Management</CardTitle>
-                      <CardDescription>Track and communicate with your token investors</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        {token.transactions.map((tx, index) => (
-                          <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                            <div className="flex items-center space-x-4">
-                              <Avatar className="h-10 w-10">
-                                <AvatarFallback>{tx.investor.split(".")[0].slice(0, 2).toUpperCase()}</AvatarFallback>
-                              </Avatar>
-                              <div>
-                                <p className="font-medium">{tx.investor}</p>
-                                <p className="text-sm text-gray-600">Invested on {tx.date}</p>
-                              </div>
+              <TabsContent value="investors" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Investor Management</CardTitle>
+                    <CardDescription>Track and communicate with your token investors</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {token.transactions.map((tx, index) => (
+                        <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                          <div className="flex items-center space-x-4">
+                            <Avatar className="h-10 w-10">
+                              <AvatarFallback>{tx.investor.split(".")[0].slice(0, 2).toUpperCase()}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="font-medium">{tx.investor}</p>
+                              <p className="text-sm text-gray-600">Invested on {tx.date}</p>
                             </div>
-                            <div className="text-right">
-                              <p className="font-semibold">{tx.amount}</p>
-                              <p className="text-sm text-gray-600">{tx.tokens} tokens</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <h4 className="font-semibold">Total Investment Summary</h4>
-                            <p className="text-sm text-gray-600">
-                              {token.investment.investors} investors • {token.investment.soldTokens} tokens sold
-                            </p>
                           </div>
                           <div className="text-right">
-                            <p className="text-xl font-bold">${token.investment.funded.toLocaleString()}</p>
-                            <p className="text-sm text-gray-600">Total raised</p>
+                            <p className="font-semibold">{tx.amount}</p>
+                            <p className="text-sm text-gray-600">{tx.tokens} tokens</p>
                           </div>
                         </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-semibold">Total Investment Summary</h4>
+                          <p className="text-sm text-gray-600">
+                            {token.investment.investors} investors • {token.investment.soldTokens} tokens sold
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-xl font-bold">${token.investment.funded.toLocaleString()}</p>
+                          <p className="text-sm text-gray-600">Total raised</p>
+                        </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
             </Tabs>
           </div>
 
-          {/* Right Column - Context-specific Panel */}
+          {/* Right Column - Producer Management Panel */}
           <div className="space-y-6">
-            {userRole === "producer" ? (
-              <>
-                {/* producer Management Panel */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Token Management</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="text-gray-600">Token Status</p>
-                        <p className="font-bold text-lg">Active</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Progress</p>
-                        <p className="font-bold text-lg">{token.investment.fundingProgress}%</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Total Investors</p>
-                        <p className="font-medium">{token.investment.investors}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Days Remaining</p>
-                        <p className="font-medium">{token.investment.daysLeft}</p>
-                      </div>
-                    </div>
+            {/* Token Management Panel */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Token Management</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="text-gray-600">Token Status</p>
+                    <p className="font-bold text-lg">Active</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Progress</p>
+                    <p className="font-bold text-lg">{token.investment.fundingProgress}%</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Total Investors</p>
+                    <p className="font-medium">{token.investment.investors}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Days Remaining</p>
+                    <p className="font-medium">{token.investment.daysLeft}</p>
+                  </div>
+                </div>
 
-                    <Separator />
+                <Separator />
 
-                    <div className="space-y-3">
-                      <Button className="w-full" size="lg">
-                        <Settings className="h-4 w-4 mr-2" />
-                        Manage Token
-                      </Button>
-                      <Button variant="outline" className="w-full">
-                        <Users className="h-4 w-4 mr-2" />
-                        Contact Investors
-                      </Button>
-                      <Button variant="outline" className="w-full">
-                        <BarChart3 className="h-4 w-4 mr-2" />
-                        View Analytics
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="space-y-3">
+                  <Button className="w-full" size="lg">
+                    <Settings className="h-4 w-4 mr-2" />
+                    Manage Token
+                  </Button>
+                  <Button variant="outline" className="w-full">
+                    <Users className="h-4 w-4 mr-2" />
+                    Contact Investors
+                  </Button>
+                  <Button variant="outline" className="w-full">
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    View Analytics
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
-                {/* Revenue Tracking */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Revenue Tracking</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Funds Raised</span>
-                        <span className="font-bold text-green-600">${token.investment.funded.toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Target Amount</span>
-                        <span className="font-medium">${token.investment.totalValue.toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Remaining</span>
-                        <span className="font-medium">
-                          ${(token.investment.totalValue - token.investment.funded).toLocaleString()}
-                        </span>
-                      </div>
-                      <Progress value={token.investment.fundingProgress} className="h-3" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </>
-            ) : (
-              <>
-                {/* producer Profile for non-producers */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>producer Profile</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
-                        <Avatar className="h-12 w-12">
-                          <AvatarImage src={token.producer.avatar || "/placeholder.svg"} />
-                          <AvatarFallback>
-                            {token.producer.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <h3 className="font-semibold">{token.producer.name}</h3>
-                          <p className="text-sm text-gray-600 flex items-center">
-                            <MapPin className="h-3 w-3 mr-1" />
-                            {token.producer.location}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="text-gray-600">Rating</p>
-                          <div className="flex items-center">
-                            <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                            <span className="font-medium">{token.producer.rating}</span>
-                          </div>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Total Harvests</p>
-                          <p className="font-medium">{token.producer.totalHarvests}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Sustainability</p>
-                          <p className="font-medium">{token.producer.sustainabilityScore}/100</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Since</p>
-                          <p className="font-medium">{token.producer.joinDate}</p>
-                        </div>
-                      </div>
-
-                      <p className="text-sm text-gray-600">{token.producer.bio}</p>
-
-                      <div className="flex flex-wrap gap-2">
-                        {token.producer.certifications.map((cert) => (
-                          <Badge key={cert} variant="outline" className="text-xs">
-                            {cert}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <Button variant="outline" className="w-full">
-                        View Full Profile
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Investment Panel for non-producers */}
-                {userRole === "investor" && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Investment Details</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="text-gray-600">Token Price</p>
-                          <p className="font-bold text-lg">${token.investment.tokenPrice}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Available</p>
-                          <p className="font-bold text-lg">{token.investment.availableTokens}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Min Investment</p>
-                          <p className="font-medium">${token.investment.minInvestment}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-600">Max Investment</p>
-                          <p className="font-medium">${token.investment.maxInvestment}</p>
-                        </div>
-                      </div>
-
-                      <Separator />
-
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="investment-amount">Investment Amount ($)</Label>
-                          <Input
-                            id="investment-amount"
-                            type="number"
-                            placeholder="Enter amount"
-                            value={investmentAmount}
-                            onChange={(e) => setInvestmentAmount(e.target.value)}
-                            min={token.investment.minInvestment}
-                            max={token.investment.maxInvestment}
-                          />
-                          <p className="text-xs text-gray-600 mt-1">
-                            Min: ${token.investment.minInvestment} • Max: ${token.investment.maxInvestment}
-                          </p>
-                        </div>
-
-                        {investmentAmount && (
-                          <div className="p-3 bg-blue-50 rounded-lg text-sm">
-                            <p>
-                              You will receive:{" "}
-                              <span className="font-bold">
-                                {Math.floor(Number(investmentAmount) / token.investment.tokenPrice)} tokens
-                              </span>
-                            </p>
-                            <p>
-                              Representing:{" "}
-                              <span className="font-bold">
-                                {((Number(investmentAmount) / token.investment.totalValue) * 100).toFixed(2)}%
-                              </span>{" "}
-                              of harvest
-                            </p>
-                          </div>
-                        )}
-
-                        <Button onClick={handleInvestment} className="w-full" size="lg" disabled={!investmentAmount}>
-                          <ShoppingCart className="h-4 w-4 mr-2" />
-                          Invest Now
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </>
-            )}
+            {/* Revenue Tracking */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Revenue Tracking</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Funds Raised</span>
+                    <span className="font-bold text-green-600">${token.investment.funded.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Target Amount</span>
+                    <span className="font-medium">${token.investment.totalValue.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Remaining</span>
+                    <span className="font-medium">
+                      ${(token.investment.totalValue - token.investment.funded).toLocaleString()}
+                    </span>
+                  </div>
+                  <Progress value={token.investment.fundingProgress} className="h-3" />
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Recent Transactions */}
             <Card>

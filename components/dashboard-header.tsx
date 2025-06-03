@@ -15,8 +15,8 @@ import { Badge } from "@/components/ui/badge"
 import { Waves, User, Settings, LogOut, Bell, Fish, TrendingUp, ShoppingCart, HelpCircle } from "lucide-react"
 
 interface DashboardHeaderProps {
-  userRole?: "producer" | "investor" | "buyer"
-  forceRole?: "producer" | "investor" | "buyer" // Force a specific role
+  userRole?: "producer"
+  forceRole?: "producer" // Force a specific role
 }
 
 export function DashboardHeader({ userRole: propUserRole, forceRole }: DashboardHeaderProps) {
@@ -48,10 +48,6 @@ export function DashboardHeader({ userRole: propUserRole, forceRole }: Dashboard
     switch (userRole) {
       case "producer":
         return <Fish className="h-4 w-4" />
-      case "investor":
-        return <TrendingUp className="h-4 w-4" />
-      case "buyer":
-        return <ShoppingCart className="h-4 w-4" />
     }
   }
 
