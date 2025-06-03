@@ -304,7 +304,6 @@ export default function MyTokensPage() {
           <TabsList>
             <TabsTrigger value="all-tokens">All Tokens</TabsTrigger>
             <TabsTrigger value="performance">Performance</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="history">History</TabsTrigger>
           </TabsList>
 
@@ -778,42 +777,6 @@ export default function MyTokensPage() {
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
-
-          <TabsContent value="analytics" className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Revenue Analytics</CardTitle>
-                  <CardDescription>Token value and return analysis</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-64 flex items-center justify-center text-gray-500 border rounded-lg bg-gradient-to-br from-purple-50 to-blue-50">
-                    <div className="text-center">
-                      <BarChart3 className="h-12 w-12 mx-auto mb-4 text-purple-600" />
-                      <p className="font-medium">Revenue Analytics</p>
-                      <p className="text-sm text-gray-600">Total portfolio value: ${totalValue.toLocaleString()}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Risk Assessment</CardTitle>
-                  <CardDescription>Portfolio risk distribution</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-64 flex items-center justify-center text-gray-500 border rounded-lg bg-gradient-to-br from-yellow-50 to-red-50">
-                    <div className="text-center">
-                      <AlertTriangle className="h-12 w-12 mx-auto mb-4 text-yellow-600" />
-                      <p className="font-medium">Risk Distribution</p>
-                      <p className="text-sm text-gray-600">Balanced risk portfolio</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
           </TabsContent>
 
           <TabsContent value="history" className="space-y-6">
