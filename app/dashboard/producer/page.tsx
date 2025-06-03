@@ -538,16 +538,6 @@ export default function ProducerDashboard() {
                             <circle key={i} cx={x} cy={[180, 150, 130, 110, 85, 60, 40][i]} r="3" fill="#10b981" />
                           ))}
                         </svg>
-                        
-                        {/* X-axis labels */}
-                        <div className="flex justify-between text-xs text-gray-500 mt-2">
-                          <span>Jan</span>
-                          <span>Feb</span>
-                          <span>Mar</span>
-                          <span>Apr</span>
-                          <span>May</span>
-                          <span>Jun</span>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -621,16 +611,6 @@ export default function ProducerDashboard() {
                             );
                           })}
                         </svg>
-                        
-                        {/* X-axis labels */}
-                        <div className="flex justify-around text-sm text-gray-600 mt-4 px-10">
-                          {speciesRevenueData.map((species) => (
-                            <div key={species.id} className="flex items-center space-x-2">
-                              <div className={`w-3 h-3 rounded ${species.color}`}></div>
-                              <span>{species.name}</span>
-                            </div>
-                          ))}
-                        </div>
                       </div>
                     </div>
                   </div>
