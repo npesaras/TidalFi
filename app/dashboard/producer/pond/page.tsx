@@ -594,7 +594,7 @@ export default function MyPondPage() {
                           <CardHeader className="pb-3">
                             <div className="flex items-center justify-between">
                               <Fish className="h-6 w-6 text-blue-600" />
-                              <Badge variant={token.status === "Ready Soon" ? "default" : "secondary"}>
+                              <Badge variant={token.status === "Ready Soon" ? "ready-soon" : "secondary"}>
                                 {token.status}
                               </Badge>
                             </div>
@@ -658,7 +658,7 @@ export default function MyPondPage() {
                                 </p>
                               </div>
                             </div>
-                            <Badge variant={token.status === "Ready Soon" ? "default" : "secondary"}>
+                            <Badge variant={token.status === "Ready Soon" ? "ready-soon" : "secondary"}>
                               {token.status}
                             </Badge>
                           </div>
