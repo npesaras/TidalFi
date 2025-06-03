@@ -22,6 +22,18 @@ export default function BuyerDashboard() {
     }
   }
 
+    const getQualityVariant = (grade: string) => {
+    switch (grade) {
+      case "Super Premium":
+        return "default" // Will use your blue-700 primary theme
+      case "Premium":
+        return "secondary"
+      case "Standard":
+        return "outline"
+      default:
+        return "secondary"
+    }
+  }
   return (
     <div className="min-h-screen bg-gray-50">
       <DashboardHeader userRole="buyer" />
@@ -184,7 +196,7 @@ export default function BuyerDashboard() {
                         </div>
                         <div>
                           <p className="text-gray-600">Quality Grade</p>
-                          <Badge className={getQualityBadgeColor(order.qualityGrade)}>{order.qualityGrade}</Badge>
+                          <Badge variant={getQualityVariant(order.qualityGrade)}>{order.qualityGrade}</Badge>
                         </div>
                       </div>
 

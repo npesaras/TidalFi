@@ -100,7 +100,7 @@ export default function AuthPage() {
                       </ul>
                     </div>
                   </div>
-                  <Button onClick={() => handleInternetIdentityLogin("producer")} className="w-full  bg-blue-800 hover:bg-blue-700" size="lg">
+                  <Button onClick={() => handleInternetIdentityLogin("producer")} className="w-full" size="lg">
                     <Shield className="h-4 w-4 mr-2" />
                     Continue with Internet Identity
                     <ArrowRight className="h-4 w-4 ml-2" />
@@ -145,7 +145,7 @@ export default function AuthPage() {
                       </ul>
                     </div>
                   </div>
-                  <Button onClick={() => handleInternetIdentityLogin("investor")} className="w-full  bg-blue-800 hover:bg-blue-700" size="lg">
+                  <Button onClick={() => handleInternetIdentityLogin("investor")} className="w-full" size="lg">
                     <Shield className="h-4 w-4 mr-2" />
                     Continue with Internet Identity
                     <ArrowRight className="h-4 w-4 ml-2" />
@@ -191,7 +191,7 @@ export default function AuthPage() {
                       </ul>
                     </div>
                   </div>
-                  <Button onClick={() => handleInternetIdentityLogin("buyer")} className="w-full  bg-blue-800 hover:bg-blue-700" size="lg">
+                  <Button onClick={() => handleInternetIdentityLogin("buyer")} className="w-full" size="lg">
                     <Shield className="h-4 w-4 mr-2" />
                     Continue with Internet Identity
                     <ArrowRight className="h-4 w-4 ml-2" />

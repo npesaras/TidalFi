@@ -22,7 +22,7 @@ export default function HomePage() {
             </Link>
           </nav>
           <div className="flex items-center space-x-3">
-            <Button className="bg-blue-700 hover:bg-blue-600 font-bol" asChild>
+            <Button className="font-bol" asChild>
               <Link href="/auth" >Get Started</Link>
             </Button>
           </div>
@@ -41,7 +41,7 @@ export default function HomePage() {
             Transparent, traceable, and profitable aquaculture for everyone.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-blue-700 hover:bg-blue-600" asChild>
+            <Button size="lg" asChild>
               <Link href="/auth?role=producer">I'm a Producer</Link>
             </Button>
             <Button size="lg" variant="outline" asChild>

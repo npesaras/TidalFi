@@ -180,10 +180,10 @@ export default function producerDashboard() {
             <h1 className="text-3xl font-bold text-gray-900">Producer Dashboard</h1>
             <p className="text-gray-600">Manage your fish harvests and tokens</p>
           </div>
-          <Button className="bg-blue-700 hover:bg-blue-600" asChild>
+          <Button asChild>
             <Link href="/tokenize">
-              <Plus className="h-4 w-4 mr-2" />
-              Create New Token
+                <Plus className="h-4 w-4 mr-2" />
+                Create New Token
             </Link>
           </Button>
         </div>

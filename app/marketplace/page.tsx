@@ -791,7 +791,7 @@ export default function MarketplacePage() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-lg">Premium Grade</CardTitle>
-                      <Badge variant="default" className="bg-blue-600">
+                      <Badge variant="default">
                         Premium
                       </Badge>
                     </div>
@@ -811,7 +811,7 @@ export default function MarketplacePage() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-lg">Super Premium</CardTitle>
-                      <Badge variant="default" className="bg-purple-600">
+                      <Badge variant="default">
                         Super Premium
                       </Badge>
                     </div>
