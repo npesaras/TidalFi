@@ -40,17 +40,6 @@ export default function HomePage() {
             Connect sustainable fish producers with global investors and buyers through blockchain-powered tokenization.
             Transparent, traceable, and profitable aquaculture for everyone.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link href="/auth?role=producer">I'm a Producer</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/auth?role=investor">I'm an Investor</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/auth?role=buyer">I'm a Buyer</Link>
-            </Button>
-          </div>
         </div>
       </section>
 

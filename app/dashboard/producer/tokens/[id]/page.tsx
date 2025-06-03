@@ -12,42 +12,34 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import {
   Fish,
-  MapPin,
+  ArrowLeft,
   Calendar,
-  Thermometer,
-  Droplets,
+  MapPin,
+  Users,
+  TrendingUp,
+  DollarSign,
   Activity,
-  Star,
   Camera,
   FileText,
-  ArrowLeft,
-  Share2,
-  AlertTriangle,
+  Settings,
+  Thermometer,
+  Droplets,
   CheckCircle,
+  AlertTriangle,
   BarChart3,
   Edit,
-  Settings,
-  Users,
+  Share2,
+  Bell,
+  MessageSquare,
 } from "lucide-react"
 import { DashboardHeader } from "@/components/dashboard-header"
 
-// Mock data - in real app this would come from API based on token ID
-const getTokenData = (id: string) => {
+// Mock data for producer token - replace with actual API call
+const getProducerTokenData = (id: string) => {
   const tokens = {
     "TF-001": {
       id: "TF-001",
       species: "Atlantic Salmon",
-      producer: {
-        name: "Nordic Aqua Farm",
-        location: "Trondheim, Norway",
-        avatar: "/placeholder.svg?height=40&width=40",
-        rating: 4.9,
-        totalHarvests: 47,
-        sustainabilityScore: 95,
-        certifications: ["ASC", "BAP 4-Star", "Carbon Neutral"],
-        joinDate: "2019",
-        bio: "Family-owned sustainable salmon farm operating in the pristine fjords of Norway for over 30 years.",
-      },
       harvest: {
         quantity: "2,500 kg",
         totalValue: "$25,000",
@@ -60,14 +52,20 @@ const getTokenData = (id: string) => {
         stockingDate: "2023-05-01",
         expectedYield: "2,500 kg",
         currentWeight: "4.2 kg avg",
+        growthProgress: 75,
+        status: "Growing",
       },
       investment: {
         totalValue: 25000,
         funded: 18750,
         fundingProgress: 75,
+        minInvestment: 500,
+        maxInvestment: 5000,
         investors: 37,
         expectedROI: "12-15%",
         daysLeft: 12,
+        tokenPrice: 10.0,
+        availableTokens: 625,
         soldTokens: 1875,
       },
       sustainability: {
@@ -112,7 +110,7 @@ const getTokenData = (id: string) => {
         },
         {
           date: "2024-01-10",
-          event: "Funding milestone reached",
+          event: "Investor milestone reached",
           type: "funding",
           details: "75% funding target achieved",
         },
@@ -151,10 +149,10 @@ const getTokenData = (id: string) => {
   return tokens[id as keyof typeof tokens] || tokens["TF-001"]
 }
 
-export default function TokenDetailsPage() {
+export default function ProducerTokenDetailsPage() {
   const params = useParams()
   const tokenId = params.id as string
-  const token = getTokenData(tokenId)
+  const token = getProducerTokenData(tokenId)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -172,11 +170,15 @@ export default function TokenDetailsPage() {
           <div className="flex items-center space-x-2">
             <Button variant="outline" size="sm">
               <Share2 className="h-4 w-4 mr-2" />
-              Share
+              Share Token
             </Button>
             <Button variant="outline" size="sm">
               <Edit className="h-4 w-4 mr-2" />
               Edit Token
+            </Button>
+            <Button variant="outline" size="sm">
+              <Bell className="h-4 w-4 mr-2" />
+              Notify Investors
             </Button>
           </div>
         </div>
@@ -248,8 +250,16 @@ export default function TokenDetailsPage() {
             {/* Fish Images */}
             <Card>
               <CardHeader>
-                <CardTitle>Fish Images</CardTitle>
-                <CardDescription>Live photos from the farm</CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Fish Images</CardTitle>
+                    <CardDescription>Live photos from your farm</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm">
+                    <Camera className="h-4 w-4 mr-2" />
+                    Add Photos
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -280,7 +290,7 @@ export default function TokenDetailsPage() {
               <TabsList className="grid w-full grid-cols-6">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="sustainability">Sustainability</TabsTrigger>
-                <TabsTrigger value="monitoring">Live Data</TabsTrigger>
+
                 <TabsTrigger value="timeline">Timeline</TabsTrigger>
                 <TabsTrigger value="documents">Documents</TabsTrigger>
                 <TabsTrigger value="investors">Investors</TabsTrigger>
@@ -333,83 +343,32 @@ export default function TokenDetailsPage() {
                     </div>
                   </CardContent>
                 </Card>
-
+                        
                 <Card>
                   <CardHeader>
-                    <CardTitle>Detailed Farm Documentation</CardTitle>
-                    <CardDescription>Comprehensive visual documentation of the harvest</CardDescription>
+                    <CardTitle>Producer Management Tools</CardTitle>
+                    <CardDescription>Quick actions for token management</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="font-semibold mb-3">Current Fish Condition</h4>
-                        <div className="grid grid-cols-2 gap-3">
-                          <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
-                            <div className="text-center">
-                              <Fish className="h-8 w-8 text-blue-600 mx-auto mb-1" />
-                              <p className="text-xs text-gray-600">Size Check</p>
-                            </div>
-                          </div>
-                          <div className="aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center">
-                            <div className="text-center">
-                              <Activity className="h-8 w-8 text-green-600 mx-auto mb-1" />
-                              <p className="text-xs text-gray-600">Health Status</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-3">Farm Environment</h4>
-                        <div className="grid grid-cols-2 gap-3">
-                          <div className="aspect-square bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
-                            <div className="text-center">
-                              <Camera className="h-8 w-8 text-purple-600 mx-auto mb-1" />
-                              <p className="text-xs text-gray-600">Cage View</p>
-                            </div>
-                          </div>
-                          <div className="aspect-square bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg flex items-center justify-center">
-                            <div className="text-center">
-                              <Thermometer className="h-8 w-8 text-orange-600 mx-auto mb-1" />
-                              <p className="text-xs text-gray-600">Water Quality</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-6">
-                      <h4 className="font-semibold mb-3">Recent Updates</h4>
-                      <div className="grid md:grid-cols-4 gap-3">
-                        <div className="aspect-video bg-gradient-to-br from-cyan-100 to-cyan-200 rounded-lg flex items-center justify-center">
-                          <div className="text-center">
-                            <Calendar className="h-6 w-6 text-cyan-600 mx-auto mb-1" />
-                            <p className="text-xs text-gray-600">Jan 20, 2024</p>
-                          </div>
-                        </div>
-                        <div className="aspect-video bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-lg flex items-center justify-center">
-                          <div className="text-center">
-                            <Calendar className="h-6 w-6 text-indigo-600 mx-auto mb-1" />
-                            <p className="text-xs text-gray-600">Jan 18, 2024</p>
-                          </div>
-                        </div>
-                        <div className="aspect-video bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg flex items-center justify-center">
-                          <div className="text-center">
-                            <Calendar className="h-6 w-6 text-pink-600 mx-auto mb-1" />
-                            <p className="text-xs text-gray-600">Jan 15, 2024</p>
-                          </div>
-                        </div>
-                        <div className="aspect-video bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-lg flex items-center justify-center">
-                          <div className="text-center">
-                            <Calendar className="h-6 w-6 text-yellow-600 mx-auto mb-1" />
-                            <p className="text-xs text-gray-600">Jan 10, 2024</p>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <Button variant="outline" className="flex flex-col h-20">
+                        <FileText className="h-6 w-6 mb-2" />
+                        <span className="text-sm">Update Progress</span>
+                      </Button>
+                      <Button variant="outline" className="flex flex-col h-20">
+                        <Camera className="h-6 w-6 mb-2" />
+                        <span className="text-sm">Add Photos</span>
+                      </Button>
+                      <Button variant="outline" className="flex flex-col h-20">
+                        <MessageSquare className="h-6 w-6 mb-2" />
+                        <span className="text-sm">Message Investors</span>
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
               </TabsContent>
-
+              
+              {/* Sustainability Metrics */}
               <TabsContent value="sustainability" className="space-y-6">
                 <Card>
                   <CardHeader>
@@ -462,7 +421,8 @@ export default function TokenDetailsPage() {
                     </div>
                   </CardContent>
                 </Card>
-
+                
+                {/* Certifications */}
                 <Card>
                   <CardHeader>
                     <CardTitle>Certifications</CardTitle>
@@ -486,90 +446,7 @@ export default function TokenDetailsPage() {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="monitoring" className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Real-Time IoT Monitoring</CardTitle>
-                    <CardDescription>
-                      Last updated: {new Date(token.iotData.lastUpdated).toLocaleString()}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid md:grid-cols-3 gap-6">
-                      <div className="text-center p-4 border rounded-lg">
-                        <Thermometer className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                        <p className="text-2xl font-bold">{token.iotData.temperature}°C</p>
-                        <p className="text-sm text-gray-600">Water Temperature</p>
-                        <Badge variant="default" className="mt-2">
-                          Optimal
-                        </Badge>
-                      </div>
-                      <div className="text-center p-4 border rounded-lg">
-                        <Droplets className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                        <p className="text-2xl font-bold">{token.iotData.oxygen} mg/L</p>
-                        <p className="text-sm text-gray-600">Dissolved Oxygen</p>
-                        <Badge variant="default" className="mt-2">
-                          Excellent
-                        </Badge>
-                      </div>
-                      <div className="text-center p-4 border rounded-lg">
-                        <Activity className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                        <p className="text-2xl font-bold">{token.iotData.ph}</p>
-                        <p className="text-sm text-gray-600">pH Level</p>
-                        <Badge variant="default" className="mt-2">
-                          Good
-                        </Badge>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 grid md:grid-cols-2 gap-6">
-                      <div className="text-center p-4 border rounded-lg">
-                        <p className="text-xl font-bold">{token.iotData.salinity}‰</p>
-                        <p className="text-sm text-gray-600">Salinity</p>
-                      </div>
-                      <div className="text-center p-4 border rounded-lg">
-                        <p className="text-xl font-bold">{token.iotData.turbidity} NTU</p>
-                        <p className="text-sm text-gray-600">Water Clarity</p>
-                      </div>
-                    </div>
-
-                    {token.iotData.alerts.length === 0 ? (
-                      <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                        <div className="flex items-center">
-                          <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
-                          <p className="text-green-800">All systems operating normally - no alerts</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="mt-6 space-y-2">
-                        {token.iotData.alerts.map((alert, index) => (
-                          <div key={index} className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                            <div className="flex items-center">
-                              <AlertTriangle className="h-5 w-5 text-yellow-600 mr-2" />
-                              <p className="text-yellow-800">{alert}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Historical Data</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-64 flex items-center justify-center text-gray-500 border rounded-lg">
-                      <div className="text-center">
-                        <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                        <p>Historical monitoring charts would display here</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
+              {/* Timeline and Documents Tabs */}
               <TabsContent value="timeline" className="space-y-6">
                 <Card>
                   <CardHeader>
@@ -581,7 +458,7 @@ export default function TokenDetailsPage() {
                       {token.timeline.map((event, index) => (
                         <div key={index} className="flex space-x-4">
                           <div className="flex-shrink-0">
-                            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                               <div className="w-3 h-3 bg-white rounded-full"></div>
                             </div>
                           </div>
@@ -598,6 +475,10 @@ export default function TokenDetailsPage() {
                         </div>
                       ))}
                     </div>
+                    <Button variant="outline" className="w-full mt-4">
+                      <FileText className="h-4 w-4 mr-2" />
+                      Add Timeline Event
+                    </Button>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -605,8 +486,16 @@ export default function TokenDetailsPage() {
               <TabsContent value="documents" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Documentation</CardTitle>
-                    <CardDescription>Certificates, reports, and compliance documents</CardDescription>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle>Documentation</CardTitle>
+                        <CardDescription>Certificates, reports, and compliance documents</CardDescription>
+                      </div>
+                      <Button variant="outline" size="sm">
+                        <FileText className="h-4 w-4 mr-2" />
+                        Upload Document
+                      </Button>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -621,9 +510,14 @@ export default function TokenDetailsPage() {
                               </p>
                             </div>
                           </div>
-                          <Button variant="outline" size="sm">
-                            Download
-                          </Button>
+                          <div className="flex space-x-2">
+                            <Button variant="outline" size="sm">
+                              Edit
+                            </Button>
+                            <Button variant="outline" size="sm">
+                              Download
+                            </Button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -650,9 +544,15 @@ export default function TokenDetailsPage() {
                               <p className="text-sm text-gray-600">Invested on {tx.date}</p>
                             </div>
                           </div>
-                          <div className="text-right">
-                            <p className="font-semibold">{tx.amount}</p>
-                            <p className="text-sm text-gray-600">{tx.tokens} tokens</p>
+                          <div className="flex items-center space-x-4">
+                            <div className="text-right">
+                              <p className="font-semibold">{tx.amount}</p>
+                              <p className="text-sm text-gray-600">{tx.tokens} tokens</p>
+                            </div>
+                            <Button variant="outline" size="sm">
+                              <MessageSquare className="h-4 w-4 mr-2" />
+                              Message
+                            </Button>
                           </div>
                         </div>
                       ))}
@@ -679,7 +579,7 @@ export default function TokenDetailsPage() {
 
           {/* Right Column - Producer Management Panel */}
           <div className="space-y-6">
-            {/* Token Management Panel */}
+            {/* Token Management */}
             <Card>
               <CardHeader>
                 <CardTitle>Token Management</CardTitle>
@@ -688,7 +588,9 @@ export default function TokenDetailsPage() {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <p className="text-gray-600">Token Status</p>
-                    <p className="font-bold text-lg">Active</p>
+                    <Badge variant={token.harvest.status === "Ready Soon" ? "ready-soon" : "secondary"}>
+                      {token.harvest.status}
+                    </Badge>
                   </div>
                   <div>
                     <p className="text-gray-600">Progress</p>
@@ -719,6 +621,12 @@ export default function TokenDetailsPage() {
                     <BarChart3 className="h-4 w-4 mr-2" />
                     View Analytics
                   </Button>
+                  {token.harvest.status === "Ready Soon" && (
+                    <Button className="w-full">
+                      <Activity className="h-4 w-4 mr-2" />
+                      Initiate Harvest
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -759,7 +667,7 @@ export default function TokenDetailsPage() {
                   {token.transactions.slice(0, 3).map((tx, index) => (
                     <div key={index} className="flex items-center justify-between text-sm">
                       <div>
-                        <p className="font-medium">{tx.investor}</p>
+                        <p className="font-medium">{tx.investor.split(".")[0]}</p>
                         <p className="text-gray-600">{tx.date}</p>
                       </div>
                       <div className="text-right">

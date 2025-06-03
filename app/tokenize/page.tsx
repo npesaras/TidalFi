@@ -49,14 +49,14 @@ export default function TokenizePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardHeader userRole="farmer" />
+      <DashboardHeader userRole="producer" />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <Button variant="ghost" asChild>
-              <Link href="/dashboard/farmer">
+              <Link href="/dashboard/producer">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Link>
