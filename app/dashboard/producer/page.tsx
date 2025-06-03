@@ -11,9 +11,6 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import {
   Fish,
   Plus,
-  Thermometer,
-  Activity,
-  DollarSign,
   Grid3X3,
   List,
   BarChart3,
@@ -109,7 +106,7 @@ export default function producerDashboard() {
 
             <div className="flex space-x-2">
               <Button variant="outline" size="sm" className="flex-1" asChild>
-                <Link href={`/dashboard/producer/tokens/${harvest.id}`}>View Details</Link>
+                <Link href={`/token/${harvest.id}`}>View Details</Link>
               </Button>
               {harvest.status === "Ready Soon" && (
                 <Button size="sm" className="flex-1">
@@ -158,7 +155,7 @@ export default function producerDashboard() {
                 <Badge variant={harvest.status === "Ready Soon" ? "ready-soon" : "secondary"}>{harvest.status}</Badge>
                 <div className="flex space-x-2">
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`/dashboard/producer/tokens/${harvest.id}`}>View</Link>
+                    <Link href={`/token/${harvest.id}`}>View</Link>
                   </Button>
                   {harvest.status === "Ready Soon" && <Button size="sm">Harvest</Button>}
                 </div>
@@ -182,8 +179,8 @@ export default function producerDashboard() {
           </div>
           <Button asChild>
             <Link href="/tokenize">
-                <Plus className="h-4 w-4 mr-2" />
-                Create New Token
+              <Plus className="h-4 w-4 mr-2" />
+              Create New Token
             </Link>
           </Button>
         </div>
@@ -193,40 +190,40 @@ export default function producerDashboard() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-medium">Active Tokens</CardTitle>
-              <Fish className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">12</div>
-              <p className="text-sm text-muted-foreground">
-                <span className="text-green-600 mr-1 font-bold">+2</span> 
-                from last month</p>
+              <div className="text-4xl font-bold">12</div>
+              <p className="text-base text-green-600 font-medium">+2 from last month</p>
             </CardContent>
           </Card>
-
-          {/*Total Revenue*/}
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-medium">Total Revenue</CardTitle>
-              <DollarSign className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231</div>
-              <p className="text-xs text-muted-foreground">
-                +20.1% from last month</p>
+              <div className="text-4xl font-bold">$45,231</div>
+              <p className="text-base text-green-600 font-medium">+20.1% from last month</p>
             </CardContent>
           </Card>
 
-           {/*Pending Settlements*/}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-lg font-medium">Pending Settlements</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-4xl font-bold">3</div>
+              <p className="text-base text-orange-600 font-medium">2 ready for harvest</p>
+            </CardContent>
+          </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending Settlements</CardTitle>
-              <Thermometer className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-lg font-medium">Average ROI</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">3</div>
-              <p className="text-xs text-muted-foreground">2 ready for harvest</p>
+              <div className="text-4xl font-bold">14.2%</div>
+              <p className="text-base text-red-600 font-medium">-1.3% from last month</p>
             </CardContent>
           </Card>
         </div>
