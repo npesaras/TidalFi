@@ -401,11 +401,51 @@ export default function producerDashboard() {
                   <CardDescription>Performance of your tokenized harvests</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center text-gray-500 border rounded-lg bg-gradient-to-br from-blue-50 to-green-50">
-                    <div className="text-center">
-                      <TrendingUp className="h-12 w-12 mx-auto mb-4 text-blue-600" />
-                      <p className="font-medium">Success Rate Chart</p>
-                      <p className="text-sm text-gray-600">92% success rate</p>
+                  <div className="h-64 w-full">
+                    <div className="relative h-full">
+                      {/* Success Rate Donut Chart */}
+                      <div className="flex items-center justify-center h-full">
+                        <div className="relative w-48 h-48">
+                          <svg className="w-full h-full" viewBox="0 0 200 200">
+                            {/* Background circle */}
+                            <circle
+                              cx="100"
+                              cy="100"
+                              r="80"
+                              fill="none"
+                              stroke="#f3f4f6"
+                              strokeWidth="20"
+                            />
+                            {/* Success arc (92%) */}
+                            <circle
+                              cx="100"
+                              cy="100"
+                              r="80"
+                              fill="none"
+                              stroke="#10b981"
+                              strokeWidth="20"
+                              strokeDasharray={`${92 * 5.024} ${(100 - 92) * 5.024}`}
+                              strokeDashoffset="125.6"
+                              strokeLinecap="round"
+                              transform="rotate(-90 100 100)"
+                            />
+                            {/* Center text */}
+                            <text x="100" y="95" textAnchor="middle" className="text-2xl font-bold fill-gray-900">92%</text>
+                            <text x="100" y="115" textAnchor="middle" className="text-sm fill-gray-600">Success Rate</text>
+                          </svg>
+                        </div>
+                      </div>
+                      {/* Legend */}
+                      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 text-sm">
+                        <div className="flex items-center">
+                          <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                          <span>Successful (24)</span>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-3 h-3 bg-gray-300 rounded-full mr-2"></div>
+                          <span>Failed (2)</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -417,11 +457,58 @@ export default function producerDashboard() {
                   <CardDescription>How quickly your tokens get funded</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center text-gray-500 border rounded-lg bg-gradient-to-br from-purple-50 to-pink-50">
-                    <div className="text-center">
-                      <BarChart3 className="h-12 w-12 mx-auto mb-4 text-purple-600" />
-                      <p className="font-medium">Funding Speed Chart</p>
-                      <p className="text-sm text-gray-600">3.2 days average</p>
+                  <div className="h-64 w-full">
+                    <div className="relative h-full">
+                      {/* Y-axis labels */}
+                      <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-4">
+                        <span>5 days</span>
+                        <span>4 days</span>
+                        <span>3 days</span>
+                        <span>2 days</span>
+                        <span>1 day</span>
+                      </div>
+                      
+                      {/* Chart area */}
+                      <div className="ml-12 h-full relative">
+                        <svg className="w-full h-full" viewBox="0 0 400 200">
+                          {/* Grid lines */}
+                          <defs>
+                            <pattern id="fundingGrid" width="50" height="40" patternUnits="userSpaceOnUse">
+                              <path d="M 50 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
+                            </pattern>
+                          </defs>
+                          <rect width="100%" height="100%" fill="url(#fundingGrid)" />
+                          
+                          {/* Funding speed bars */}
+                          <rect x="25" y="120" width="30" height="80" fill="#8b5cf6" rx="2" />
+                          <rect x="75" y="100" width="30" height="100" fill="#8b5cf6" rx="2" />
+                          <rect x="125" y="80" width="30" height="120" fill="#8b5cf6" rx="2" />
+                          <rect x="175" y="60" width="30" height="140" fill="#8b5cf6" rx="2" />
+                          <rect x="225" y="40" width="30" height="160" fill="#8b5cf6" rx="2" />
+                          <rect x="275" y="20" width="30" height="180" fill="#8b5cf6" rx="2" />
+                          <rect x="325" y="80" width="30" height="120" fill="#8b5cf6" rx="2" />
+                          
+                          {/* Value labels on bars */}
+                          <text x="40" y="115" textAnchor="middle" className="text-xs fill-white font-medium">4.5</text>
+                          <text x="90" y="95" textAnchor="middle" className="text-xs fill-white font-medium">3.8</text>
+                          <text x="140" y="75" textAnchor="middle" className="text-xs fill-white font-medium">3.2</text>
+                          <text x="190" y="55" textAnchor="middle" className="text-xs fill-white font-medium">2.9</text>
+                          <text x="240" y="35" textAnchor="middle" className="text-xs fill-white font-medium">2.1</text>
+                          <text x="290" y="15" textAnchor="middle" className="text-xs fill-white font-medium">1.8</text>
+                          <text x="340" y="75" textAnchor="middle" className="text-xs fill-white font-medium">3.2</text>
+                        </svg>
+                        
+                        {/* X-axis labels */}
+                        <div className="flex justify-between text-xs text-gray-500 mt-2 px-4">
+                          <span>Q4 '23</span>
+                          <span>Jan</span>
+                          <span>Feb</span>
+                          <span>Mar</span>
+                          <span>Apr</span>
+                          <span>May</span>
+                          <span>Jun</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -465,11 +552,77 @@ export default function producerDashboard() {
                 <CardDescription>Feedback and ratings from your investors</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-48 flex items-center justify-center text-gray-500 border rounded-lg bg-gradient-to-br from-yellow-50 to-orange-50">
-                  <div className="text-center">
-                    <Users className="h-12 w-12 mx-auto mb-4 text-yellow-600" />
-                    <p className="font-medium">Investor Satisfaction Chart</p>
-                    <p className="text-sm text-gray-600">4.8/5 average rating</p>
+                <div className="h-64 w-full">
+                  <div className="relative h-full">
+                    {/* Y-axis labels */}
+                    <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-4">
+                      <span>5.0</span>
+                      <span>4.0</span>
+                      <span>3.0</span>
+                      <span>2.0</span>
+                      <span>1.0</span>
+                    </div>
+                    
+                    {/* Chart area */}
+                    <div className="ml-12 h-full relative">
+                      <svg className="w-full h-full" viewBox="0 0 400 200">
+                        {/* Grid lines */}
+                        <defs>
+                          <pattern id="satisfactionGrid" width="57.14" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 57.14 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
+                          </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#satisfactionGrid)" />
+                        
+                        {/* Rating trend line */}
+                        <polyline
+                          fill="none"
+                          stroke="#f59e0b"
+                          strokeWidth="3"
+                          points="0,80 57,60 114,40 171,35 228,25 285,20 342,15 400,12"
+                        />
+                        
+                        {/* Data points */}
+                        {[0, 57, 114, 171, 228, 285, 342, 400].map((x, i) => (
+                          <circle 
+                            key={i} 
+                            cx={x} 
+                            cy={[80, 60, 40, 35, 25, 20, 15, 12][i]} 
+                            r="4" 
+                            fill="#f59e0b" 
+                            stroke="#fff" 
+                            strokeWidth="2"
+                          />
+                        ))}
+                        
+                        {/* Rating labels */}
+                        <text x="0" y="75" textAnchor="middle" className="text-xs fill-gray-600">3.8</text>
+                        <text x="57" y="55" textAnchor="middle" className="text-xs fill-gray-600">4.1</text>
+                        <text x="114" y="35" textAnchor="middle" className="text-xs fill-gray-600">4.5</text>
+                        <text x="171" y="30" textAnchor="middle" className="text-xs fill-gray-600">4.6</text>
+                        <text x="228" y="20" textAnchor="middle" className="text-xs fill-gray-600">4.8</text>
+                        <text x="285" y="15" textAnchor="middle" className="text-xs fill-gray-600">4.9</text>
+                        <text x="342" y="10" textAnchor="middle" className="text-xs fill-gray-600">4.9</text>
+                        <text x="400" y="7" textAnchor="middle" className="text-xs fill-gray-600">5.0</text>
+                      </svg>
+                      
+                      {/* X-axis labels */}
+                      <div className="flex justify-between text-xs text-gray-500 mt-2">
+                        <span>Dec</span>
+                        <span>Jan</span>
+                        <span>Feb</span>
+                        <span>Mar</span>
+                        <span>Apr</span>
+                        <span>May</span>
+                        <span>Jun</span>
+                      </div>
+                    </div>
+                    
+                    {/* Average rating display */}
+                    <div className="absolute top-4 right-4 text-center bg-yellow-50 p-3 rounded-lg border">
+                      <div className="text-2xl font-bold text-yellow-600">4.8</div>
+                      <p className="text-xs text-gray-600">Avg Rating</p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
