@@ -68,7 +68,7 @@ export default function CreateProposalPage() {
           <div className="text-center mb-8">
             <Vote className="h-12 w-12 text-blue-600 mx-auto mb-4" />
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Create New Proposal</h1>
-            <p className="text-gray-600">Propose changes to improve the TidalFi platform</p>
+            <p className="text-gray-600">Propose changes to improve the TidalChain platform</p>
           </div>
 
           <Card>

@@ -22,8 +22,8 @@ TidalChain revolutionizes sustainable aquaculture financing by:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/TidalFi.git
-   cd TidalFi
+   git clone https://github.com/your-username/TidalChain.git
+   cd TidalChain
    ```
 
 2. **Install dependencies**
