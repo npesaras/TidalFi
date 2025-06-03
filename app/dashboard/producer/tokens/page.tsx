@@ -516,6 +516,28 @@ export default function MyTokensPage() {
           </TabsContent>
 
           <TabsContent value="performance" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Token Status Distribution</CardTitle>
+                <CardDescription>Current status of all your tokens</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-4 gap-4">
+                  {["Funding", "Growing", "Ready Soon", "Harvested"].map((status) => {
+                    const count = tokens.filter((token) => token.status === status).length
+                    const percentage = Math.round((count / tokens.length) * 100)
+                    return (
+                      <div key={status} className="text-center p-4 border rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600">{count}</div>
+                        <div className="text-sm text-gray-600">{status}</div>
+                        <div className="text-xs text-gray-500">{percentage}%</div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+            
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -755,28 +777,6 @@ export default function MyTokensPage() {
                 </CardContent>
               </Card>
             </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Token Status Distribution</CardTitle>
-                <CardDescription>Current status of all your tokens</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-4 gap-4">
-                  {["Funding", "Growing", "Ready Soon", "Harvested"].map((status) => {
-                    const count = tokens.filter((token) => token.status === status).length
-                    const percentage = Math.round((count / tokens.length) * 100)
-                    return (
-                      <div key={status} className="text-center p-4 border rounded-lg">
-                        <div className="text-2xl font-bold text-blue-600">{count}</div>
-                        <div className="text-sm text-gray-600">{status}</div>
-                        <div className="text-xs text-gray-500">{percentage}%</div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           <TabsContent value="history" className="space-y-6">

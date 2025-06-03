@@ -51,6 +51,12 @@ import {
   type Transaction
 } from "@/lib/data/transactions"
 
+import { 
+  getSpeciesRevenue, 
+  formatCurrency,
+  type SpeciesRevenue
+} from "@/lib/data/species"
+
 export default function ProducerDashboard() {
   const [timeRange, setTimeRange] = useState("7d")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
@@ -63,9 +69,11 @@ export default function ProducerDashboard() {
   const totalValue = getTotalTokenValue()
   // Get recent tokens (last 3)
   const recentTokens = tokens.slice(-3).reverse()
-
   // Get recent transactions (last 5)
   const recentTransactions = getRecentTransactions(5)
+
+  // Get species revenue data
+  const speciesRevenueData = getSpeciesRevenue()
 
   // Get tokens by status
   const readySoonTokens = getTokensByStatus("Ready Soon")
@@ -83,7 +91,6 @@ export default function ProducerDashboard() {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <Fish className="h-8 w-8 text-blue-600" />
                 <div>
                   <CardTitle className="text-lg">{token.species}</CardTitle>
                   <CardDescription>Token {token.id}</CardDescription>
@@ -147,7 +154,6 @@ export default function ProducerDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <Fish className="h-10 w-10 text-blue-600" />
                 <div>
                   <h3 className="font-semibold text-lg">{token.species}</h3>
                   <p className="text-sm text-gray-600">
@@ -159,10 +165,6 @@ export default function ProducerDashboard() {
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Quantity</p>
                   <p className="font-medium">{token.quantity}</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-600">Progress</p>
-                  <p className="font-medium">{token.progress}%</p>
                 </div>
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Funding</p>
@@ -213,7 +215,6 @@ export default function ProducerDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <BarChart3 className="h-4 w-4 mr-2" />
                 Active Tokens
               </CardTitle>
             </CardHeader>
@@ -226,7 +227,6 @@ export default function ProducerDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <DollarSign className="h-4 w-4 mr-2" />
                 Total Revenue
               </CardTitle>
             </CardHeader>
@@ -239,7 +239,6 @@ export default function ProducerDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <Clock className="h-4 w-4 mr-2" />
                 Pending Settlements
               </CardTitle>
             </CardHeader>
@@ -252,7 +251,6 @@ export default function ProducerDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <TrendingUp className="h-4 w-4 mr-2" />
                 Average ROI
               </CardTitle>
             </CardHeader>
@@ -276,7 +274,6 @@ export default function ProducerDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Activity className="h-5 w-5 mr-2" />
                   Overall Pond Utilization
                 </CardTitle>
                 <CardDescription>
@@ -310,7 +307,6 @@ export default function ProducerDashboard() {
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between">
                     <span className="flex items-center">
-                      <Waves className="h-5 w-5 mr-2" />
                       Pond Status
                     </span>
                     <Button variant="outline" size="sm" asChild>
@@ -324,9 +320,8 @@ export default function ProducerDashboard() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {ponds.map((pond) => (
-                    <div key={pond.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={pond.id} className="flex items-center justify-between p-3 bg-slate-100 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <Waves className="h-8 w-8 text-blue-600" />
                         <div>
                           <p className="font-medium">{pond.name}</p>
                           <p className="text-sm text-gray-600">{pond.location}</p>
@@ -370,9 +365,8 @@ export default function ProducerDashboard() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {recentTokens.map((token) => (
-                    <div key={token.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={token.id} className="flex items-center justify-between p-3 bg-slate-100 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <Fish className="h-8 w-8 text-green-600" />
                         <div>
                           <p className="font-medium">{token.species}</p>
                           <p className="text-sm text-gray-600">{token.id} • {token.quantity}</p>
@@ -390,7 +384,6 @@ export default function ProducerDashboard() {
                   
                   {recentTokens.length === 0 && (
                     <div className="text-center py-8">
-                      <Fish className="h-16 w-16 mx-auto text-gray-400 mb-4" />
                       <p className="text-gray-600 mb-4">No tokens created yet</p>
                       <Button asChild>
                         <Link href="/tokenize">
@@ -408,7 +401,6 @@ export default function ProducerDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span className="flex items-center">
-                    <Activity className="h-5 w-5 mr-2" />
                     Recent Activity
                   </span>
                   <Button variant="outline" size="sm">
@@ -420,35 +412,11 @@ export default function ProducerDashboard() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {recentTransactions.map((transaction) => {
-                  const getTransactionIcon = (iconName: string) => {
-                    switch (iconName) {
-                      case "TrendingUp":
-                        return <TrendingUp className="h-5 w-5 text-emerald-600" />
-                      case "CheckCircle":
-                        return <CheckCircle className="h-5 w-5 text-primary" />
-                      case "Fish":
-                        return <Fish className="h-5 w-5 text-purple-600" />
-                      case "DollarSign":
-                        return <DollarSign className="h-5 w-5 text-emerald-600" />
-                      case "Plus":
-                        return <Plus className="h-5 w-5 text-primary" />
-                      case "ArrowUpRight":
-                        return <ArrowUpRight className="h-5 w-5 text-orange-600" />
-                      case "Clock":
-                        return <Clock className="h-5 w-5 text-amber-600" />
-                      case "Calendar":
-                        return <Calendar className="h-5 w-5 text-purple-600" />
-                      default:
-                        return <Activity className="h-5 w-5 text-muted-foreground" />
-                    }
-                  }
-
                   return (
-                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-background border rounded-lg">
+                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-slate-100 border rounded-lg">
                       <div className="flex items-center space-x-3">
-                        {getTransactionIcon(transaction.icon)}
                         <div>
-                          <p className="font-medium text-sm text-foreground">{transaction.title}</p>
+                          <p className="font-bold text-sm text-foreground">{transaction.title}</p>
                           <p className="text-xs text-muted-foreground">{transaction.description}</p>
                         </div>
                       </div>
@@ -525,6 +493,7 @@ export default function ProducerDashboard() {
             </Card>
           </TabsContent>
 
+          {/* Revenue Overview */}
           <TabsContent value="revenue" className="space-y-6">
             {/* Keep all your original revenue content here */}
             <div className="grid md:grid-cols-2 gap-6">
@@ -569,93 +538,85 @@ export default function ProducerDashboard() {
                             <circle key={i} cx={x} cy={[180, 150, 130, 110, 85, 60, 40][i]} r="3" fill="#10b981" />
                           ))}
                         </svg>
-                        
-                        {/* X-axis labels */}
-                        <div className="flex justify-between text-xs text-gray-500 mt-2">
-                          <span>Jan</span>
-                          <span>Feb</span>
-                          <span>Mar</span>
-                          <span>Apr</span>
-                          <span>May</span>
-                          <span>Jun</span>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-
-              <Card>
+              </Card>              <Card>
                 <CardHeader>
                   <CardTitle>Revenue by Species</CardTitle>
                   <CardDescription>Breakdown of earnings by fish type</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                        <span>Atlantic Salmon</span>
+                  <div className="h-64 w-full">
+                    <div className="relative h-full">
+                      {/* Y-axis labels */}
+                      <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-4">
+                        <span>₱200k</span>
+                        <span>₱150k</span>
+                        <span>₱100k</span>
+                        <span>₱50k</span>
+                        <span>₱0</span>
                       </div>
-                      <span className="font-semibold">₱180,450 (36%)</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 bg-green-500 rounded"></div>
-                        <span>Rainbow Trout</span>
+                      
+                      {/* Chart area */}
+                      <div className="ml-12 h-full relative">
+                        <svg className="w-full h-full" viewBox="0 0 400 200">
+                          {/* Grid lines */}
+                          <defs>
+                            <pattern id="speciesGrid" width="133.33" height="40" patternUnits="userSpaceOnUse">
+                              <path d="M 133.33 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
+                            </pattern>
+                          </defs>
+                          <rect width="100%" height="100%" fill="url(#speciesGrid)" />
+                          
+                          {/* Revenue bars with data from centralized source */}
+                          {speciesRevenueData.map((species, index) => {
+                            const barHeight = (species.revenue / 200000) * 180; // Scale to 200k max
+                            const barX = 40 + (index * 120);
+                            const barY = 200 - barHeight;
+                            
+                            return (
+                              <g key={species.id}>
+                                {/* Bar */}
+                                <rect 
+                                  x={barX} 
+                                  y={barY} 
+                                  width="50" 
+                                  height={barHeight} 
+                                  fill={species.color.replace('bg-', '#').replace('blue-500', '3b82f6').replace('green-500', '10b981').replace('purple-500', '8b5cf6')}
+                                  rx="4" 
+                                />
+                                
+                                {/* Value label on top of bar */}
+                                <text 
+                                  x={barX + 25} 
+                                  y={barY - 8} 
+                                  textAnchor="middle" 
+                                  className="text-xs font-semibold fill-gray-700"
+                                >
+                                  {formatCurrency(species.revenue)}
+                                </text>
+                                
+                                {/* Percentage label inside bar */}
+                                <text 
+                                  x={barX + 25} 
+                                  y={barY + 20} 
+                                  textAnchor="middle" 
+                                  className="text-xs font-medium fill-white"
+                                >
+                                  {species.percentage}%
+                                </text>
+                              </g>
+                            );
+                          })}
+                        </svg>
                       </div>
-                      <span className="font-semibold">₱150,230 (30%)</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 bg-purple-500 rounded"></div>
-                        <span>Sea Bass</span>
-                      </div>
-                      <span className="font-semibold">₱120,890 (24%)</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 bg-orange-500 rounded"></div>
-                        <span>Arctic Char</span>
-                      </div>
-                      <span className="font-semibold">₱48,661 (10%)</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
-
-            {/* Revenue Analytics Card */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Revenue Analytics</CardTitle>
-                <CardDescription>Detailed revenue performance metrics</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-4 gap-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">₱500,231</div>
-                    <p className="text-sm text-gray-600">Total Revenue</p>
-                    <p className="text-xs text-green-600">+20.1% vs last year</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">₱41,686</div>
-                    <p className="text-sm text-gray-600">Avg Monthly</p>
-                    <p className="text-xs text-blue-600">+15.3% vs last year</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">₱156.25</div>
-                    <p className="text-sm text-gray-600">Avg Price/kg</p>
-                    <p className="text-xs text-purple-600">+8.2% vs last year</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-600">3,201kg</div>
-                    <p className="text-sm text-gray-600">Total Volume</p>
-                    <p className="text-xs text-orange-600">+11.5% vs last year</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           <TabsContent value="performance" className="space-y-6">
