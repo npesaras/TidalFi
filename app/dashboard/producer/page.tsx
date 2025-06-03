@@ -109,7 +109,7 @@ export default function producerDashboard() {
 
             <div className="flex space-x-2">
               <Button variant="outline" size="sm" className="flex-1" asChild>
-                <Link href={`/token/${harvest.id}`}>View Details</Link>
+                <Link href={`/dashboard/producer/tokens/${harvest.id}`}>View Details</Link>
               </Button>
               {harvest.status === "Ready Soon" && (
                 <Button size="sm" className="flex-1">
@@ -158,7 +158,7 @@ export default function producerDashboard() {
                 <Badge variant={harvest.status === "Ready Soon" ? "ready-soon" : "secondary"}>{harvest.status}</Badge>
                 <div className="flex space-x-2">
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`/token/${harvest.id}`}>View</Link>
+                    <Link href={`/dashboard/producer/tokens/${harvest.id}`}>View</Link>
                   </Button>
                   {harvest.status === "Ready Soon" && <Button size="sm">Harvest</Button>}
                 </div>
