@@ -269,11 +269,52 @@ export default function producerDashboard() {
                   <CardDescription>Revenue trends over the past 12 months</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center text-gray-500 border rounded-lg bg-gradient-to-br from-green-50 to-blue-50">
-                    <div className="text-center">
-                      <BarChart3 className="h-12 w-12 mx-auto mb-4 text-green-600" />
-                      <p className="font-medium">Monthly Revenue Chart</p>
-                      <p className="text-sm text-gray-600">$45,231 total this year</p>
+                  <div className="h-64 w-full">
+                    <div className="relative h-full">
+                      {/* Y-axis labels */}
+                      <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-4">
+                        <span>₱40000</span>
+                        <span>₱30000</span>
+                        <span>₱20000</span>
+                        <span>₱10000</span>
+                        <span>₱0</span>
+                      </div>
+                      
+                      {/* Chart area */}
+                      <div className="ml-12 h-full relative">
+                        <svg className="w-full h-full" viewBox="0 0 400 200">
+                          {/* Grid lines */}
+                          <defs>
+                            <pattern id="grid" width="66.66" height="40" patternUnits="userSpaceOnUse">
+                              <path d="M 66.66 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
+                            </pattern>
+                          </defs>
+                          <rect width="100%" height="100%" fill="url(#grid)" />
+                          
+                          {/* Revenue line */}
+                          <polyline
+                            fill="none"
+                            stroke="#10b981"
+                            strokeWidth="2"
+                            points="0,180 66,150 133,130 200,110 266,85 333,60 400,40"
+                          />
+                          
+                          {/* Data points */}
+                          {[0, 66, 133, 200, 266, 333, 400].map((x, i) => (
+                            <circle key={i} cx={x} cy={[180, 150, 130, 110, 85, 60, 40][i]} r="3" fill="#10b981" />
+                          ))}
+                        </svg>
+                        
+                        {/* X-axis labels */}
+                        <div className="flex justify-between text-xs text-gray-500 mt-2">
+                          <span>Jan</span>
+                          <span>Feb</span>
+                          <span>Mar</span>
+                          <span>Apr</span>
+                          <span>May</span>
+                          <span>Jun</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -289,36 +330,37 @@ export default function producerDashboard() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                        <span>Atlantic Salmon</span>
+                        <span>Tilapia</span>
                       </div>
-                      <span className="font-semibold">$18,450 (41%)</span>
+                      <span className="font-semibold">₱180,450 (36%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-green-500 rounded"></div>
-                        <span>Sea Bass</span>
+                        <span>Pompano</span>
                       </div>
-                      <span className="font-semibold">$15,230 (34%)</span>
+                      <span className="font-semibold">₱150,230 (30%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-purple-500 rounded"></div>
-                        <span>Rainbow Trout</span>
+                        <span>Milkfish</span>
                       </div>
-                      <span className="font-semibold">$8,890 (20%)</span>
+                      <span className="font-semibold">₱120,890 (24%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-orange-500 rounded"></div>
-                        <span>Arctic Char</span>
+                        <span>Bangus</span>
                       </div>
-                      <span className="font-semibold">$2,661 (5%)</span>
+                      <span className="font-semibold">₱48,661 (10%)</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
 
+            {/* Revenue Analytics Card */}
             <Card>
               <CardHeader>
                 <CardTitle>Revenue Analytics</CardTitle>
@@ -327,22 +369,22 @@ export default function producerDashboard() {
               <CardContent>
                 <div className="grid md:grid-cols-4 gap-6">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">$45,231</div>
+                    <div className="text-2xl font-bold text-green-600">₱500,231</div>
                     <p className="text-sm text-gray-600">Total Revenue</p>
                     <p className="text-xs text-green-600">+20.1% vs last year</p>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">$3,769</div>
+                    <div className="text-2xl font-bold text-blue-600">₱41,686</div>
                     <p className="text-sm text-gray-600">Avg Monthly</p>
                     <p className="text-xs text-blue-600">+15.3% vs last year</p>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">$9.85</div>
+                    <div className="text-2xl font-bold text-purple-600">₱156.25</div>
                     <p className="text-sm text-gray-600">Avg Price/kg</p>
                     <p className="text-xs text-purple-600">+8.2% vs last year</p>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-600">4,590kg</div>
+                    <div className="text-2xl font-bold text-orange-600">3,201kg</div>
                     <p className="text-sm text-gray-600">Total Volume</p>
                     <p className="text-xs text-orange-600">+11.5% vs last year</p>
                   </div>
