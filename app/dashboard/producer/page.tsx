@@ -10,88 +10,108 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import {
   Fish,
+  Waves,
+  TrendingUp,
+  BarChart3,
   Plus,
+  Eye,
+  Calendar,
+  Clock,
+  DollarSign,
+  Activity,
+  Users,
   Grid3X3,
   List,
-  BarChart3,
-  TrendingUp,
-  Users,
+  CheckCircle,
+  ArrowUpRight,
 } from "lucide-react"
 import { DashboardHeader } from "@/components/dashboard-header"
 
-export default function producerDashboard() {
+// Import shared data
+import { 
+  ponds, 
+  getTotalPonds, 
+  getTotalCapacity, 
+  getTotalCurrentStock, 
+  getTotalActiveTokens, 
+  getTotalValue 
+} from "@/lib/data/ponds"
+
+import { 
+  tokens, 
+  getActiveTokensCount, 
+  getTotalTokenValue, 
+  getTokensByStatus 
+} from "@/lib/data/tokens"
+
+import { 
+  transactions, 
+  getRecentTransactions, 
+  formatTransactionTime,
+  type Transaction
+} from "@/lib/data/transactions"
+
+export default function ProducerDashboard() {
+  const [timeRange, setTimeRange] = useState("7d")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 
-  const harvestTokens = [
-    {
-      id: "TF-001",
-      species: "Tilapia",
-      quantity: "2,500 kg",
-      harvestDate: "2024-03-15",
-      location: "Laguna - Sector 3",
-      progress: 75,
-      status: "Growing",
-      funded: "₱937,500",
-      total: "₱1,250,000",
-    },
-    {
-      id: "TF-002",
-      species: "Pompano",
-      quantity: "1,800 kg",
-      harvestDate: "2024-02-28",
-      location: "Batangas - Sector 1",
-      progress: 90,
-      status: "Ready Soon",
-      funded: "₱675,000",
-      total: "₱750,000",
-    },
-    {
-      id: "TF-003",
-      species: "Milkfish",
-      quantity: "3,200 kg",
-      harvestDate: "2024-04-20",
-      location: "Pangasinan - Sector 5",
-      progress: 45,
-      status: "Growing",
-      funded: "₱1,440,000",
-      total: "₱1,600,000",
-    },
-  ]
+  // Calculate dashboard stats using shared data
+  const totalPonds = getTotalPonds()
+  const totalCapacity = getTotalCapacity()
+  const currentStock = getTotalCurrentStock()
+  const activeTokens = getActiveTokensCount()
+  const totalValue = getTotalTokenValue()
+  // Get recent tokens (last 3)
+  const recentTokens = tokens.slice(-3).reverse()
 
-  const renderGridView = () => (
+  // Get recent transactions (last 5)
+  const recentTransactions = getRecentTransactions(5)
+
+  // Get tokens by status
+  const readySoonTokens = getTokensByStatus("Ready Soon")
+  const growingTokens = getTokensByStatus("Growing")
+
+  // Calculate utilization percentage
+  const totalCapacityNum = parseInt(getTotalCapacity().replace(/[^0-9]/g, ''))
+  const currentStockNum = parseInt(getTotalCurrentStock().replace(/[^0-9]/g, ''))
+  const utilizationPercentage = Math.round((currentStockNum / totalCapacityNum) * 100)
+
+  const renderTokenGridView = () => (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {harvestTokens.map((harvest) => (
-        <Card key={harvest.id} className="hover:shadow-lg transition-shadow">
+      {tokens.map((token) => (
+        <Card key={token.id} className="hover:shadow-lg transition-shadow">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <Fish className="h-8 w-8 text-blue-600" />
                 <div>
-                  <CardTitle className="text-lg">{harvest.species}</CardTitle>
-                  <CardDescription>Token {harvest.id}</CardDescription>
+                  <CardTitle className="text-lg">{token.species}</CardTitle>
+                  <CardDescription>Token {token.id}</CardDescription>
                 </div>
               </div>
-              <Badge variant={harvest.status === "Ready Soon" ? "ready-soon" : "secondary"}>{harvest.status}</Badge>
+              <Badge variant={token.status === "Ready Soon" ? "destructive" : "secondary"}>
+                {token.status}
+              </Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="text-gray-600">Quantity</p>
-                <p className="font-medium">{harvest.quantity}</p>
+                <p className="font-medium">{token.quantity}</p>
               </div>
               <div>
                 <p className="text-gray-600">Harvest Date</p>
-                <p className="font-medium">{harvest.harvestDate}</p>
+                <p className="font-medium">{token.harvestDate}</p>
               </div>
               <div>
-                <p className="text-gray-600">Location</p>
-                <p className="font-medium">{harvest.location}</p>
+                <p className="text-gray-600">Days Remaining</p>
+                <p className="font-medium">{token.daysRemaining} days</p>
               </div>
               <div>
                 <p className="text-gray-600">Funding</p>
                 <p className="font-medium">
-                  {harvest.funded} / {harvest.total}
+                  {token.funded} / {token.total}
                 </p>
               </div>
             </div>
@@ -99,16 +119,16 @@ export default function producerDashboard() {
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span>Growth Progress</span>
-                <span>{harvest.progress}%</span>
+                <span>{token.progress}%</span>
               </div>
-              <Progress value={harvest.progress} className="h-2" />
+              <Progress value={token.progress} className="h-2" />
             </div>
 
             <div className="flex space-x-2">
               <Button variant="outline" size="sm" className="flex-1" asChild>
-                <Link href={`/token/${harvest.id}`}>View Details</Link>
+                <Link href={`/token/${token.id}`}>View Details</Link>
               </Button>
-              {harvest.status === "Ready Soon" && (
+              {token.status === "Ready Soon" && (
                 <Button size="sm" className="flex-1">
                   Initiate Harvest
                 </Button>
@@ -120,44 +140,46 @@ export default function producerDashboard() {
     </div>
   )
 
-  const renderListView = () => (
+  const renderTokenListView = () => (
     <div className="space-y-4">
-      {harvestTokens.map((harvest) => (
-        <Card key={harvest.id}>
+      {tokens.map((token) => (
+        <Card key={token.id}>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <Fish className="h-10 w-10 text-blue-600" />
                 <div>
-                  <h3 className="font-semibold text-lg">{harvest.species}</h3>
+                  <h3 className="font-semibold text-lg">{token.species}</h3>
                   <p className="text-sm text-gray-600">
-                    Token {harvest.id} • {harvest.location}
+                    Token {token.id} • {token.pond}
                   </p>
                 </div>
               </div>
               <div className="flex items-center space-x-6">
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Quantity</p>
-                  <p className="font-medium">{harvest.quantity}</p>
+                  <p className="font-medium">{token.quantity}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Progress</p>
-                  <p className="font-medium">{harvest.progress}%</p>
+                  <p className="font-medium">{token.progress}%</p>
                 </div>
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Funding</p>
-                  <p className="font-medium">{harvest.funded}</p>
+                  <p className="font-medium">{token.funded}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Harvest Date</p>
-                  <p className="font-medium">{harvest.harvestDate}</p>
+                  <p className="font-medium">{token.harvestDate}</p>
                 </div>
-                <Badge variant={harvest.status === "Ready Soon" ? "ready-soon" : "secondary"}>{harvest.status}</Badge>
+                <Badge variant={token.status === "Ready Soon" ? "destructive" : "secondary"}>
+                  {token.status}
+                </Badge>
                 <div className="flex space-x-2">
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`/token/${harvest.id}`}>View</Link>
+                    <Link href={`/token/${token.id}`}>View</Link>
                   </Button>
-                  {harvest.status === "Ready Soon" && <Button size="sm">Harvest</Button>}
+                  {token.status === "Ready Soon" && <Button size="sm">Harvest</Button>}
                 </div>
               </div>
             </div>
@@ -172,6 +194,7 @@ export default function producerDashboard() {
       <DashboardHeader userRole="producer" />
 
       <div className="container mx-auto px-4 py-8">
+        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Good morning! Mario</h1>
@@ -185,56 +208,291 @@ export default function producerDashboard() {
           </Button>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {/* Key Metrics */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-lg font-medium">Active Tokens</CardTitle>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
+                <BarChart3 className="h-4 w-4 mr-2" />
+                Active Tokens
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold">12</div>
-              <p className="text-base text-green-600 font-medium">+2 from last month</p>
+              <div className="text-3xl font-bold text-gray-900">{activeTokens}</div>
+              <p className="text-sm text-green-600 mt-1">+2 from last month</p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-lg font-medium">Total Revenue</CardTitle>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
+                <DollarSign className="h-4 w-4 mr-2" />
+                Total Revenue
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold">₱500,231</div>
-              <p className="text-base text-green-600 font-medium">+20.1% from last month</p>
+              <div className="text-3xl font-bold text-gray-900">₱500,231</div>
+              <p className="text-sm text-green-600 mt-1">+20.1% from last month</p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-lg font-medium">Pending Settlements</CardTitle>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
+                <Clock className="h-4 w-4 mr-2" />
+                Pending Settlements
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold">3</div>
-              <p className="text-base text-orange-600 font-medium">2 ready for harvest</p>
+              <div className="text-3xl font-bold text-gray-900">{readySoonTokens.length}</div>
+              <p className="text-sm text-orange-600 mt-1">{readySoonTokens.length} ready for harvest</p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-lg font-medium">Average ROI</CardTitle>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
+                <TrendingUp className="h-4 w-4 mr-2" />
+                Average ROI
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold">14.2%</div>
-              <p className="text-base text-red-600 font-medium">-1.3% from last month</p>
+              <div className="text-3xl font-bold text-gray-900">14.2%</div>
+              <p className="text-sm text-red-600 mt-1">-1.3% from last month</p>
             </CardContent>
           </Card>
         </div>
 
-        <Tabs defaultValue="harvests" className="space-y-6">
+        <Tabs defaultValue="overview" className="space-y-6">
           <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="harvests">My Harvests</TabsTrigger>
             <TabsTrigger value="revenue">Revenue</TabsTrigger>
             <TabsTrigger value="performance">Token Performance</TabsTrigger>
           </TabsList>
 
+          <TabsContent value="overview" className="space-y-6">
+            {/* Utilization Overview */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Activity className="h-5 w-5 mr-2" />
+                  Overall Pond Utilization
+                </CardTitle>
+                <CardDescription>
+                  Current stock capacity across all ponds
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-2xl font-bold text-gray-900">{utilizationPercentage}%</p>
+                      <p className="text-sm text-gray-600">
+                        {currentStock} of {totalCapacity} capacity used
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-gray-600">Available Capacity</p>
+                      <p className="text-lg font-semibold text-blue-600">
+                        {(totalCapacityNum - currentStockNum).toLocaleString()} kg
+                      </p>
+                    </div>
+                  </div>
+                  <Progress value={utilizationPercentage} className="h-3" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Pond Status Overview */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <span className="flex items-center">
+                      <Waves className="h-5 w-5 mr-2" />
+                      Pond Status
+                    </span>
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href="/dashboard/producer/pond">
+                        <Eye className="h-4 w-4 mr-2" />
+                        View All
+                      </Link>
+                    </Button>
+                  </CardTitle>
+                  <CardDescription>Quick overview of your pond conditions</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {ponds.map((pond) => (
+                    <div key={pond.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <Waves className="h-8 w-8 text-blue-600" />
+                        <div>
+                          <p className="font-medium">{pond.name}</p>
+                          <p className="text-sm text-gray-600">{pond.location}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <Badge 
+                          variant="outline" 
+                          className={
+                            pond.status === "optimal" ? "bg-green-100 text-green-800" :
+                            pond.status === "good" ? "bg-blue-100 text-blue-800" :
+                            pond.status === "attention" ? "bg-yellow-100 text-yellow-800" :
+                            "bg-red-100 text-red-800"
+                          }
+                        >
+                          {pond.status}
+                        </Badge>
+                        <p className="text-sm text-gray-600 mt-1">{pond.utilization}% utilized</p>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              {/* Recent Tokens */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <span className="flex items-center">
+                      <BarChart3 className="h-5 w-5 mr-2" />
+                      Recent Tokens
+                    </span>
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href="#harvests">
+                        <Eye className="h-4 w-4 mr-2" />
+                        View All
+                      </Link>
+                    </Button>
+                  </CardTitle>
+                  <CardDescription>Latest tokenized assets</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {recentTokens.map((token) => (
+                    <div key={token.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <Fish className="h-8 w-8 text-green-600" />
+                        <div>
+                          <p className="font-medium">{token.species}</p>
+                          <p className="text-sm text-gray-600">{token.id} • {token.quantity}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-medium">{token.total}</p>
+                        <div className="flex items-center space-x-2">
+                          <Progress value={token.progress} className="h-1 w-16" />
+                          <span className="text-xs text-gray-600">{token.progress}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {recentTokens.length === 0 && (
+                    <div className="text-center py-8">
+                      <Fish className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                      <p className="text-gray-600 mb-4">No tokens created yet</p>
+                      <Button asChild>
+                        <Link href="/tokenize">
+                          <Plus className="h-4 w-4 mr-2" />
+                          Create Your First Token
+                        </Link>
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>            </div>
+
+            {/* Recent Activity */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <span className="flex items-center">
+                    <Activity className="h-5 w-5 mr-2" />
+                    Recent Activity
+                  </span>
+                  <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4 mr-2" />
+                    View All
+                  </Button>
+                </CardTitle>
+                <CardDescription>Latest transactions and token activities</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {recentTransactions.map((transaction) => {
+                  const getTransactionIcon = (iconName: string) => {
+                    switch (iconName) {
+                      case "TrendingUp":
+                        return <TrendingUp className="h-5 w-5 text-green-600" />
+                      case "CheckCircle":
+                        return <CheckCircle className="h-5 w-5 text-blue-600" />
+                      case "Fish":
+                        return <Fish className="h-5 w-5 text-purple-600" />
+                      case "DollarSign":
+                        return <DollarSign className="h-5 w-5 text-green-600" />
+                      case "Plus":
+                        return <Plus className="h-5 w-5 text-blue-600" />
+                      case "ArrowUpRight":
+                        return <ArrowUpRight className="h-5 w-5 text-orange-600" />
+                      case "Clock":
+                        return <Clock className="h-5 w-5 text-yellow-600" />
+                      case "Calendar":
+                        return <Calendar className="h-5 w-5 text-purple-600" />
+                      default:
+                        return <Activity className="h-5 w-5 text-gray-600" />
+                    }
+                  }
+
+                  return (
+                    <div key={transaction.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        {getTransactionIcon(transaction.icon)}
+                        <div>
+                          <p className="font-medium text-sm">{transaction.title}</p>
+                          <p className="text-xs text-gray-600">{transaction.description}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        {transaction.amount && (
+                          <p className="text-sm font-medium text-gray-900">{transaction.amount}</p>
+                        )}
+                        <div className="flex items-center space-x-2">
+                          <Badge 
+                            variant="outline" 
+                            className={
+                              transaction.status === "completed" ? "bg-green-100 text-green-800" :
+                              transaction.status === "pending" ? "bg-yellow-100 text-yellow-800" :
+                              "bg-red-100 text-red-800"
+                            }
+                          >
+                            {transaction.status}
+                          </Badge>
+                          <span className="text-xs text-gray-500">
+                            {formatTransactionTime(transaction.timestamp)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+                
+                {recentTransactions.length === 0 && (
+                  <div className="text-center py-8">
+                    <Activity className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                    <p className="text-gray-600 mb-4">No recent activity</p>
+                    <Button asChild>
+                      <Link href="/tokenize">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Create Your First Token
+                      </Link>
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+          {/* Active Tokens Overview */}
+          </TabsContent>
           <TabsContent value="harvests" className="space-y-6">
             <Card>
               <CardHeader>
@@ -257,11 +515,14 @@ export default function producerDashboard() {
                   </ToggleGroup>
                 </div>
               </CardHeader>
-              <CardContent>{viewMode === "grid" ? renderGridView() : renderListView()}</CardContent>
+              <CardContent>
+                {viewMode === "grid" ? renderTokenGridView() : renderTokenListView()}
+              </CardContent>
             </Card>
           </TabsContent>
 
           <TabsContent value="revenue" className="space-y-6">
+            {/* Keep all your original revenue content here */}
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -330,28 +591,28 @@ export default function producerDashboard() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                        <span>Tilapia</span>
+                        <span>Atlantic Salmon</span>
                       </div>
                       <span className="font-semibold">₱180,450 (36%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-green-500 rounded"></div>
-                        <span>Pompano</span>
+                        <span>Rainbow Trout</span>
                       </div>
                       <span className="font-semibold">₱150,230 (30%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-purple-500 rounded"></div>
-                        <span>Milkfish</span>
+                        <span>Sea Bass</span>
                       </div>
                       <span className="font-semibold">₱120,890 (24%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 bg-orange-500 rounded"></div>
-                        <span>Bangus</span>
+                        <span>Arctic Char</span>
                       </div>
                       <span className="font-semibold">₱48,661 (10%)</span>
                     </div>
@@ -394,6 +655,7 @@ export default function producerDashboard() {
           </TabsContent>
 
           <TabsContent value="performance" className="space-y-6">
+            {/* Keep all your original performance content here */}
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
