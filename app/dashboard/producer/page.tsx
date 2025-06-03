@@ -51,6 +51,12 @@ import {
   type Transaction
 } from "@/lib/data/transactions"
 
+import { 
+  getSpeciesRevenue, 
+  formatCurrency,
+  type SpeciesRevenue
+} from "@/lib/data/species"
+
 export default function ProducerDashboard() {
   const [timeRange, setTimeRange] = useState("7d")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
@@ -63,9 +69,11 @@ export default function ProducerDashboard() {
   const totalValue = getTotalTokenValue()
   // Get recent tokens (last 3)
   const recentTokens = tokens.slice(-3).reverse()
-
   // Get recent transactions (last 5)
   const recentTransactions = getRecentTransactions(5)
+
+  // Get species revenue data
+  const speciesRevenueData = getSpeciesRevenue()
 
   // Get tokens by status
   const readySoonTokens = getTokensByStatus("Ready Soon")
@@ -544,35 +552,86 @@ export default function ProducerDashboard() {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-
-              <Card>
+              </Card>              <Card>
                 <CardHeader>
                   <CardTitle>Revenue by Species</CardTitle>
                   <CardDescription>Breakdown of earnings by fish type</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                        <span>Tilapia</span>
+                  <div className="h-64 w-full">
+                    <div className="relative h-full">
+                      {/* Y-axis labels */}
+                      <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-4">
+                        <span>₱200k</span>
+                        <span>₱150k</span>
+                        <span>₱100k</span>
+                        <span>₱50k</span>
+                        <span>₱0</span>
                       </div>
-                      <span className="font-semibold">₱180,450 (36%)</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 bg-green-500 rounded"></div>
-                        <span>Milkfish</span>
+                      
+                      {/* Chart area */}
+                      <div className="ml-12 h-full relative">
+                        <svg className="w-full h-full" viewBox="0 0 400 200">
+                          {/* Grid lines */}
+                          <defs>
+                            <pattern id="speciesGrid" width="133.33" height="40" patternUnits="userSpaceOnUse">
+                              <path d="M 133.33 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
+                            </pattern>
+                          </defs>
+                          <rect width="100%" height="100%" fill="url(#speciesGrid)" />
+                          
+                          {/* Revenue bars with data from centralized source */}
+                          {speciesRevenueData.map((species, index) => {
+                            const barHeight = (species.revenue / 200000) * 180; // Scale to 200k max
+                            const barX = 40 + (index * 120);
+                            const barY = 200 - barHeight;
+                            
+                            return (
+                              <g key={species.id}>
+                                {/* Bar */}
+                                <rect 
+                                  x={barX} 
+                                  y={barY} 
+                                  width="50" 
+                                  height={barHeight} 
+                                  fill={species.color.replace('bg-', '#').replace('blue-500', '3b82f6').replace('green-500', '10b981').replace('purple-500', '8b5cf6')}
+                                  rx="4" 
+                                />
+                                
+                                {/* Value label on top of bar */}
+                                <text 
+                                  x={barX + 25} 
+                                  y={barY - 8} 
+                                  textAnchor="middle" 
+                                  className="text-xs font-semibold fill-gray-700"
+                                >
+                                  {formatCurrency(species.revenue)}
+                                </text>
+                                
+                                {/* Percentage label inside bar */}
+                                <text 
+                                  x={barX + 25} 
+                                  y={barY + 20} 
+                                  textAnchor="middle" 
+                                  className="text-xs font-medium fill-white"
+                                >
+                                  {species.percentage}%
+                                </text>
+                              </g>
+                            );
+                          })}
+                        </svg>
+                        
+                        {/* X-axis labels */}
+                        <div className="flex justify-around text-sm text-gray-600 mt-4 px-10">
+                          {speciesRevenueData.map((species) => (
+                            <div key={species.id} className="flex items-center space-x-2">
+                              <div className={`w-3 h-3 rounded ${species.color}`}></div>
+                              <span>{species.name}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <span className="font-semibold">₱150,230 (30%)</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 bg-purple-500 rounded"></div>
-                        <span>Pompano</span>
-                      </div>
-                      <span className="font-semibold">₱120,890 (24%)</span>
                     </div>
                   </div>
                 </CardContent>
