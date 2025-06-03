@@ -213,7 +213,6 @@ export default function ProducerDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <BarChart3 className="h-4 w-4 mr-2" />
                 Active Tokens
               </CardTitle>
             </CardHeader>
@@ -226,7 +225,6 @@ export default function ProducerDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <DollarSign className="h-4 w-4 mr-2" />
                 Total Revenue
               </CardTitle>
             </CardHeader>
@@ -239,7 +237,6 @@ export default function ProducerDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <Clock className="h-4 w-4 mr-2" />
                 Pending Settlements
               </CardTitle>
             </CardHeader>
@@ -252,7 +249,6 @@ export default function ProducerDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <TrendingUp className="h-4 w-4 mr-2" />
                 Average ROI
               </CardTitle>
             </CardHeader>
@@ -310,7 +306,6 @@ export default function ProducerDashboard() {
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between">
                     <span className="flex items-center">
-                      <Waves className="h-5 w-5 mr-2" />
                       Pond Status
                     </span>
                     <Button variant="outline" size="sm" asChild>
@@ -324,9 +319,8 @@ export default function ProducerDashboard() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {ponds.map((pond) => (
-                    <div key={pond.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={pond.id} className="flex items-center justify-between p-3 bg-slate-100 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <Waves className="h-8 w-8 text-blue-600" />
                         <div>
                           <p className="font-medium">{pond.name}</p>
                           <p className="text-sm text-gray-600">{pond.location}</p>
@@ -370,9 +364,8 @@ export default function ProducerDashboard() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {recentTokens.map((token) => (
-                    <div key={token.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={token.id} className="flex items-center justify-between p-3 bg-slate-100 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <Fish className="h-8 w-8 text-green-600" />
                         <div>
                           <p className="font-medium">{token.species}</p>
                           <p className="text-sm text-gray-600">{token.id} • {token.quantity}</p>
@@ -408,7 +401,6 @@ export default function ProducerDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span className="flex items-center">
-                    <Activity className="h-5 w-5 mr-2" />
                     Recent Activity
                   </span>
                   <Button variant="outline" size="sm">
@@ -420,35 +412,11 @@ export default function ProducerDashboard() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {recentTransactions.map((transaction) => {
-                  const getTransactionIcon = (iconName: string) => {
-                    switch (iconName) {
-                      case "TrendingUp":
-                        return <TrendingUp className="h-5 w-5 text-emerald-600" />
-                      case "CheckCircle":
-                        return <CheckCircle className="h-5 w-5 text-primary" />
-                      case "Fish":
-                        return <Fish className="h-5 w-5 text-purple-600" />
-                      case "DollarSign":
-                        return <DollarSign className="h-5 w-5 text-emerald-600" />
-                      case "Plus":
-                        return <Plus className="h-5 w-5 text-primary" />
-                      case "ArrowUpRight":
-                        return <ArrowUpRight className="h-5 w-5 text-orange-600" />
-                      case "Clock":
-                        return <Clock className="h-5 w-5 text-amber-600" />
-                      case "Calendar":
-                        return <Calendar className="h-5 w-5 text-purple-600" />
-                      default:
-                        return <Activity className="h-5 w-5 text-muted-foreground" />
-                    }
-                  }
-
                   return (
-                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-background border rounded-lg">
+                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-slate-100 border rounded-lg">
                       <div className="flex items-center space-x-3">
-                        {getTransactionIcon(transaction.icon)}
                         <div>
-                          <p className="font-medium text-sm text-foreground">{transaction.title}</p>
+                          <p className="font-bold text-sm text-foreground">{transaction.title}</p>
                           <p className="text-xs text-muted-foreground">{transaction.description}</p>
                         </div>
                       </div>
