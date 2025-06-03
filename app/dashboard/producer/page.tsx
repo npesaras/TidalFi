@@ -484,37 +484,8 @@ export default function ProducerDashboard() {
               </CardContent>
             </Card>
           </TabsContent>
-          {/* Revenue Analytics Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Revenue Analytics</CardTitle>
-              <CardDescription>Detailed revenue performance metrics</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold">₱500,231</div>
-                  <p className="text-sm text-gray-600">Total Revenue</p>
-                  <p className="text-xs text-green-600">+20.1% vs last year</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">₱41,686</div>
-                  <p className="text-sm text-gray-600">Avg Monthly</p>
-                  <p className="text-xs text-blue-600">+15.3% vs last year</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">₱156.25</div>
-                  <p className="text-sm text-gray-600">Avg Price/kg</p>
-                  <p className="text-xs text-purple-600">+8.2% vs last year</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">3,201kg</div>
-                  <p className="text-sm text-gray-600">Total Volume</p>
-                  <p className="text-xs text-orange-600">+11.5% vs last year</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+
+          {/* Revenue Overview */}
           <TabsContent value="revenue" className="space-y-6">
             {/* Keep all your original revenue content here */}
             <div className="grid md:grid-cols-2 gap-6">
