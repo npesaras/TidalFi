@@ -74,7 +74,7 @@ export default function InvestorDashboard() {
                   <CardDescription>{holding.farmer}</CardDescription>
                 </div>
               </div>
-              <Badge variant={holding.status === "Ready Soon" ? "default" : "secondary"}>{holding.status}</Badge>
+              <Badge variant={holding.status === "Ready Soon" ? "ready-soon" : "secondary"}>{holding.status}</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -151,7 +151,7 @@ export default function InvestorDashboard() {
                   <p className="text-sm text-gray-600">Progress</p>
                   <p className="font-medium">{holding.progress}%</p>
                 </div>
-                <Badge variant={holding.status === "Ready Soon" ? "default" : "secondary"}>{holding.status}</Badge>
+                <Badge variant={holding.status === "Ready Soon" ? "ready-soon" : "secondary"}>{holding.status}</Badge>
                 <div className="flex space-x-2">
                   <Button variant="outline" size="sm" asChild>
                     <Link href={`/token/${holding.tokenId}`}>View</Link>

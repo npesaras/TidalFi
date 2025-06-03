@@ -74,7 +74,7 @@ export default function producerDashboard() {
                   <CardDescription>Token {harvest.id}</CardDescription>
                 </div>
               </div>
-              <Badge variant={harvest.status === "Ready Soon" ? "default" : "secondary"}>{harvest.status}</Badge>
+              <Badge variant={harvest.status === "Ready Soon" ? "ready-soon" : "secondary"}>{harvest.status}</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -155,7 +155,7 @@ export default function producerDashboard() {
                   <p className="text-sm text-gray-600">Harvest Date</p>
                   <p className="font-medium">{harvest.harvestDate}</p>
                 </div>
-                <Badge variant={harvest.status === "Ready Soon" ? "default" : "secondary"}>{harvest.status}</Badge>
+                <Badge variant={harvest.status === "Ready Soon" ? "ready-soon" : "secondary"}>{harvest.status}</Badge>
                 <div className="flex space-x-2">
                   <Button variant="outline" size="sm" asChild>
                     <Link href={`/token/${harvest.id}`}>View</Link>

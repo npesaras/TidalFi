@@ -92,3 +92,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .badge-ready-soon {
+    @apply bg-orange-500 hover:bg-orange-600 text-white border-orange-500;
+  }
+}
