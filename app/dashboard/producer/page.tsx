@@ -174,8 +174,8 @@ export default function producerDashboard() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Producer Dashboard</h1>
-            <p className="text-gray-600">Manage your fish harvests and tokens</p>
+            <h1 className="text-3xl font-bold text-gray-900">Good morning! Mario</h1>
+            <p className="text-gray-600">Manage your ponds, harvests, and earnings — all in one place.</p>
           </div>
           <Button asChild>
             <Link href="/tokenize">
