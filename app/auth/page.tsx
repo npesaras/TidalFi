@@ -51,20 +51,6 @@ export default function AuthPage() {
           </div>
 
           <Tabs value={selectedRole} onValueChange={setSelectedRole} className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="producer" className="flex items-center gap-2">
-                <Fish className="h-4 w-4" />
-                Producer
-              </TabsTrigger>
-              <TabsTrigger value="investor" className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4" />
-                Investor
-              </TabsTrigger>
-              <TabsTrigger value="buyer" className="flex items-center gap-2">
-                <ShoppingCart className="h-4 w-4" />
-                Buyer
-              </TabsTrigger>
-            </TabsList>
 
             <TabsContent value="producer" className="mt-8">
               <Card>
@@ -72,7 +58,6 @@ export default function AuthPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <CardTitle className="flex items-center gap-2">
-                        <Fish className="h-6 w-6 text-blue-600" />
                         Fish Producer
                       </CardTitle>
                       <CardDescription>
@@ -101,97 +86,6 @@ export default function AuthPage() {
                     </div>
                   </div>
                   <Button onClick={() => handleInternetIdentityLogin("producer")} className="w-full" size="lg">
-                    <Shield className="h-4 w-4 mr-2" />
-                    Continue with Internet Identity
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="investor" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="flex items-center gap-2">
-                        <TrendingUp className="h-6 w-6 text-green-600" />
-                        Investor
-                      </CardTitle>
-                      <CardDescription>
-                        Fund sustainable aquaculture and earn returns from successful harvests
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">What you can do:</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        <li>• Purchase harvest tokens</li>
-                        <li>• Track investment performance</li>
-                        <li>• Monitor sustainability metrics</li>
-                        <li>• Participate in DAO governance</li>
-                      </ul>
-                    </div>
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">Benefits:</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        <li>• Diversified aquaculture exposure</li>
-                        <li>• Transparent sustainability tracking</li>
-                        <li>• Fractional ownership opportunities</li>
-                        <li>• Support for sustainable practices</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <Button onClick={() => handleInternetIdentityLogin("investor")} className="w-full" size="lg">
-                    <Shield className="h-4 w-4 mr-2" />
-                    Continue with Internet Identity
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="buyer" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="flex items-center gap-2">
-                        <ShoppingCart className="h-6 w-6 text-purple-600" />
-                        Buyer
-                      </CardTitle>
-                      <CardDescription>
-                        Purchase premium, traceable fish with verified sustainability credentials
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">What you can do:</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        <li>• Browse available fish harvests</li>
-                        <li>• Purchase tokens for future delivery</li>
-                        <li>• Track delivery and quality</li>
-                        <li>• Verify sustainability credentials</li>
-                        <li>• Build supplier relationships</li>
-                      </ul>
-                    </div>
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">Perfect for:</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        <li>• Restaurants</li>
-                        <li>• Seafood retailers</li>
-                        <li>• Food distributors</li>
-                        <li>• Sustainability-focused buyers</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <Button onClick={() => handleInternetIdentityLogin("buyer")} className="w-full" size="lg">
                     <Shield className="h-4 w-4 mr-2" />
                     Continue with Internet Identity
                     <ArrowRight className="h-4 w-4 ml-2" />
