@@ -423,51 +423,55 @@ export default function ProducerDashboard() {
                   const getTransactionIcon = (iconName: string) => {
                     switch (iconName) {
                       case "TrendingUp":
-                        return <TrendingUp className="h-5 w-5 text-green-600" />
+                        return <TrendingUp className="h-5 w-5 text-emerald-600" />
                       case "CheckCircle":
-                        return <CheckCircle className="h-5 w-5 text-blue-600" />
+                        return <CheckCircle className="h-5 w-5 text-primary" />
                       case "Fish":
                         return <Fish className="h-5 w-5 text-purple-600" />
                       case "DollarSign":
-                        return <DollarSign className="h-5 w-5 text-green-600" />
+                        return <DollarSign className="h-5 w-5 text-emerald-600" />
                       case "Plus":
-                        return <Plus className="h-5 w-5 text-blue-600" />
+                        return <Plus className="h-5 w-5 text-primary" />
                       case "ArrowUpRight":
                         return <ArrowUpRight className="h-5 w-5 text-orange-600" />
                       case "Clock":
-                        return <Clock className="h-5 w-5 text-yellow-600" />
+                        return <Clock className="h-5 w-5 text-amber-600" />
                       case "Calendar":
                         return <Calendar className="h-5 w-5 text-purple-600" />
                       default:
-                        return <Activity className="h-5 w-5 text-gray-600" />
+                        return <Activity className="h-5 w-5 text-muted-foreground" />
                     }
                   }
 
                   return (
-                    <div key={transaction.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-background border rounded-lg">
                       <div className="flex items-center space-x-3">
                         {getTransactionIcon(transaction.icon)}
                         <div>
-                          <p className="font-medium text-sm">{transaction.title}</p>
-                          <p className="text-xs text-gray-600">{transaction.description}</p>
+                          <p className="font-medium text-sm text-foreground">{transaction.title}</p>
+                          <p className="text-xs text-muted-foreground">{transaction.description}</p>
                         </div>
                       </div>
-                      <div className="text-right">
+                      <div className="flex items-center space-x-4">
                         {transaction.amount && (
-                          <p className="text-sm font-medium text-gray-900">{transaction.amount}</p>
+                          <p className="text-sm font-semibold text-foreground">{transaction.amount}</p>
                         )}
                         <div className="flex items-center space-x-2">
                           <Badge 
-                            variant="outline" 
+                            variant={
+                              transaction.status === "completed" ? "default" : 
+                              transaction.status === "pending" ? "secondary" : 
+                              "destructive"
+                            }
                             className={
-                              transaction.status === "completed" ? "bg-green-100 text-green-800" :
-                              transaction.status === "pending" ? "bg-yellow-100 text-yellow-800" :
-                              "bg-red-100 text-red-800"
+                              transaction.status === "completed" ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-200" :
+                              transaction.status === "pending" ? "bg-amber-100 text-amber-800 hover:bg-amber-200" :
+                              "bg-red-100 text-red-800 hover:bg-red-200"
                             }
                           >
                             {transaction.status}
                           </Badge>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-muted-foreground whitespace-nowrap">
                             {formatTransactionTime(transaction.timestamp)}
                           </span>
                         </div>
@@ -478,8 +482,8 @@ export default function ProducerDashboard() {
                 
                 {recentTransactions.length === 0 && (
                   <div className="text-center py-8">
-                    <Activity className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                    <p className="text-gray-600 mb-4">No recent activity</p>
+                    <Activity className="h-16 w-16 mx-auto text-muted-foreground/40 mb-4" />
+                    <p className="text-muted-foreground mb-4">No recent activity</p>
                     <Button asChild>
                       <Link href="/tokenize">
                         <Plus className="h-4 w-4 mr-2" />
