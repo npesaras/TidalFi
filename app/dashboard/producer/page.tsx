@@ -202,7 +202,7 @@ export default function producerDashboard() {
               <CardTitle className="text-lg font-medium">Total Revenue</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold">$45,231</div>
+              <div className="text-4xl font-bold">₱500,231</div>
               <p className="text-base text-green-600 font-medium">+20.1% from last month</p>
             </CardContent>
           </Card>
