@@ -29,20 +29,17 @@ export default function GovernancePage() {
   }, [searchParams])
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-blue-100">
       <DashboardHeader forceRole={userRole} />
-
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">        
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">DAO Governance</h1>
             <p className="text-gray-600">Participate in platform decisions and community proposals</p>
           </div>
-          <Button asChild>
-            <Link href={`/governance/create?role=${userRole}`}>
-              <Plus className="h-4 w-4 mr-2" />
-              Create Proposal
-            </Link>
+          <Button>
+            <Plus className="h-4 w-4 mr-2" />
+            Create Proposal
           </Button>
         </div>
 
