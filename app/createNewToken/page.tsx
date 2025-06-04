@@ -48,14 +48,14 @@ export default function TokenizePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-blue-200">
       <DashboardHeader userRole="producer" />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
-            <Button variant="ghost" asChild>
+            <Button className="bg-white" variant="ghost" asChild>
               <Link href="/dashboard/producer">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
@@ -79,7 +79,6 @@ export default function TokenizePage() {
               {currentStep === 1 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
-                    <Fish className="h-12 w-12 text-blue-600 mx-auto mb-4" />
                     <h2 className="text-2xl font-bold">Harvest Information</h2>
                     <p className="text-gray-600">Tell us about your fish harvest</p>
                   </div>
@@ -211,56 +210,6 @@ export default function TokenizePage() {
                       </div>
                     </div>
                     <div className="grid md:grid-cols-2 gap-6">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="text-lg">Sustainability Metrics</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          <div>
-                            <Label>Water Quality Score</Label>
-                            <div className="flex items-center space-x-3 mt-1">
-                              <Progress value={92} className="flex-1" />
-                              <span className="text-sm font-medium">92/100</span>
-                            </div>
-                          </div>
-                          <div>
-                            <Label>Feed Efficiency</Label>
-                            <div className="flex items-center space-x-3 mt-1">
-                              <Progress value={88} className="flex-1" />
-                              <span className="text-sm font-medium">88/100</span>
-                            </div>
-                          </div>
-                          <div>
-                            <Label>Carbon Footprint</Label>
-                            <div className="flex items-center space-x-3 mt-1">
-                              <Progress value={95} className="flex-1" />
-                              <span className="text-sm font-medium">95/100</span>
-                            </div>
-                          </div>
-                          <div>
-                            <Label>Animal Welfare</Label>
-                            <div className="flex items-center space-x-3 mt-1">
-                              <Progress value={94} className="flex-1" />
-                              <span className="text-sm font-medium">94/100</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="text-lg">Overall Score</CardTitle>
-                        </CardHeader>
-                        <CardContent className="text-center">
-                          <div className="text-4xl font-bold text-green-600 mb-2">92/100</div>
-                          <Badge variant="default" className="mb-4">
-                            Excellent
-                          </Badge>
-                          <p className="text-sm text-gray-600">
-                            Your sustainability score is calculated based on IoT monitoring data, certifications, and
-                            third-party audits.
-                          </p>
-                        </CardContent>
-                      </Card>
                     </div>
                   </div>
                 </div>
@@ -268,7 +217,6 @@ export default function TokenizePage() {
               {currentStep === 3 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
-                    <Camera className="h-12 w-12 text-purple-600 mx-auto mb-4" />
                     <h2 className="text-2xl font-bold">Documentation & Media</h2>
                     <p className="text-gray-600">Upload images and documents to build investor confidence</p>
                   </div>
@@ -304,27 +252,11 @@ export default function TokenizePage() {
                       </CardContent>
                     </Card>
                   </div>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>IoT Integration</CardTitle>
-                      <CardDescription>Connect your monitoring systems for real-time data</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center justify-between p-4 border rounded-lg">
-                        <div>
-                          <h4 className="font-medium">Water Quality Sensors</h4>
-                          <p className="text-sm text-gray-600">Temperature, pH, oxygen monitoring</p>
-                        </div>
-                        <Badge variant="default">Connected</Badge>
-                      </div>
-                    </CardContent>
-                  </Card>
                 </div>
               )}
               {currentStep === 4 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
-                    <DollarSign className="h-12 w-12 text-green-600 mx-auto mb-4" />
                     <h2 className="text-2xl font-bold">Token Configuration</h2>
                     <p className="text-gray-600">Set up your token parameters and launch</p>
                   </div>
