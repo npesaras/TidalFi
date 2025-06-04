@@ -28,11 +28,10 @@ export const ponds: Pond[] = [
     status: "optimal",
     waterTemp: "18.5°C",
     oxygenLevel: "8.2 mg/L",
-    phLevel: "7.1",
-    lastFed: "2 hours ago",
+    phLevel: "7.1",    lastFed: "2 hours ago",
     activeTokens: 3,
     totalValue: "$45,000",
-    image: "/images/pond-a.jpg",
+    image: "/pondA.jpg",
   },
   {
     id: "pond-b",
@@ -49,7 +48,7 @@ export const ponds: Pond[] = [
     lastFed: "1 hour ago",
     activeTokens: 2,
     totalValue: "$28,000",
-    image: "/images/pond-b.jpg",
+    image: "/pondB.jpg",
   },
   {
     id: "pond-c",
@@ -66,7 +65,7 @@ export const ponds: Pond[] = [
     lastFed: "30 minutes ago",
     activeTokens: 4,
     totalValue: "$62,000",
-    image: "/images/pond-c.jpg",
+    image: "/pondC.jpg",
   },
 ]
 

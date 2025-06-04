@@ -261,9 +261,8 @@ export default function MarketplacePage() {
                       <Button variant="outline" size="sm" className="flex-1">
                         <Eye className="h-4 w-4 mr-2" />
                         View Profile
-                      </Button>
-                      <Button size="sm" className="flex-1" asChild>
-                        <Link href={`/tokenize?restaurant=${restaurant.name.replace(/\s+/g, "-").toLowerCase()}`}>
+                      </Button>                      <Button size="sm" className="flex-1" asChild>
+                        <Link href={`/createNewToken?restaurant=${restaurant.name.replace(/\s+/g, "-").toLowerCase()}`}>
                           <Plus className="h-4 w-4 mr-2" />
                           Create Token
                         </Link>
@@ -458,15 +457,14 @@ export default function MarketplacePage() {
                   <CardTitle>Recommended Actions</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <Button className="w-full justify-start" variant="outline" asChild>
-                      <Link href="/tokenize?restaurant=oceans-table&species=salmon&grade=premium">
+                  <div className="space-y-3">                    <Button className="w-full justify-start" variant="outline" asChild>
+                      <Link href="/createNewToken?restaurant=oceans-table&species=salmon&grade=premium">
                         <Plus className="h-4 w-4 mr-2" />
                         Create Token for Ocean's Table
                       </Link>
                     </Button>
                     <Button className="w-full justify-start" variant="outline" asChild>
-                      <Link href="/tokenize?restaurant=sakura-sushi&species=tuna&grade=sashimi">
+                      <Link href="/createNewToken?restaurant=sakura-sushi&species=tuna&grade=sashimi">
                         <Plus className="h-4 w-4 mr-2" />
                         Create Sashimi-Grade Token
                       </Link>

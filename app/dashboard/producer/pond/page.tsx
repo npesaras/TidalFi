@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -104,9 +105,8 @@ export default function MyPondPage() {
                 <BarChart3 className="h-4 w-4 mr-2" />
                 Dashboard
               </Link>
-            </Button>
-            <Button asChild>
-              <Link href="/tokenize">
+            </Button>            <Button asChild>
+              <Link href="/createNewToken">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Token
               </Link>
@@ -162,16 +162,16 @@ export default function MyPondPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(selectedPond === "all" ? ponds : ponds.filter((pond) => pond.id === selectedPond)).map((pond) => (
                 <Card key={pond.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader className="pb-3">
-                    {/* Pond Image */}
+                  <CardHeader className="pb-3">                    {/* Pond Image */}
                     <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden bg-gray-200">
-                      <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                        <div className="text-center">
-                          <Waves className="h-16 w-16 mx-auto text-blue-400 mb-2" />
-                          <p className="text-sm text-gray-600">Pond Image Placeholder</p>
-                          <p className="text-xs text-gray-500">{pond.image}</p>
-                        </div>
-                      </div>
+                      <Image
+                        src={pond.image}
+                        alt={`${pond.name} - Aquaculture pond in ${pond.location}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={pond.id === "pond-a"}
+                      />
                     </div>
 
                     <div className="flex items-center justify-between">

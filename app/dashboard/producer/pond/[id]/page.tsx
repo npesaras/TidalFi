@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -118,9 +119,8 @@ export default function PondDetailsPage() {
             <Button variant="outline">
               <Settings className="h-4 w-4 mr-2" />
               Pond Settings
-            </Button>
-            <Button asChild>
-              <Link href="/tokenize">
+            </Button>            <Button asChild>
+              <Link href="/createNewToken">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Token
               </Link>
@@ -145,9 +145,23 @@ export default function PondDetailsPage() {
               <Badge className={getStatusColor(pond.status)} variant="secondary">
                 {getStatusIcon(pond.status)}
                 <span className="ml-2 capitalize">{pond.status}</span>
-              </Badge>
-            </div>
+              </Badge>            </div>
           </CardHeader>
+          
+          {/* Pond Image */}
+          <div className="px-6 pb-4">
+            <div className="relative w-full h-64 rounded-lg overflow-hidden bg-gray-200">
+              <Image
+                src={pond.image}
+                alt={`${pond.name} - Aquaculture pond in ${pond.location}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                priority
+              />
+            </div>
+          </div>
+          
           <CardContent>
             <div className="grid md:grid-cols-4 gap-6">
               <div>
@@ -270,9 +284,8 @@ export default function PondDetailsPage() {
                 <CardContent className="text-center py-12">
                   <Fish className="h-16 w-16 mx-auto text-gray-400 mb-4" />
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">No Active Tokens</h3>
-                  <p className="text-gray-600 mb-6">This pond doesn't have any active tokens yet.</p>
-                  <Button asChild>
-                    <Link href="/tokenize">
+                  <p className="text-gray-600 mb-6">This pond doesn't have any active tokens yet.</p>                  <Button asChild>
+                    <Link href="/createNewToken">
                       <Plus className="h-4 w-4 mr-2" />
                       Create First Token
                     </Link>
