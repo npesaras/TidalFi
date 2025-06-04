@@ -111,7 +111,7 @@ export default function MyPondPage() {
   const selectedPondData = selectedPond === "all" ? null : getPondById(selectedPond)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-blue-100">
       <DashboardHeader userRole="producer" />
 
       <div className="container mx-auto px-4 py-8">
@@ -245,8 +245,7 @@ export default function MyPondPage() {
                       </div>
                     </div>
                     <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <Eye className="h-4 w-4 mr-2" />
+                      <Button variant="outline" size="sm" className="flex-1 bg-gray-100">
                         View Details
                       </Button>
                       <Button variant="outline" size="sm">

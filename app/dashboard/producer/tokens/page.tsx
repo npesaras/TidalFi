@@ -143,7 +143,7 @@ export default function MyTokensPage() {
   const avgProgress = tokens.reduce((sum, token) => sum + token.progress, 0) / tokens.length
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-blue-100">
       <DashboardHeader userRole="producer" />
 
       <div className="container mx-auto px-4 py-8">
@@ -258,7 +258,7 @@ export default function MyTokensPage() {
               <CardContent>
                 {viewMode === "grid" ? (
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">                    {filteredTokens.map((token) => (
-                      <Card key={token.id} className="hover:shadow-lg transition-shadow bg-slate-50">
+                      <Card key={token.id} className="hover:shadow-lg transition-shadow bg-gray-100">
                         <CardHeader className="pb-3">
                           <div className="flex items-center justify-between">
                             <Badge className={getStatusColor(token.status)}>
@@ -326,7 +326,8 @@ export default function MyTokensPage() {
                             <span className={`font-medium ${getRiskColor(token.riskLevel)}`}>{token.riskLevel}</span>
                           </div>
 
-                          <div className="flex space-x-2">                            <Button variant="outline" size="sm" className="flex-1" asChild>
+                          <div className="flex space-x-2">                            
+                            <Button variant="outline" size="sm" className="flex-1" asChild>
                               <Link href={`/viewToken/${token.id}`}>View Details</Link>
                             </Button>
                             {token.status === "Ready Soon" && (
@@ -711,7 +712,7 @@ export default function MyTokensPage() {
               <CardContent>                
                 <div className="space-y-4">
                   {tokens.slice(0, 5).map((token) => (
-                    <div key={token.id} className="flex items-center justify-between p-4 border rounded-lg bg-slate-50">
+                    <div key={token.id} className="flex items-center justify-between p-4 border rounded-lg bg-gray-100">
                       <div className="flex items-center space-x-4">
                         <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gray-100">
                           {token.image && (
