@@ -343,7 +343,7 @@ export default function MyTokensPage() {
                 ) : (
                   <div className="space-y-4">
                     {filteredTokens.map((token) => (
-                      <div key={token.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-slate-50">                        <div className="flex items-center justify-between mb-4">
+                      <div key={token.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-gray-100">                        <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center space-x-4">                            <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-100">
                               {token.image && (
                                 <Image
