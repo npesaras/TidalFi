@@ -55,7 +55,6 @@ export default function MarketplacePage() {
             <TabsTrigger value="restaurants">Restaurant Partners</TabsTrigger>
             <TabsTrigger value="demand">Market Demand</TabsTrigger>
             <TabsTrigger value="pricing">Pricing Trends</TabsTrigger>
-            <TabsTrigger value="opportunities">Opportunities</TabsTrigger>
           </TabsList>          <TabsContent value="restaurants" className="space-y-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {restaurants.map((restaurant, index) => (
@@ -166,15 +165,6 @@ export default function MarketplacePage() {
                         {restaurant.specialRequirements}
                       </p>
                     </div>
-
-                    <div className="space-y-2">
-                      <p className="text-sm font-medium text-gray-700">Chef Recognition</p>
-                      <p className="text-xs text-purple-700 bg-purple-50 p-2 rounded">
-                        <Star className="h-3 w-3 inline mr-1" />
-                        {restaurant.chefRating}
-                      </p>
-                    </div>
-
                     <div className="flex space-x-2">
                       <Button variant="outline" size="sm" className="flex-1">
                         <Eye className="h-4 w-4 mr-2" />
@@ -308,65 +298,6 @@ export default function MarketplacePage() {
                       <p className="font-medium text-blue-800">Organic certification premium</p>
                       <p className="text-sm text-blue-700">30% price premium for organic certified fish</p>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="opportunities" className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Restaurant Opportunities</CardTitle>
-                </CardHeader>                <CardContent>
-                  <div className="space-y-4">
-                    {getUrgentOpportunities().map((opportunity) => (
-                      <div 
-                        key={opportunity.id} 
-                        className={`p-4 border rounded-lg ${
-                          opportunity.urgency === "high" 
-                            ? "border-green-200 bg-green-50" 
-                            : "border-blue-200 bg-blue-50"
-                        }`}
-                      >
-                        <h4 className={`font-semibold ${
-                          opportunity.urgency === "high" ? "text-green-800" : "text-blue-800"
-                        }`}>
-                          {opportunity.restaurant} - {opportunity.type === "urgent" ? "Urgent Need" : "Contract"}
-                        </h4>
-                        <p className={`text-sm mt-1 ${
-                          opportunity.urgency === "high" ? "text-green-700" : "text-blue-700"
-                        }`}>
-                          {opportunity.description}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Recommended Actions</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">                    <Button className="w-full justify-start" variant="outline" asChild>
-                      <Link href="/createNewToken?restaurant=oceans-table&species=salmon&grade=premium">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Create Token for Ocean's Table
-                      </Link>
-                    </Button>
-                    <Button className="w-full justify-start" variant="outline" asChild>
-                      <Link href="/createNewToken?restaurant=sakura-sushi&species=tuna&grade=sashimi">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Create Sashimi-Grade Token
-                      </Link>
-                    </Button>
-                    <Button className="w-full justify-start" variant="outline">
-                      <Eye className="h-4 w-4 mr-2" />
-                      View All Restaurant Requests
-                    </Button>
                   </div>
                 </CardContent>
               </Card>
