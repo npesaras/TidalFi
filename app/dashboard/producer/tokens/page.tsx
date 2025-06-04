@@ -713,7 +713,6 @@ export default function MyTokensPage() {
                   {tokens.slice(0, 5).map((token) => (
                     <div key={token.id} className="flex items-center justify-between p-4 border rounded-lg bg-slate-50">
                       <div className="flex items-center space-x-4">
-                        <Fish className="h-6 w-6 text-blue-600" />
                         <div>
                           <p className="font-medium">{token.species}</p>
                           <p className="text-sm text-gray-600">Token {token.id} created</p>
