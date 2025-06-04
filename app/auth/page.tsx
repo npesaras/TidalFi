@@ -49,9 +49,7 @@ export default function AuthPage() {
             </h1>
             <p className="text-xl text-gray-600">Choose your role and start your sustainable aquaculture journey</p>
           </div>
-
           <Tabs value={selectedRole} onValueChange={setSelectedRole} className="w-full">
-
             <TabsContent value="producer" className="mt-8">
               <Card>
                 <CardHeader>
