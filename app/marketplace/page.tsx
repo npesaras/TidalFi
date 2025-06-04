@@ -11,10 +11,8 @@ import Link from "next/link"
 import { 
   restaurants, 
   marketDemand, 
-  qualityPremiums, 
-  marketOpportunities,
+  qualityPremiums,
   getHighDemandSpecies,
-  getUrgentOpportunities,
   getAverageMarketPrice
 } from "@/lib/data/markets"
 
@@ -78,15 +76,16 @@ export default function MarketplacePage() {
                         }
                         className={
                           restaurant.status === "Premium Partner"
-                            ? "bg-purple-600"
+                            ? "bg-yellow-300"
                             : restaurant.status === "High Volume"
-                              ? "bg-blue-600"
+                              ? "bg-orange-300"
                               : ""
                         }
                       >
                         {restaurant.status}
                       </Badge>
-                    </div>                  </CardHeader>
+                    </div>                  
+                  </CardHeader>
                   
                   {/* Restaurant Image */}
                   {restaurant.image && (
@@ -101,27 +100,26 @@ export default function MarketplacePage() {
                       </div>
                     </div>
                   )}
-                  
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="text-gray-600">Type</p>
-                        <p className="font-medium">{restaurant.type}</p>
+                    <CardContent className="space-y-4">
+                    <div className="flex flex-wrap gap-6 text-sm">
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="text-gray-600 text-xs uppercase tracking-wide mb-1">Type</p>
+                        <p className="font-semibold text-gray-900">{restaurant.type}</p>
                       </div>
-                      <div>
-                        <p className="text-gray-600">Rating</p>
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="text-gray-600 text-xs uppercase tracking-wide mb-1">Rating</p>
                         <div className="flex items-center">
-                          <Star className="h-3 w-3 text-yellow-500 mr-1" />
-                          <span className="font-medium">{restaurant.rating}</span>
+                          <Star className="h-4 w-4 text-yellow-500 mr-1.5" />
+                          <span className="font-semibold text-gray-900">{restaurant.rating}</span>
                         </div>
                       </div>
-                      <div>
-                        <p className="text-gray-600">Order Frequency</p>
-                        <p className="font-medium">{restaurant.orderFrequency}</p>
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="text-gray-600 text-xs uppercase tracking-wide mb-1">Order Frequency</p>
+                        <p className="font-semibold text-gray-900">{restaurant.orderFrequency}</p>
                       </div>
-                      <div>
-                        <p className="text-gray-600">Avg Order Size</p>
-                        <p className="font-medium">{restaurant.avgOrderSize}</p>
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="text-gray-600 text-xs uppercase tracking-wide mb-1">Avg Order Size</p>
+                        <p className="font-semibold text-gray-900">{restaurant.avgOrderSize}</p>
                       </div>
                     </div>
 

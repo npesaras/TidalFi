@@ -33,24 +33,12 @@ export interface QualityPremium {
   premiumPercentage: string
 }
 
-export interface MarketOpportunity {
-  id: string
-  restaurant: string
-  type: "urgent" | "contract" | "seasonal"
-  species: string
-  quantity: string
-  grade: string
-  priceOffered: string
-  description: string
-  urgency: "high" | "medium" | "low"
-}
-
 export const restaurants: Restaurant[] = [
   {
     id: "rai-food",
     name: "Rai-Food",
     type: "Fine Dining",
-    location: "Manila, Philippines",
+    location: "Iligan City, Philippines",
     rating: 4.8,
     preferredFish: ["Tilapia", "Milkfish", "Pompano"],
     orderFrequency: "Weekly",
@@ -69,7 +57,7 @@ export const restaurants: Restaurant[] = [
     id: "fish-head",
     name: "Fish-Head",
     type: "Casual Fine Dining",
-    location: "Cebu, Philippines",
+    location: "Iligan City, Philippines",
     rating: 4.6,
     preferredFish: ["Milkfish", "Tilapia", "Pompano"],
     orderFrequency: "Bi-weekly",
@@ -88,7 +76,7 @@ export const restaurants: Restaurant[] = [
     id: "sea-food-tail",
     name: "Sea Food Tail",
     type: "Seafood Specialist",
-    location: "Davao, Philippines",
+    location: "Iligan City, Philippines",
     rating: 4.7,
     preferredFish: ["Pompano", "Milkfish", "Tilapia"],
     orderFrequency: "Weekly",
@@ -107,25 +95,25 @@ export const restaurants: Restaurant[] = [
 
 export const marketDemand: MarketDemand[] = [
   {
-    species: "Atlantic Salmon",
+    species: "Tilapia",
     demandLevel: "Hot",
-    avgFundingTime: "2.1 days",
-    currentPrice: "₱11.20/kg",
-    priceChange: "+12.5%",
-  },
-  {
-    species: "Sea Bass",
-    demandLevel: "High",
-    avgFundingTime: "3.5 days",
-    currentPrice: "₱10.80/kg",
-    priceChange: "+8.9%",
-  },
-  {
-    species: "Rainbow Trout",
-    demandLevel: "Medium",
-    avgFundingTime: "5.2 days",
+    avgFundingTime: "1.8 days",
     currentPrice: "₱8.50/kg",
-    priceChange: "+5.2%",
+    priceChange: "+15.2%",
+  },
+  {
+    species: "Milkfish",
+    demandLevel: "High",
+    avgFundingTime: "2.3 days",
+    currentPrice: "₱12.80/kg",
+    priceChange: "+10.5%",
+  },
+  {
+    species: "Pompano",
+    demandLevel: "High",
+    avgFundingTime: "2.1 days",
+    currentPrice: "₱16.20/kg",
+    priceChange: "+18.7%",
   },
 ]
 
@@ -141,31 +129,6 @@ export const qualityPremiums: QualityPremium[] = [
   {
     grade: "Organic Certified",
     premiumPercentage: "+30%",
-  },
-]
-
-export const marketOpportunities: MarketOpportunity[] = [
-  {
-    id: "oceans-table-urgent",
-    restaurant: "Ocean's Table",
-    type: "urgent",
-    species: "Atlantic Salmon",
-    quantity: "200kg",
-    grade: "Premium",
-    priceOffered: "₱18/kg",
-    description: "Looking for 200kg Atlantic Salmon - Premium grade. Willing to pay ₱18/kg - 20% above market",
-    urgency: "high",
-  },
-  {
-    id: "sakura-sushi-contract",
-    restaurant: "Sakura Sushi",
-    type: "contract",
-    species: "Tuna",
-    quantity: "Daily supply",
-    grade: "Sashimi",
-    priceOffered: "₱25/kg",
-    description: "Seeking reliable supplier for daily sashimi-grade fish. Long-term contract potential - ₱25/kg premium",
-    urgency: "medium",
   },
 ]
 
@@ -201,18 +164,6 @@ export const getMarketDemandBySpecies = (species: string): MarketDemand | undefi
 export const getHighDemandSpecies = (): MarketDemand[] => {
   return marketDemand.filter(demand => 
     demand.demandLevel === "Hot" || demand.demandLevel === "High"
-  )
-}
-
-export const getUrgentOpportunities = (): MarketOpportunity[] => {
-  return marketOpportunities.filter(opportunity => 
-    opportunity.urgency === "high" || opportunity.type === "urgent"
-  )
-}
-
-export const getOpportunitiesByRestaurant = (restaurantName: string): MarketOpportunity[] => {
-  return marketOpportunities.filter(opportunity => 
-    opportunity.restaurant.toLowerCase().includes(restaurantName.toLowerCase())
   )
 }
 
