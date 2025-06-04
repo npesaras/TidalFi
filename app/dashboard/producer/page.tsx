@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -82,7 +83,6 @@ export default function ProducerDashboard() {
   const totalCapacityNum = parseInt(getTotalCapacity().replace(/[^0-9]/g, ''))
   const currentStockNum = parseInt(getTotalCurrentStock().replace(/[^0-9]/g, ''))
   const utilizationPercentage = Math.round((currentStockNum / totalCapacityNum) * 100)
-
   const renderTokenGridView = () => (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {tokens.map((token) => (
@@ -90,6 +90,16 @@ export default function ProducerDashboard() {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
+                {token.image && (
+                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                    <Image
+                      src={token.image}
+                      alt={token.species}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <div>
                   <CardTitle className="text-lg">{token.species}</CardTitle>
                   <CardDescription>Token {token.id}</CardDescription>
@@ -144,7 +154,6 @@ export default function ProducerDashboard() {
       ))}
     </div>
   )
-
   const renderTokenListView = () => (
     <div className="space-y-4">
       {tokens.map((token) => (
@@ -152,6 +161,16 @@ export default function ProducerDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
+                {token.image && (
+                  <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                    <Image
+                      src={token.image}
+                      alt={token.species}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <div>
                   <h3 className="font-semibold text-lg">{token.species}</h3>
                   <p className="text-sm text-gray-600">

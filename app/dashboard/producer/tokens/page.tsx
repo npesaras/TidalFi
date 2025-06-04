@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -32,11 +33,10 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 export default function MyTokensPage() {
   const [statusFilter, setStatusFilter] = useState<string>("all")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-
   const tokens = [
     {
       id: "TF-001",
-      species: "Atlantic Salmon",
+      species: "Tilapia",
       pond: "Pond A",
       location: "North Sector",
       quantity: "2,500 kg",
@@ -51,10 +51,11 @@ export default function MyTokensPage() {
       riskLevel: "Low",
       createdDate: "2024-01-15",
       lastUpdate: "2 hours ago",
+      image: "/fishTilapia.webp",
     },
     {
       id: "TF-002",
-      species: "Rainbow Trout",
+      species: "Milkfish",
       pond: "Pond B",
       location: "East Sector",
       quantity: "1,800 kg",
@@ -69,10 +70,11 @@ export default function MyTokensPage() {
       riskLevel: "Low",
       createdDate: "2024-01-08",
       lastUpdate: "1 hour ago",
+      image: "/fishMilkfish.jpg",
     },
     {
       id: "TF-003",
-      species: "Sea Bass",
+      species: "Pompano",
       pond: "Pond C",
       location: "South Sector",
       quantity: "3,200 kg",
@@ -87,60 +89,7 @@ export default function MyTokensPage() {
       riskLevel: "Medium",
       createdDate: "2024-02-01",
       lastUpdate: "3 hours ago",
-    },
-    {
-      id: "TF-004",
-      species: "Arctic Char",
-      pond: "Pond A",
-      location: "North Sector",
-      quantity: "1,500 kg",
-      harvestDate: "2024-04-10",
-      progress: 65,
-      status: "Growing",
-      funded: 11700,
-      total: 18000,
-      daysRemaining: 18,
-      investors: 6,
-      avgReturn: "11.3%",
-      riskLevel: "Low",
-      createdDate: "2024-01-20",
-      lastUpdate: "4 hours ago",
-    },
-    {
-      id: "TF-005",
-      species: "Sea Bream",
-      pond: "Pond C",
-      location: "South Sector",
-      quantity: "2,100 kg",
-      harvestDate: "2024-03-25",
-      progress: 80,
-      status: "Growing",
-      funded: 16800,
-      total: 21000,
-      daysRemaining: 8,
-      investors: 9,
-      avgReturn: "13.7%",
-      riskLevel: "Low",
-      createdDate: "2024-01-12",
-      lastUpdate: "1 hour ago",
-    },
-    {
-      id: "TF-006",
-      species: "Cod",
-      pond: "Pond B",
-      location: "East Sector",
-      quantity: "2,800 kg",
-      harvestDate: "2024-05-15",
-      progress: 25,
-      status: "Funding",
-      funded: 8400,
-      total: 28000,
-      daysRemaining: 45,
-      investors: 4,
-      avgReturn: "9.5%",
-      riskLevel: "Medium",
-      createdDate: "2024-02-10",
-      lastUpdate: "6 hours ago",
+      image: "/fishPompano.jpeg",
     },
   ]
 
@@ -271,10 +220,9 @@ export default function MyTokensPage() {
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Value</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">${totalValue.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">${totalFunded.toLocaleString()} funded</p>
+            </CardHeader>            <CardContent>
+              <div className="text-2xl font-bold">₱{totalValue.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">₱{totalFunded.toLocaleString()} funded</p>
             </CardContent>
           </Card>
           <Card>
@@ -346,8 +294,7 @@ export default function MyTokensPage() {
               </CardHeader>
               <CardContent>
                 {viewMode === "grid" ? (
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredTokens.map((token) => (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">                    {filteredTokens.map((token) => (
                       <Card key={token.id} className="hover:shadow-lg transition-shadow bg-slate-50">
                         <CardHeader className="pb-3">
                           <div className="flex items-center justify-between">
@@ -356,12 +303,22 @@ export default function MyTokensPage() {
                               <span className="ml-1">{token.status}</span>
                             </Badge>
                           </div>
-                          <div>
-                            <h4 className="font-semibold text-lg">{token.species}</h4>
-                            <p className="text-sm text-gray-600">Token {token.id}</p>
-                            <p className="text-xs text-gray-500">
-                              {token.pond} • {token.location}
-                            </p>
+                          <div className="flex items-center space-x-3">
+                            <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
+                              <Image
+                                src={token.image}
+                                alt={token.species}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-lg">{token.species}</h4>
+                              <p className="text-sm text-gray-600">Token {token.id}</p>
+                              <p className="text-xs text-gray-500">
+                                {token.pond} • {token.location}
+                              </p>
+                            </div>
                           </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
@@ -421,9 +378,16 @@ export default function MyTokensPage() {
                 ) : (
                   <div className="space-y-4">
                     {filteredTokens.map((token) => (
-                      <div key={token.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-slate-50">
-                        <div className="flex items-center justify-between mb-4">
+                      <div key={token.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-slate-50">                        <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center space-x-4">
+                            <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-100">
+                              <Image
+                                src={token.image}
+                                alt={token.species}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
                             <div>
                               <h4 className="font-semibold text-xl">{token.species}</h4>
                               <p className="text-gray-600">
@@ -445,14 +409,13 @@ export default function MyTokensPage() {
                           <div>
                             <p className="text-sm text-gray-600">Quantity</p>
                             <p className="font-semibold">{token.quantity}</p>
-                          </div>
-                          <div>
+                          </div>                          <div>
                             <p className="text-sm text-gray-600">Total Value</p>
-                            <p className="font-semibold">${token.total.toLocaleString()}</p>
+                            <p className="font-semibold">₱{token.total.toLocaleString()}</p>
                           </div>
                           <div>
                             <p className="text-sm text-gray-600">Funded</p>
-                            <p className="font-semibold text-green-600">${token.funded.toLocaleString()}</p>
+                            <p className="font-semibold text-green-600">₱{token.funded.toLocaleString()}</p>
                           </div>
                           <div>
                             <p className="text-sm text-gray-600">Investors</p>
@@ -790,8 +753,7 @@ export default function MyTokensPage() {
                           <p className="font-medium">{token.species}</p>
                           <p className="text-sm text-gray-600">Token {token.id} created</p>
                         </div>
-                      </div>
-                      <div className="text-right">
+                      </div>                      <div className="text-right">
                         <p className="text-sm font-medium">{token.createdDate}</p>
                         <p className="text-xs text-gray-600">₱{token.total.toLocaleString()} value</p>
                       </div>
