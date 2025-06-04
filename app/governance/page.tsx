@@ -29,7 +29,7 @@ export default function GovernancePage() {
   }, [searchParams])
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-blue-100">
       <DashboardHeader forceRole={userRole} />
 
       <div className="container mx-auto px-4 py-8">
