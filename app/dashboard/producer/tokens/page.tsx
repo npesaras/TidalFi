@@ -708,11 +708,21 @@ export default function MyTokensPage() {
                 <CardTitle>Token History</CardTitle>
                 <CardDescription>Complete timeline of your token activities</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent>                
                 <div className="space-y-4">
                   {tokens.slice(0, 5).map((token) => (
                     <div key={token.id} className="flex items-center justify-between p-4 border rounded-lg bg-slate-50">
                       <div className="flex items-center space-x-4">
+                        <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gray-100">
+                          {token.image && (
+                            <Image
+                              src={token.image}
+                              alt={token.species}
+                              fill
+                              className="object-cover"
+                            />
+                          )}
+                        </div>
                         <div>
                           <p className="font-medium">{token.species}</p>
                           <p className="text-sm text-gray-600">Token {token.id} created</p>
