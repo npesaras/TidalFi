@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -10,12 +11,33 @@ import Link from "next/link"
 import { 
   restaurants, 
   marketDemand, 
-  qualityPremiums, 
-  marketOpportunities,
+  qualityPremiums,
+  demandChartData,
+  priceChartData,
+  demandVolumeData,
   getHighDemandSpecies,
-  getUrgentOpportunities,
-  getAverageMarketPrice
+  getAverageMarketPrice,
+  getDemandTrend,
+  getPriceTrend,
+  getTopDemandSpecies,
+  getHighestPriceSpecies
 } from "@/lib/data/markets"
+
+import {
+  LineChart,
+  Line,
+  AreaChart,
+  Area,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from 'recharts'
 
 import {
   Fish,
@@ -54,7 +76,6 @@ export default function MarketplacePage() {
             <TabsTrigger value="restaurants">Restaurant Partners</TabsTrigger>
             <TabsTrigger value="demand">Market Demand</TabsTrigger>
             <TabsTrigger value="pricing">Pricing Trends</TabsTrigger>
-            <TabsTrigger value="opportunities">Opportunities</TabsTrigger>
           </TabsList>          <TabsContent value="restaurants" className="space-y-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {restaurants.map((restaurant, index) => (
@@ -78,36 +99,50 @@ export default function MarketplacePage() {
                         }
                         className={
                           restaurant.status === "Premium Partner"
-                            ? "bg-purple-600"
+                            ? "bg-yellow-300"
                             : restaurant.status === "High Volume"
-                              ? "bg-blue-600"
+                              ? "bg-orange-300"
                               : ""
                         }
                       >
                         {restaurant.status}
                       </Badge>
-                    </div>
+                    </div>                  
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="text-gray-600">Type</p>
-                        <p className="font-medium">{restaurant.type}</p>
+                  
+                  {/* Restaurant Image */}
+                  {restaurant.image && (
+                    <div className="px-6 pb-4">
+                      <div className="relative h-48 w-full overflow-hidden rounded-lg">
+                        <Image
+                          src={restaurant.image}
+                          alt={restaurant.name}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
-                      <div>
-                        <p className="text-gray-600">Rating</p>
+                    </div>
+                  )}
+                    <CardContent className="space-y-4">
+                    <div className="flex flex-wrap gap-6 text-sm">
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="text-gray-600 text-xs uppercase tracking-wide mb-1">Type</p>
+                        <p className="font-semibold text-gray-900">{restaurant.type}</p>
+                      </div>
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="text-gray-600 text-xs uppercase tracking-wide mb-1">Rating</p>
                         <div className="flex items-center">
-                          <Star className="h-3 w-3 text-yellow-500 mr-1" />
-                          <span className="font-medium">{restaurant.rating}</span>
+                          <Star className="h-4 w-4 text-yellow-500 mr-1.5" />
+                          <span className="font-semibold text-gray-900">{restaurant.rating}</span>
                         </div>
                       </div>
-                      <div>
-                        <p className="text-gray-600">Order Frequency</p>
-                        <p className="font-medium">{restaurant.orderFrequency}</p>
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="text-gray-600 text-xs uppercase tracking-wide mb-1">Order Frequency</p>
+                        <p className="font-semibold text-gray-900">{restaurant.orderFrequency}</p>
                       </div>
-                      <div>
-                        <p className="text-gray-600">Avg Order Size</p>
-                        <p className="font-medium">{restaurant.avgOrderSize}</p>
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="text-gray-600 text-xs uppercase tracking-wide mb-1">Avg Order Size</p>
+                        <p className="font-semibold text-gray-900">{restaurant.avgOrderSize}</p>
                       </div>
                     </div>
 
@@ -151,15 +186,6 @@ export default function MarketplacePage() {
                         {restaurant.specialRequirements}
                       </p>
                     </div>
-
-                    <div className="space-y-2">
-                      <p className="text-sm font-medium text-gray-700">Chef Recognition</p>
-                      <p className="text-xs text-purple-700 bg-purple-50 p-2 rounded">
-                        <Star className="h-3 w-3 inline mr-1" />
-                        {restaurant.chefRating}
-                      </p>
-                    </div>
-
                     <div className="flex space-x-2">
                       <Button variant="outline" size="sm" className="flex-1">
                         <Eye className="h-4 w-4 mr-2" />
@@ -175,9 +201,58 @@ export default function MarketplacePage() {
                 </Card>
               ))}
             </div>
-          </TabsContent>
+          </TabsContent>          <TabsContent value="demand" className="space-y-6">
+            {/* Market Insights Summary */}
+            <div className="grid md:grid-cols-4 gap-4 mb-6">
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Top Demand</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {getTopDemandSpecies()[0]?.species}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {getTopDemandSpecies()[0]?.demand}% index
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Fastest Growing</p>
+                    <p className="text-2xl font-bold text-blue-600">Pompano</p>
+                    <p className="text-xs text-green-500">
+                      +{getDemandTrend('Pompano').toFixed(1)}% MoM
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Total Volume</p>
+                    <p className="text-2xl font-bold text-purple-600">
+                      {demandVolumeData.reduce((sum, item) => sum + item.volume, 0).toLocaleString()}
+                    </p>
+                    <p className="text-xs text-gray-500">kg this month</p>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Active Partners</p>
+                    <p className="text-2xl font-bold text-orange-600">{restaurants.length}</p>
+                    <p className="text-xs text-gray-500">restaurants</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
-          <TabsContent value="demand" className="space-y-6">
             <div className="grid md:grid-cols-3 gap-6 mb-6">
               <Card>                <CardHeader>
                   <CardTitle className="text-lg">High Demand Species</CardTitle>
@@ -225,37 +300,229 @@ export default function MarketplacePage() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-
-            <Card>
+            </div>            <Card>
               <CardHeader>
                 <CardTitle>Market Demand Analysis</CardTitle>
                 <CardDescription>Current restaurant and consumer demand by species</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-64 flex items-center justify-center text-gray-500 border rounded-lg">
-                  <div className="text-center">
-                    <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                    <p>Demand analytics chart would display here</p>
-                  </div>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={demandChartData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis />
+                      <Tooltip 
+                        formatter={(value, name) => [`${value}%`, name]}
+                        labelFormatter={(label) => `Month: ${label}`}
+                      />
+                      <Legend />
+                      <Area 
+                        type="monotone" 
+                        dataKey="Tilapia" 
+                        stackId="1" 
+                        stroke="#22c55e" 
+                        fill="#22c55e" 
+                        fillOpacity={0.6}
+                      />
+                      <Area 
+                        type="monotone" 
+                        dataKey="Milkfish" 
+                        stackId="1" 
+                        stroke="#3b82f6" 
+                        fill="#3b82f6" 
+                        fillOpacity={0.6}
+                      />
+                      <Area 
+                        type="monotone" 
+                        dataKey="Pompano" 
+                        stackId="1" 
+                        stroke="#f59e0b" 
+                        fill="#f59e0b" 
+                        fillOpacity={0.6}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
 
-          <TabsContent value="pricing" className="space-y-6">
+            {/* Demand Volume Distribution */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Demand Volume Distribution</CardTitle>
+                  <CardDescription>Market share by species (kg)</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={demandVolumeData}
+                          cx="50%"
+                          cy="50%"
+                          labelLine={false}
+                          label={({ species, percentage }) => `${species} ${percentage}%`}
+                          outerRadius={80}
+                          fill="#8884d8"
+                          dataKey="volume"
+                        >
+                          <Cell fill="#22c55e" />
+                          <Cell fill="#3b82f6" />
+                          <Cell fill="#f59e0b" />
+                        </Pie>
+                        <Tooltip formatter={(value) => [`${value} kg`, 'Volume']} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Monthly Demand Trends</CardTitle>
+                  <CardDescription>Demand index by species</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={demandChartData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <Tooltip formatter={(value) => [`${value}%`, 'Demand Index']} />
+                        <Legend />
+                        <Line 
+                          type="monotone" 
+                          dataKey="Tilapia" 
+                          stroke="#22c55e" 
+                          strokeWidth={3}
+                          dot={{ fill: '#22c55e', strokeWidth: 2, r: 4 }}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="Milkfish" 
+                          stroke="#3b82f6" 
+                          strokeWidth={3}
+                          dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="Pompano" 
+                          stroke="#f59e0b" 
+                          strokeWidth={3}
+                          dot={{ fill: '#f59e0b', strokeWidth: 2, r: 4 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>          <TabsContent value="pricing" className="space-y-6">
+            {/* Pricing Insights Summary */}
+            <div className="grid md:grid-cols-4 gap-4 mb-6">
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Highest Price</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {getHighestPriceSpecies()[0]?.species}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      ₱{getHighestPriceSpecies()[0]?.price}/kg
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Best Growth</p>
+                    <p className="text-2xl font-bold text-blue-600">Tilapia</p>
+                    <p className="text-xs text-green-500">
+                      +{getPriceTrend('Tilapia').toFixed(1)}% MoM
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Avg Price</p>
+                    <p className="text-2xl font-bold text-purple-600">
+                      {getAverageMarketPrice()}
+                    </p>
+                    <p className="text-xs text-gray-500">across species</p>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Market Trend</p>
+                    <p className="text-2xl font-bold text-orange-600">+8.2%</p>
+                    <p className="text-xs text-gray-500">YoY growth</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
             <Card>
               <CardHeader>
                 <CardTitle>Pricing Trends</CardTitle>
                 <CardDescription>Historical and current pricing data by species</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-64 flex items-center justify-center text-gray-500 border rounded-lg bg-gradient-to-br from-green-50 to-blue-50">
-                  <div className="text-center">
-                    <TrendingUp className="h-12 w-12 mx-auto mb-4 text-green-600" />
-                    <p className="font-medium">Pricing Trends Chart</p>
-                    <p className="text-sm text-gray-600">Average price: {getAverageMarketPrice()} (+8.2% YoY)</p>
-                  </div>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={priceChartData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis 
+                        tickFormatter={(value) => `₱${value}`}
+                        domain={['dataMin - 1', 'dataMax + 1']}
+                      />
+                      <Tooltip 
+                        formatter={(value, name) => [`₱${value}/kg`, name]}
+                        labelFormatter={(label) => `Month: ${label}`}
+                      />
+                      <Legend />
+                      <Line 
+                        type="monotone" 
+                        dataKey="Tilapia" 
+                        stroke="#22c55e" 
+                        strokeWidth={3}
+                        dot={{ fill: '#22c55e', strokeWidth: 2, r: 5 }}
+                        activeDot={{ r: 8 }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="Milkfish" 
+                        stroke="#3b82f6" 
+                        strokeWidth={3}
+                        dot={{ fill: '#3b82f6', strokeWidth: 2, r: 5 }}
+                        activeDot={{ r: 8 }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="Pompano" 
+                        stroke="#f59e0b" 
+                        strokeWidth={3}
+                        dot={{ fill: '#f59e0b', strokeWidth: 2, r: 5 }}
+                        activeDot={{ r: 8 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="mt-4 text-center">
+                  <p className="text-sm text-gray-600">
+                    Average price: {getAverageMarketPrice()} (+8.2% YoY)
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -293,65 +560,6 @@ export default function MarketplacePage() {
                       <p className="font-medium text-blue-800">Organic certification premium</p>
                       <p className="text-sm text-blue-700">30% price premium for organic certified fish</p>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="opportunities" className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Restaurant Opportunities</CardTitle>
-                </CardHeader>                <CardContent>
-                  <div className="space-y-4">
-                    {getUrgentOpportunities().map((opportunity) => (
-                      <div 
-                        key={opportunity.id} 
-                        className={`p-4 border rounded-lg ${
-                          opportunity.urgency === "high" 
-                            ? "border-green-200 bg-green-50" 
-                            : "border-blue-200 bg-blue-50"
-                        }`}
-                      >
-                        <h4 className={`font-semibold ${
-                          opportunity.urgency === "high" ? "text-green-800" : "text-blue-800"
-                        }`}>
-                          {opportunity.restaurant} - {opportunity.type === "urgent" ? "Urgent Need" : "Contract"}
-                        </h4>
-                        <p className={`text-sm mt-1 ${
-                          opportunity.urgency === "high" ? "text-green-700" : "text-blue-700"
-                        }`}>
-                          {opportunity.description}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Recommended Actions</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">                    <Button className="w-full justify-start" variant="outline" asChild>
-                      <Link href="/createNewToken?restaurant=oceans-table&species=salmon&grade=premium">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Create Token for Ocean's Table
-                      </Link>
-                    </Button>
-                    <Button className="w-full justify-start" variant="outline" asChild>
-                      <Link href="/createNewToken?restaurant=sakura-sushi&species=tuna&grade=sashimi">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Create Sashimi-Grade Token
-                      </Link>
-                    </Button>
-                    <Button className="w-full justify-start" variant="outline">
-                      <Eye className="h-4 w-4 mr-2" />
-                      View All Restaurant Requests
-                    </Button>
                   </div>
                 </CardContent>
               </Card>

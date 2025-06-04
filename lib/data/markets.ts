@@ -17,6 +17,7 @@ export interface Restaurant {
   chefRating: string
   paymentTerms: string
   status: "Active" | "High Volume" | "Premium Partner" | "Growing"
+  image?: string
 }
 
 export interface MarketDemand {
@@ -32,26 +33,35 @@ export interface QualityPremium {
   premiumPercentage: string
 }
 
-export interface MarketOpportunity {
-  id: string
-  restaurant: string
-  type: "urgent" | "contract" | "seasonal"
+// Chart data interfaces
+export interface DemandChartData {
+  month: string
+  Tilapia: number
+  Milkfish: number
+  Pompano: number
+}
+
+export interface PriceChartData {
+  month: string
+  Tilapia: number
+  Milkfish: number
+  Pompano: number
+}
+
+export interface DemandVolumeData {
   species: string
-  quantity: string
-  grade: string
-  priceOffered: string
-  description: string
-  urgency: "high" | "medium" | "low"
+  volume: number
+  percentage: number
 }
 
 export const restaurants: Restaurant[] = [
   {
-    id: "oceans-table",
-    name: "Ocean's Table",
+    id: "rai-food",
+    name: "Rai-Food",
     type: "Fine Dining",
-    location: "New York, NY",
+    location: "Iligan City, Philippines",
     rating: 4.8,
-    preferredFish: ["Atlantic Salmon", "Sea Bass", "Tuna"],
+    preferredFish: ["Tilapia", "Milkfish", "Pompano"],
     orderFrequency: "Weekly",
     avgOrderSize: "150-200 kg",
     priceRange: "₱12-18/kg",
@@ -62,14 +72,15 @@ export const restaurants: Restaurant[] = [
     chefRating: "Michelin 2-Star",
     paymentTerms: "Net 15",
     status: "Active",
+    image: "/rai-rock.JPG",
   },
   {
-    id: "nordic-bistro",
-    name: "Nordic Bistro",
+    id: "fish-head",
+    name: "Fish-Head",
     type: "Casual Fine Dining",
-    location: "Seattle, WA",
+    location: "Iligan City, Philippines",
     rating: 4.6,
-    preferredFish: ["Rainbow Trout", "Atlantic Salmon", "Arctic Char"],
+    preferredFish: ["Milkfish", "Tilapia", "Pompano"],
     orderFrequency: "Bi-weekly",
     avgOrderSize: "80-120 kg",
     priceRange: "₱10-15/kg",
@@ -80,102 +91,50 @@ export const restaurants: Restaurant[] = [
     chefRating: "James Beard Nominated",
     paymentTerms: "Net 30",
     status: "Active",
+    image: "/fish-head.jpg",
   },
   {
-    id: "mediterranean-coast",
-    name: "Mediterranean Coast",
-    type: "Mediterranean",
-    location: "Los Angeles, CA",
+    id: "sea-food-tail",
+    name: "Sea Food Tail",
+    type: "Seafood Specialist",
+    location: "Iligan City, Philippines",
     rating: 4.7,
-    preferredFish: ["Sea Bass", "Sea Bream", "Dorado"],
+    preferredFish: ["Pompano", "Milkfish", "Tilapia"],
     orderFrequency: "Weekly",
     avgOrderSize: "100-150 kg",
     priceRange: "₱11-16/kg",
-    specialRequirements: "Mediterranean species focus",
+    specialRequirements: "Fresh daily delivery required",
     lastOrder: "5 days ago",
     totalOrders: 31,
     preferredDelivery: "Wednesday & Saturday",
     chefRating: "AAA Five Diamond",
     paymentTerms: "Net 15",
     status: "High Volume",
-  },
-  {
-    id: "coastal-kitchen",
-    name: "Coastal Kitchen",
-    type: "Seafood Specialist",
-    location: "Boston, MA",
-    rating: 4.5,
-    preferredFish: ["Atlantic Salmon", "Cod", "Haddock"],
-    orderFrequency: "2x per week",
-    avgOrderSize: "200-300 kg",
-    priceRange: "₱9-14/kg",
-    specialRequirements: "Consistent supply needed",
-    lastOrder: "2 days ago",
-    totalOrders: 42,
-    preferredDelivery: "Monday, Wednesday, Friday",
-    chefRating: "Local Favorite",
-    paymentTerms: "Net 30",
-    status: "High Volume",
-  },
-  {
-    id: "sakura-sushi",
-    name: "Sakura Sushi",
-    type: "Japanese Fine Dining",
-    location: "San Francisco, CA",
-    rating: 4.9,
-    preferredFish: ["Tuna", "Salmon", "Sea Bass"],
-    orderFrequency: "Daily",
-    avgOrderSize: "50-80 kg",
-    priceRange: "₱15-25/kg",
-    specialRequirements: "Sashimi grade only",
-    lastOrder: "Yesterday",
-    totalOrders: 156,
-    preferredDelivery: "Daily except Sunday",
-    chefRating: "Michelin 1-Star",
-    paymentTerms: "Net 7",
-    status: "Premium Partner",
-  },
-  {
-    id: "farm-and-sea",
-    name: "Farm & Sea",
-    type: "Farm-to-Table",
-    location: "Portland, OR",
-    rating: 4.4,
-    preferredFish: ["Rainbow Trout", "Steelhead", "Pacific Salmon"],
-    orderFrequency: "Weekly",
-    avgOrderSize: "60-100 kg",
-    priceRange: "₱8-13/kg",
-    specialRequirements: "Sustainable practices required",
-    lastOrder: "4 days ago",
-    totalOrders: 28,
-    preferredDelivery: "Thursday",
-    chefRating: "Sustainable Dining Award",
-    paymentTerms: "Net 30",
-    status: "Growing",
+    image: "/seafood-tail.jpg",
   },
 ]
 
 export const marketDemand: MarketDemand[] = [
   {
-    species: "Atlantic Salmon",
+    species: "Tilapia",
     demandLevel: "Hot",
-    avgFundingTime: "2.1 days",
-    currentPrice: "₱11.20/kg",
-    priceChange: "+12.5%",
-  },
-  {
-    species: "Sea Bass",
-    demandLevel: "High",
-    avgFundingTime: "3.5 days",
-    currentPrice: "₱10.80/kg",
-    priceChange: "+8.9%",
-  },
-  {
-    species: "Rainbow Trout",
-    demandLevel: "Medium",
-    avgFundingTime: "5.2 days",
+    avgFundingTime: "1.8 days",
     currentPrice: "₱8.50/kg",
-    priceChange: "+5.2%",
+    priceChange: "+15.2%",
+  },
+  {
+    species: "Milkfish",
+    demandLevel: "High",
+    avgFundingTime: "2.3 days",
+    currentPrice: "₱12.80/kg",
+    priceChange: "+10.5%",
+  },
+  {
+    species: "Pompano",
+    demandLevel: "High",
+    avgFundingTime: "2.1 days",
+    currentPrice: "₱16.20/kg",
+    priceChange: "+18.7%",
   },
 ]
 
@@ -194,29 +153,31 @@ export const qualityPremiums: QualityPremium[] = [
   },
 ]
 
-export const marketOpportunities: MarketOpportunity[] = [
-  {
-    id: "oceans-table-urgent",
-    restaurant: "Ocean's Table",
-    type: "urgent",
-    species: "Atlantic Salmon",
-    quantity: "200kg",
-    grade: "Premium",
-    priceOffered: "₱18/kg",
-    description: "Looking for 200kg Atlantic Salmon - Premium grade. Willing to pay ₱18/kg - 20% above market",
-    urgency: "high",
-  },
-  {
-    id: "sakura-sushi-contract",
-    restaurant: "Sakura Sushi",
-    type: "contract",
-    species: "Tuna",
-    quantity: "Daily supply",
-    grade: "Sashimi",
-    priceOffered: "₱25/kg",
-    description: "Seeking reliable supplier for daily sashimi-grade fish. Long-term contract potential - ₱25/kg premium",
-    urgency: "medium",
-  },
+// Chart data for Market Demand Analysis
+export const demandChartData: DemandChartData[] = [
+  { month: "Jan", Tilapia: 85, Milkfish: 78, Pompano: 92 },
+  { month: "Feb", Tilapia: 88, Milkfish: 82, Pompano: 95 },
+  { month: "Mar", Tilapia: 92, Milkfish: 85, Pompano: 98 },
+  { month: "Apr", Tilapia: 95, Milkfish: 88, Pompano: 94 },
+  { month: "May", Tilapia: 98, Milkfish: 92, Pompano: 96 },
+  { month: "Jun", Tilapia: 100, Milkfish: 95, Pompano: 100 },
+]
+
+// Chart data for Pricing Trends
+export const priceChartData: PriceChartData[] = [
+  { month: "Jan", Tilapia: 7.20, Milkfish: 10.50, Pompano: 13.80 },
+  { month: "Feb", Tilapia: 7.45, Milkfish: 11.20, Pompano: 14.20 },
+  { month: "Mar", Tilapia: 7.80, Milkfish: 11.80, Pompano: 14.90 },
+  { month: "Apr", Tilapia: 8.10, Milkfish: 12.20, Pompano: 15.50 },
+  { month: "May", Tilapia: 8.35, Milkfish: 12.60, Pompano: 15.85 },
+  { month: "Jun", Tilapia: 8.50, Milkfish: 12.80, Pompano: 16.20 },
+]
+
+// Demand volume data for pie chart
+export const demandVolumeData: DemandVolumeData[] = [
+  { species: "Tilapia", volume: 2450, percentage: 42 },
+  { species: "Milkfish", volume: 1890, percentage: 32 },
+  { species: "Pompano", volume: 1520, percentage: 26 },
 ]
 
 // Helper functions
@@ -254,18 +215,6 @@ export const getHighDemandSpecies = (): MarketDemand[] => {
   )
 }
 
-export const getUrgentOpportunities = (): MarketOpportunity[] => {
-  return marketOpportunities.filter(opportunity => 
-    opportunity.urgency === "high" || opportunity.type === "urgent"
-  )
-}
-
-export const getOpportunitiesByRestaurant = (restaurantName: string): MarketOpportunity[] => {
-  return marketOpportunities.filter(opportunity => 
-    opportunity.restaurant.toLowerCase().includes(restaurantName.toLowerCase())
-  )
-}
-
 export const getAverageMarketPrice = (): string => {
   const totalPrice = marketDemand.reduce((sum, demand) => {
     const price = parseFloat(demand.currentPrice.replace(/[₱,]/g, ''))
@@ -281,4 +230,43 @@ export const getTotalRestaurants = (): number => {
 
 export const getRestaurantsByStatus = (status: Restaurant['status']): Restaurant[] => {
   return restaurants.filter(restaurant => restaurant.status === status)
+}
+
+// Chart helper functions
+export const getDemandTrend = (species: string): number => {
+  const latest = demandChartData[demandChartData.length - 1]
+  const previous = demandChartData[demandChartData.length - 2]
+  
+  const latestValue = latest[species as keyof DemandChartData] as number
+  const previousValue = previous[species as keyof DemandChartData] as number
+  
+  return ((latestValue - previousValue) / previousValue) * 100
+}
+
+export const getPriceTrend = (species: string): number => {
+  const latest = priceChartData[priceChartData.length - 1]
+  const previous = priceChartData[priceChartData.length - 2]
+  
+  const latestValue = latest[species as keyof PriceChartData] as number
+  const previousValue = previous[species as keyof PriceChartData] as number
+  
+  return ((latestValue - previousValue) / previousValue) * 100
+}
+
+export const getTopDemandSpecies = (): { species: string; demand: number }[] => {
+  const latest = demandChartData[demandChartData.length - 1]
+  return [
+    { species: 'Tilapia', demand: latest.Tilapia },
+    { species: 'Milkfish', demand: latest.Milkfish },
+    { species: 'Pompano', demand: latest.Pompano }
+  ].sort((a, b) => b.demand - a.demand)
+}
+
+export const getHighestPriceSpecies = (): { species: string; price: number }[] => {
+  const latest = priceChartData[priceChartData.length - 1]
+  return [
+    { species: 'Tilapia', price: latest.Tilapia },
+    { species: 'Milkfish', price: latest.Milkfish },
+    { species: 'Pompano', price: latest.Pompano }
+  ].sort((a, b) => b.price - a.price)
 }
