@@ -620,6 +620,36 @@ export default function ProducerDashboard() {
 
           <TabsContent value="performance" className="space-y-6">
             {/* Keep all your original performance content here */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Token Performance Metrics</CardTitle>
+                <CardDescription>Key performance indicators for your tokens</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="text-center p-4 border rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">24/26</div>
+                    <p className="text-sm text-gray-600">Successful Harvests</p>
+                    <p className="text-xs text-green-600">92% success rate</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">3.2 days</div>
+                    <p className="text-sm text-gray-600">Avg Funding Time</p>
+                    <p className="text-xs text-blue-600">-0.8 days vs last quarter</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">78%</div>
+                    <p className="text-sm text-gray-600">Investor Retention</p>
+                    <p className="text-xs text-purple-600">+5% vs last quarter</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg">
+                    <div className="text-2xl font-bold text-orange-600">12.5%</div>
+                    <p className="text-sm text-gray-600">Avg ROI Delivered</p>
+                    <p className="text-xs text-orange-600">+1.2% vs target</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -723,144 +753,12 @@ export default function ProducerDashboard() {
                           <text x="290" y="15" textAnchor="middle" className="text-xs fill-white font-medium">1.8</text>
                           <text x="340" y="75" textAnchor="middle" className="text-xs fill-white font-medium">3.2</text>
                         </svg>
-                        
-                        {/* X-axis labels */}
-                        <div className="flex justify-between text-xs text-gray-500 mt-2 px-4">
-                          <span>Q4 '23</span>
-                          <span>Jan</span>
-                          <span>Feb</span>
-                          <span>Mar</span>
-                          <span>Apr</span>
-                          <span>May</span>
-                          <span>Jun</span>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Token Performance Metrics</CardTitle>
-                <CardDescription>Key performance indicators for your tokens</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">24/26</div>
-                    <p className="text-sm text-gray-600">Successful Harvests</p>
-                    <p className="text-xs text-green-600">92% success rate</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">3.2 days</div>
-                    <p className="text-sm text-gray-600">Avg Funding Time</p>
-                    <p className="text-xs text-blue-600">-0.8 days vs last quarter</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">78%</div>
-                    <p className="text-sm text-gray-600">Investor Retention</p>
-                    <p className="text-xs text-purple-600">+5% vs last quarter</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">12.5%</div>
-                    <p className="text-sm text-gray-600">Avg ROI Delivered</p>
-                    <p className="text-xs text-orange-600">+1.2% vs target</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Investor Satisfaction Chart */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Investor Satisfaction</CardTitle>
-                <CardDescription>Feedback and ratings from your investors</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64 w-full">
-                  <div className="relative h-full">
-                    {/* Y-axis labels */}
-                    <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-4">
-                      <span>5.0</span>
-                      <span>4.0</span>
-                      <span>3.0</span>
-                      <span>2.0</span>
-                      <span>1.0</span>
-                    </div>
-                    
-                    {/* Chart area */}
-                    <div className="ml-12 h-full relative">
-                      <svg className="w-full h-full" viewBox="0 0 400 200">
-                        {/* Grid lines */}
-                        <defs>
-                          <pattern id="satisfactionGrid" width="66.66" height="40" patternUnits="userSpaceOnUse">
-                            <path d="M 66.66 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
-                          </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#satisfactionGrid)" />
-                        
-                        {/* Rating trend line */}
-                        <polyline
-                          fill="none"
-                          stroke="#f59e0b"
-                          strokeWidth="3"
-                          points="33,152 100,120 166,80 233,72 300,50 366,40"
-                        />
-                        
-                        {/* Data points with proper positioning */}
-                        {[
-                          { x: 33, y: 152, rating: 3.8 },
-                          { x: 100, y: 120, rating: 4.1 },
-                          { x: 166, y: 80, rating: 4.5 },
-                          { x: 233, y: 72, rating: 4.6 },
-                          { x: 300, y: 50, rating: 4.8 },
-                          { x: 366, y: 40, rating: 4.9 }
-                        ].map((point, i) => (
-                          <g key={i}>
-                            <circle 
-                              cx={point.x} 
-                              cy={point.y} 
-                              r="4" 
-                              fill="#f59e0b" 
-                              stroke="#fff" 
-                              strokeWidth="2"
-                            />
-                            {/* Rating labels positioned above points */}
-                            <text 
-                              x={point.x} 
-                              y={point.y - 12} 
-                              textAnchor="middle" 
-                              className="text-xs fill-gray-700 font-medium"
-                            >
-                              {point.rating}
-                            </text>
-                          </g>
-                        ))}
-                      </svg>
-                      
-                      {/* X-axis labels - properly spaced */}
-                      <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500 px-8 mt-2">
-                        <span>Dec</span>
-                        <span>Jan</span>
-                        <span>Feb</span>
-                        <span>Mar</span>
-                        <span>Apr</span>
-                        <span>May</span>
-                        <span>Jun</span>
-                      </div>
-                    </div>
-                    
-                    {/* Average rating display - better positioned */}
-                    <div className="absolute top-4 right-4 text-center bg-amber-50 p-3 rounded-lg border border-amber-200">
-                      <div className="text-2xl font-bold text-amber-600">4.8</div>
-                      <p className="text-xs text-gray-600">Avg Rating</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
         </Tabs>
       </div>
