@@ -348,10 +348,9 @@ export default function MyTokensPage() {
                 {viewMode === "grid" ? (
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredTokens.map((token) => (
-                      <Card key={token.id} className="hover:shadow-lg transition-shadow">
+                      <Card key={token.id} className="hover:shadow-lg transition-shadow bg-slate-50">
                         <CardHeader className="pb-3">
                           <div className="flex items-center justify-between">
-                            <Fish className="h-6 w-6 text-blue-600" />
                             <Badge className={getStatusColor(token.status)}>
                               {getStatusIcon(token.status)}
                               <span className="ml-1">{token.status}</span>
@@ -422,10 +421,9 @@ export default function MyTokensPage() {
                 ) : (
                   <div className="space-y-4">
                     {filteredTokens.map((token) => (
-                      <div key={token.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow">
+                      <div key={token.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-slate-50">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center space-x-4">
-                            <Fish className="h-8 w-8 text-blue-600" />
                             <div>
                               <h4 className="font-semibold text-xl">{token.species}</h4>
                               <p className="text-gray-600">
@@ -785,7 +783,7 @@ export default function MyTokensPage() {
               <CardContent>
                 <div className="space-y-4">
                   {tokens.slice(0, 5).map((token) => (
-                    <div key={token.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div key={token.id} className="flex items-center justify-between p-4 border rounded-lg bg-slate-50">
                       <div className="flex items-center space-x-4">
                         <Fish className="h-6 w-6 text-blue-600" />
                         <div>
@@ -795,7 +793,7 @@ export default function MyTokensPage() {
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-medium">{token.createdDate}</p>
-                        <p className="text-xs text-gray-600">${token.total.toLocaleString()} value</p>
+                        <p className="text-xs text-gray-600">₱{token.total.toLocaleString()} value</p>
                       </div>
                     </div>
                   ))}
