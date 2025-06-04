@@ -140,7 +140,8 @@ export default function ProducerDashboard() {
               <Progress value={token.progress} className="h-2" />
             </div>
 
-            <div className="flex space-x-2">              <Button variant="outline" size="sm" className="flex-1" asChild>
+            <div className="flex space-x-2">              
+              <Button variant="outline" size="sm" className="flex-1 bg-gray-100" asChild>
                 <Link href={`/viewToken/${token.id}`}>View Details</Link>
               </Button>
               {token.status === "Ready Soon" && (
@@ -208,7 +209,7 @@ export default function ProducerDashboard() {
   )
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-blue-100">
       <DashboardHeader userRole="producer" />
 
       <div className="container mx-auto px-4 py-8">
@@ -335,7 +336,7 @@ export default function ProducerDashboard() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {ponds.map((pond) => (
-                    <div key={pond.id} className="flex items-center justify-between p-3 bg-slate-100 rounded-lg">
+                    <div key={pond.id} className="flex items-center justify-between p-3 bg-gray-200 rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div>
                           <p className="font-medium">{pond.name}</p>
@@ -379,7 +380,7 @@ export default function ProducerDashboard() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {recentTokens.map((token) => (
-                    <div key={token.id} className="flex items-center justify-between p-3 bg-slate-100 rounded-lg">
+                    <div key={token.id} className="flex items-center justify-between p-3 bg-gray-200 rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div>
                           <p className="font-medium">{token.species}</p>
@@ -426,7 +427,7 @@ export default function ProducerDashboard() {
               <CardContent className="space-y-4">
                 {recentTransactions.map((transaction) => {
                   return (
-                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-slate-100 border rounded-lg">
+                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-gray-200 border rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div>
                           <p className="font-bold text-sm text-foreground">{transaction.title}</p>
