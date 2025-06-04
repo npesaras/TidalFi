@@ -174,10 +174,8 @@ export default function MyPondPage() {
                         priority={pond.id === "pond-a"}
                       />
                     </div>
-
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <Waves className="h-8 w-8 text-blue-600" />
                         <div>
                           <CardTitle className="text-lg">{pond.name}</CardTitle>
                           <CardDescription className="flex items-center">
@@ -211,7 +209,6 @@ export default function MyPondPage() {
                         <p className="font-medium">{getTokensByPond(pond.id).length}</p>
                       </div>
                     </div>
-
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Utilization</span>
@@ -219,31 +216,10 @@ export default function MyPondPage() {
                       </div>
                       <Progress value={pond.utilization} className="h-2" />
                     </div>
-
-                    <div className="border-t pt-3">
-                      <p className="text-sm text-gray-600 mb-2">Quick Stats</p>
-                      <div className="grid grid-cols-3 gap-2 text-xs">
-                        <div className="text-center">
-                          <Thermometer className="h-3 w-3 mx-auto text-blue-600" />
-                          <p className="font-medium">{pond.waterTemp}</p>
-                        </div>
-                        <div className="text-center">
-                          <Activity className="h-3 w-3 mx-auto text-green-600" />
-                          <p className="font-medium">{pond.oxygenLevel}</p>
-                        </div>
-                        <div className="text-center">
-                          <Fish className="h-3 w-3 mx-auto text-purple-600" />
-                          <p className="font-medium">pH {pond.phLevel}</p>
-                        </div>
-                      </div>
-                    </div>
-
                     <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" className="flex-1" asChild>
-                        <Link href={`/dashboard/producer/pond/${pond.id}`}>
-                          <Eye className="h-4 w-4 mr-2" />
-                          View Details
-                        </Link>
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <Eye className="h-4 w-4 mr-2" />
+                        View Details
                       </Button>
                       <Button variant="outline" size="sm">
                         <Settings className="h-4 w-4" />
