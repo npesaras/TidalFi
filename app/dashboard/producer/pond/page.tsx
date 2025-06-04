@@ -127,11 +127,9 @@ export default function MyPondPage() {
                 Dashboard
               </Link>
             </Button>
-            <Button asChild>
-              <Link href="/createNewToken">
-                <Plus className="h-4 w-4 mr-2" />
-                Create Token
-              </Link>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Add New Pond
             </Button>
           </div>
         </div>
