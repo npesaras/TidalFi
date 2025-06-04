@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -86,8 +87,22 @@ export default function MarketplacePage() {
                       >
                         {restaurant.status}
                       </Badge>
+                    </div>                  </CardHeader>
+                  
+                  {/* Restaurant Image */}
+                  {restaurant.image && (
+                    <div className="px-6 pb-4">
+                      <div className="relative h-48 w-full overflow-hidden rounded-lg">
+                        <Image
+                          src={restaurant.image}
+                          alt={restaurant.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                     </div>
-                  </CardHeader>
+                  )}
+                  
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
