@@ -30,129 +30,26 @@ import {
   Users,
 } from "lucide-react"
 import { DashboardHeader } from "@/components/dashboard-header"
-
-// Mock data - in real app this would come from API based on token ID
-const getTokenData = (id: string) => {
-  const tokens = {
-    "TF-001": {
-      id: "TF-001",
-      species: "Atlantic Salmon",
-      producer: {
-        name: "Nordic Aqua Farm",
-        location: "Trondheim, Norway",
-        avatar: "/placeholder.svg?height=40&width=40",
-        rating: 4.9,
-        totalHarvests: 47,
-        sustainabilityScore: 95,
-        certifications: ["ASC", "BAP 4-Star", "Carbon Neutral"],
-        joinDate: "2019",
-        bio: "Family-owned sustainable salmon farm operating in the pristine fjords of Norway for over 30 years.",
-      },      harvest: {
-        quantity: "2,500 kg",
-        totalValue: "₱25,000",
-        pricePerKg: "₱10.00",
-        harvestDate: "2024-03-15",
-        location: "Farm A - Sector 3",
-        coordinates: "63.4305° N, 10.3951° E",
-        waterDepth: "25 meters",
-        cageSize: "50m x 50m",
-        stockingDate: "2023-05-01",
-        expectedYield: "2,500 kg",
-        currentWeight: "4.2 kg avg",
-      },
-      investment: {
-        totalValue: 25000,
-        funded: 18750,
-        fundingProgress: 75,
-        investors: 37,
-        expectedROI: "12-15%",
-        daysLeft: 12,
-        soldTokens: 1875,
-      },
-      sustainability: {
-        overallScore: 95,
-        waterQuality: 92,
-        feedEfficiency: 98,
-        carbonFootprint: 94,
-        animalWelfare: 96,
-        certifications: [
-          { name: "ASC", status: "Active", expires: "2025-06-01" },
-          { name: "BAP 4-Star", status: "Active", expires: "2024-12-15" },
-          { name: "Carbon Neutral", status: "Active", expires: "2024-11-30" },
-        ],
-      },
-      iotData: {
-        temperature: 18.5,
-        oxygen: 8.2,
-        ph: 7.1,
-        salinity: 34.2,
-        turbidity: 2.1,
-        lastUpdated: "2024-01-20T10:30:00Z",
-        alerts: [],
-      },
-      timeline: [
-        {
-          date: "2024-01-20",
-          event: "IoT sensors report optimal conditions",
-          type: "monitoring",
-          details: "All parameters within ideal ranges",
-        },
-        {
-          date: "2024-01-18",
-          event: "Monthly health inspection completed",
-          type: "inspection",
-          details: "100% fish health score, no mortality detected",
-        },
-        {
-          date: "2024-01-15",
-          event: "Feeding optimization implemented",
-          type: "management",
-          details: "New AI-driven feeding schedule reduces waste by 12%",
-        },
-        {
-          date: "2024-01-10",
-          event: "Funding milestone reached",
-          type: "funding",
-          details: "75% funding target achieved",
-        },
-      ],
-      transactions: [        {
-          date: "2024-01-20",
-          investor: "EcoInvestor.icp",
-          amount: "₱2,500",
-          tokens: 250,
-          type: "purchase",
-        },
-        {
-          date: "2024-01-18",
-          investor: "GreenFund.icp",
-          amount: "₱5,000",
-          tokens: 500,
-          type: "purchase",
-        },
-        {
-          date: "2024-01-15",
-          investor: "SustainableCapital.icp",
-          amount: "₱1,000",
-          tokens: 100,
-          type: "purchase",
-        },
-      ],
-      documents: [
-        { name: "Sustainability Report Q4 2023", type: "PDF", size: "2.4 MB" },
-        { name: "Health Inspection Certificate", type: "PDF", size: "1.1 MB" },
-        { name: "ASC Certification", type: "PDF", size: "856 KB" },
-      ],
-    },
-  }
-
-  return tokens[id as keyof typeof tokens] || tokens["TF-001"]
-}
+import { getDetailedTokenById } from "@/lib/data/detailedTokens"
 
 export default function TokenDetailsPage() {
   const params = useParams()
   const tokenId = params.id as string
-  const token = getTokenData(tokenId)
+  const token = getDetailedTokenById(tokenId)
+
+  if (!token) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Token Not Found</h1>
+          <p className="text-gray-600 mb-4">The requested token could not be found.</p>
+          <Button asChild>
+            <Link href="/dashboard/producer">Back to Dashboard</Link>
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -226,11 +123,10 @@ export default function TokenDetailsPage() {
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex justify-between text-sm">
+                <div className="space-y-3">                <div className="flex justify-between text-sm">
                     <span>Funding Progress</span>
                     <span>
-                      ${token.investment.funded.toLocaleString()} / ${token.investment.totalValue.toLocaleString()} (
+                      ₱{token.investment.funded.toLocaleString()} / ₱{token.investment.totalValue.toLocaleString()} (
                       {token.investment.fundingProgress}%)
                     </span>
                   </div>
@@ -662,9 +558,8 @@ export default function TokenDetailsPage() {
                           <p className="text-sm text-gray-600">
                             {token.investment.investors} investors • {token.investment.soldTokens} tokens sold
                           </p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-xl font-bold">${token.investment.funded.toLocaleString()}</p>
+                        </div>                        <div className="text-right">
+                          <p className="text-xl font-bold">₱{token.investment.funded.toLocaleString()}</p>
                           <p className="text-sm text-gray-600">Total raised</p>
                         </div>
                       </div>
@@ -727,19 +622,18 @@ export default function TokenDetailsPage() {
                 <CardTitle>Revenue Tracking</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
+                <div className="space-y-4">                  <div className="flex justify-between items-center">
                     <span className="text-gray-600">Funds Raised</span>
-                    <span className="font-bold text-green-600">${token.investment.funded.toLocaleString()}</span>
+                    <span className="font-bold text-green-600">₱{token.investment.funded.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Target Amount</span>
-                    <span className="font-medium">${token.investment.totalValue.toLocaleString()}</span>
+                    <span className="font-medium">₱{token.investment.totalValue.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Remaining</span>
                     <span className="font-medium">
-                      ${(token.investment.totalValue - token.investment.funded).toLocaleString()}
+                      ₱{(token.investment.totalValue - token.investment.funded).toLocaleString()}
                     </span>
                   </div>
                   <Progress value={token.investment.fundingProgress} className="h-3" />

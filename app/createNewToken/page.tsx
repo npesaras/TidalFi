@@ -83,7 +83,6 @@ export default function TokenizePage() {
                     <h2 className="text-2xl font-bold">Harvest Information</h2>
                     <p className="text-gray-600">Tell us about your fish harvest</p>
                   </div>
-
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="species">Fish Species *</Label>
@@ -103,7 +102,6 @@ export default function TokenizePage() {
                         </SelectContent>
                       </Select>
                     </div>
-
                     <div className="space-y-2">
                       <Label htmlFor="quantity">Expected Quantity (kg) *</Label>
                       <Input
@@ -114,7 +112,6 @@ export default function TokenizePage() {
                         onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                       />
                     </div>
-
                     <div className="space-y-2">
                       <Label htmlFor="location">Farm Location *</Label>
                       <Input
@@ -124,7 +121,6 @@ export default function TokenizePage() {
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                       />
                     </div>
-
                     <div className="space-y-2">
                       <Label htmlFor="harvest-date">Expected Harvest Date *</Label>
                       <Input
@@ -133,10 +129,8 @@ export default function TokenizePage() {
                         value={formData.harvestDate}
                         onChange={(e) => setFormData({ ...formData, harvestDate: e.target.value })}
                       />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="price">Price per kg (USD) *</Label>
+                    </div>                    <div className="space-y-2">
+                      <Label htmlFor="price">Price per kg (₱) *</Label>
                       <Input
                         id="price"
                         type="number"
@@ -145,12 +139,10 @@ export default function TokenizePage() {
                         value={formData.pricePerKg}
                         onChange={(e) => setFormData({ ...formData, pricePerKg: e.target.value })}
                       />
-                    </div>
-
-                    <div className="space-y-2">
+                    </div>                    <div className="space-y-2">
                       <Label>Total Value</Label>
                       <div className="text-2xl font-bold text-green-600">
-                        $
+                        ₱
                         {formData.quantity && formData.pricePerKg
                           ? (
                               Number.parseFloat(formData.quantity) * Number.parseFloat(formData.pricePerKg)
@@ -159,7 +151,6 @@ export default function TokenizePage() {
                       </div>
                     </div>
                   </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="description">Harvest Description</Label>
                     <Textarea
@@ -172,7 +163,6 @@ export default function TokenizePage() {
                   </div>
                 </div>
               )}
-
               {currentStep === 2 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
@@ -180,7 +170,6 @@ export default function TokenizePage() {
                     <h2 className="text-2xl font-bold">Sustainability & Certifications</h2>
                     <p className="text-gray-600">Showcase your environmental credentials</p>
                   </div>
-
                   <div className="space-y-6">
                     <div>
                       <Label className="text-base font-medium">Current Certifications</Label>
@@ -221,7 +210,6 @@ export default function TokenizePage() {
                         ))}
                       </div>
                     </div>
-
                     <div className="grid md:grid-cols-2 gap-6">
                       <Card>
                         <CardHeader>
@@ -258,7 +246,6 @@ export default function TokenizePage() {
                           </div>
                         </CardContent>
                       </Card>
-
                       <Card>
                         <CardHeader>
                           <CardTitle className="text-lg">Overall Score</CardTitle>
@@ -278,7 +265,6 @@ export default function TokenizePage() {
                   </div>
                 </div>
               )}
-
               {currentStep === 3 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
@@ -286,7 +272,6 @@ export default function TokenizePage() {
                     <h2 className="text-2xl font-bold">Documentation & Media</h2>
                     <p className="text-gray-600">Upload images and documents to build investor confidence</p>
                   </div>
-
                   <div className="grid md:grid-cols-2 gap-6">
                     <Card>
                       <CardHeader>
@@ -303,7 +288,6 @@ export default function TokenizePage() {
                         </div>
                       </CardContent>
                     </Card>
-
                     <Card>
                       <CardHeader>
                         <CardTitle>Certificates & Documents</CardTitle>
@@ -320,7 +304,6 @@ export default function TokenizePage() {
                       </CardContent>
                     </Card>
                   </div>
-
                   <Card>
                     <CardHeader>
                       <CardTitle>IoT Integration</CardTitle>
@@ -338,7 +321,6 @@ export default function TokenizePage() {
                   </Card>
                 </div>
               )}
-
               {currentStep === 4 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
@@ -346,7 +328,6 @@ export default function TokenizePage() {
                     <h2 className="text-2xl font-bold">Token Configuration</h2>
                     <p className="text-gray-600">Set up your token parameters and launch</p>
                   </div>
-
                   <div className="grid md:grid-cols-2 gap-6">
                     <Card>
                       <CardHeader>
@@ -360,11 +341,10 @@ export default function TokenizePage() {
                         <div className="flex justify-between">
                           <span>Quantity:</span>
                           <span className="font-medium">{formData.quantity || "0"} kg</span>
-                        </div>
-                        <div className="flex justify-between">
+                        </div>                        <div className="flex justify-between">
                           <span>Total Value:</span>
                           <span className="font-medium">
-                            $
+                            ₱
                             {formData.quantity && formData.pricePerKg
                               ? (
                                   Number.parseFloat(formData.quantity) * Number.parseFloat(formData.pricePerKg)
@@ -382,18 +362,16 @@ export default function TokenizePage() {
                         </div>
                       </CardContent>
                     </Card>
-
                     <Card>
                       <CardHeader>
                         <CardTitle>Investment Settings</CardTitle>
                       </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                          <Label>Minimum Investment (USD)</Label>
+                      <CardContent className="space-y-4">                        <div className="space-y-2">
+                          <Label>Minimum Investment (₱)</Label>
                           <Input type="number" placeholder="500" />
                         </div>
                         <div className="space-y-2">
-                          <Label>Maximum Investment (USD)</Label>
+                          <Label>Maximum Investment (₱)</Label>
                           <Input type="number" placeholder="5000" />
                         </div>
                         <div className="space-y-2">
@@ -407,7 +385,6 @@ export default function TokenizePage() {
                       </CardContent>
                     </Card>
                   </div>
-
                   <Card>
                     <CardHeader>
                       <CardTitle>Ready to Launch</CardTitle>
@@ -435,12 +412,10 @@ export default function TokenizePage() {
                   </Card>
                 </div>
               )}
-
               <div className="flex justify-between pt-6 border-t">
                 <Button variant="outline" onClick={handlePrevious} disabled={currentStep === 1}>
                   Previous
                 </Button>
-
                 {currentStep < totalSteps ? (
                   <Button onClick={handleNext}>Next</Button>
                 ) : (
