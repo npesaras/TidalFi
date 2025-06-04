@@ -6,7 +6,6 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DashboardHeader } from "@/components/dashboard-header"
 import {
@@ -53,8 +52,6 @@ import {
 export default function MyPondPage() {
   const [selectedPond, setSelectedPond] = useState<string>("all")
 
-  // Remove the hardcoded tokens array - now using shared data from /lib/data/tokens.ts
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case "optimal":
@@ -85,6 +82,30 @@ export default function MyPondPage() {
     }
   }
 
+  // Add new function for utilization color logic
+  const getUtilizationColor = (utilization: number) => {
+    if (utilization >= 1 && utilization <= 50) {
+      return "bg-green-500" // Green for low utilization (healthy)
+    } else if (utilization >= 51 && utilization <= 80) {
+      return "bg-orange-500" // Orange for medium utilization (moderate)
+    } else if (utilization >= 81 && utilization <= 100) {
+      return "bg-red-500" // Red for high utilization (at capacity)
+    }
+    return "bg-gray-400" // Default gray for edge cases
+  }
+
+  // Add function for utilization status text and styling
+  const getUtilizationStatus = (utilization: number) => {
+    if (utilization >= 1 && utilization <= 50) {
+      return { text: "Low", color: "text-green-600" }
+    } else if (utilization >= 51 && utilization <= 80) {
+      return { text: "Moderate", color: "text-orange-600" }
+    } else if (utilization >= 81 && utilization <= 100) {
+      return { text: "High", color: "text-red-600" }
+    }
+    return { text: "Unknown", color: "text-gray-600" }
+  }
+
   // Updated to use shared tokens data
   const filteredTokens = selectedPond === "all" ? tokens : getTokensByPond(selectedPond)
   const selectedPondData = selectedPond === "all" ? null : getPondById(selectedPond)
@@ -109,7 +130,7 @@ export default function MyPondPage() {
             <Button asChild>
               <Link href="/createNewToken">
                 <Plus className="h-4 w-4 mr-2" />
-                Add New Pond
+                Create Token
               </Link>
             </Button>
           </div>
@@ -162,8 +183,9 @@ export default function MyPondPage() {
             {/* Pond Status Cards - Now using shared pond data */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(selectedPond === "all" ? ponds : ponds.filter((pond) => pond.id === selectedPond)).map((pond) => (
-                <Card key={pond.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader className="pb-3">                    {/* Pond Image */}
+                <Card key={pond.id} className="hover:shadow-lg transition-shadow bg-slate-100">
+                  <CardHeader className="pb-3"> 
+                    {/* Pond Image */}         
                     <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden bg-gray-200">
                       <Image
                         src={pond.image}
@@ -209,12 +231,20 @@ export default function MyPondPage() {
                         <p className="font-medium">{getTokensByPond(pond.id).length}</p>
                       </div>
                     </div>
+                    {/* Enhanced utilization section with color coding */}
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Utilization</span>
-                        <span>{pond.utilization}%</span>
+                        <span className={getUtilizationStatus(pond.utilization).color}>
+                          {pond.utilization}% ({getUtilizationStatus(pond.utilization).text})
+                        </span>
                       </div>
-                      <Progress value={pond.utilization} className="h-2" />
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                          className={`h-2 rounded-full transition-all duration-300 ${getUtilizationColor(pond.utilization)}`}
+                          style={{ width: `${pond.utilization}%` }}
+                        />
+                      </div>
                     </div>
                     <div className="flex space-x-2">
                       <Button variant="outline" size="sm" className="flex-1">
