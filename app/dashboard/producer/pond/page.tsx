@@ -105,10 +105,11 @@ export default function MyPondPage() {
                 <BarChart3 className="h-4 w-4 mr-2" />
                 Dashboard
               </Link>
-            </Button>            <Button asChild>
+            </Button>
+            <Button asChild>
               <Link href="/createNewToken">
                 <Plus className="h-4 w-4 mr-2" />
-                Create Token
+                Add New Pond
               </Link>
             </Button>
           </div>
