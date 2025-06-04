@@ -24,7 +24,7 @@ export const tokens: Token[] = [
     funded: "₱18,750",
     total: "₱25,000",
     daysRemaining: 12,
-    image: "/fishTilapia.png",
+    image: "/fishTilapia.jpg",
   },
   {
     id: "TF-002",

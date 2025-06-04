@@ -29,69 +29,32 @@ import {
 import { DashboardHeader } from "@/components/dashboard-header"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { tokens as sharedTokens } from "@/lib/data/tokens"
 
 export default function MyTokensPage() {
   const [statusFilter, setStatusFilter] = useState<string>("all")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const tokens = [
-    {
-      id: "TF-001",
-      species: "Tilapia",
-      pond: "Pond A",
-      location: "North Sector",
-      quantity: "2,500 kg",
-      harvestDate: "2024-03-15",
-      progress: 75,
-      status: "Growing",
-      funded: 18750,
-      total: 25000,
-      daysRemaining: 12,
-      investors: 8,
-      avgReturn: "12.5%",
-      riskLevel: "Low",
-      createdDate: "2024-01-15",
-      lastUpdate: "2 hours ago",
-      image: "/fishTilapia.webp",
-    },
-    {
-      id: "TF-002",
-      species: "Milkfish",
-      pond: "Pond B",
-      location: "East Sector",
-      quantity: "1,800 kg",
-      harvestDate: "2024-02-28",
-      progress: 90,
-      status: "Ready Soon",
-      funded: 13500,
-      total: 15000,
-      daysRemaining: 5,
-      investors: 12,
-      avgReturn: "15.2%",
-      riskLevel: "Low",
-      createdDate: "2024-01-08",
-      lastUpdate: "1 hour ago",
-      image: "/fishMilkfish.jpg",
-    },
-    {
-      id: "TF-003",
-      species: "Pompano",
-      pond: "Pond C",
-      location: "South Sector",
-      quantity: "3,200 kg",
-      harvestDate: "2024-04-20",
-      progress: 45,
-      status: "Growing",
-      funded: 28800,
-      total: 32000,
-      daysRemaining: 28,
-      investors: 15,
-      avgReturn: "10.8%",
-      riskLevel: "Medium",
-      createdDate: "2024-02-01",
-      lastUpdate: "3 hours ago",
-      image: "/fishPompano.jpeg",
-    },
-  ]
+  
+  // Map shared tokens data to match the page's expected format
+  const tokens = sharedTokens.map((token, index) => ({
+    id: token.id,
+    species: token.species,
+    pond: token.pond === "pond-a" ? "Pond A" : token.pond === "pond-b" ? "Pond B" : "Pond C",
+    location: token.pond === "pond-a" ? "North Sector" : token.pond === "pond-b" ? "East Sector" : "South Sector",
+    quantity: token.quantity,
+    harvestDate: token.harvestDate,
+    progress: token.progress,
+    status: token.status,
+    funded: parseInt(token.funded.replace(/[₱,]/g, '')),
+    total: parseInt(token.total.replace(/[₱,]/g, '')),
+    daysRemaining: token.daysRemaining,
+    investors: index === 0 ? 8 : index === 1 ? 12 : 15, // Mock data for additional fields
+    avgReturn: index === 0 ? "12.5%" : index === 1 ? "15.2%" : "10.8%",
+    riskLevel: index === 0 ? "Low" : index === 1 ? "Low" : "Medium",
+    createdDate: index === 0 ? "2024-01-15" : index === 1 ? "2024-01-08" : "2024-02-01",
+    lastUpdate: index === 0 ? "2 hours ago" : index === 1 ? "1 hour ago" : "3 hours ago",
+    image: token.image,
+  }))
 
   // Mock data for performance charts
   const performanceData = [
@@ -303,14 +266,15 @@ export default function MyTokensPage() {
                               <span className="ml-1">{token.status}</span>
                             </Badge>
                           </div>
-                          <div className="flex items-center space-x-3">
-                            <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
-                              <Image
-                                src={token.image}
-                                alt={token.species}
-                                fill
-                                className="object-cover"
-                              />
+                          <div className="flex items-center space-x-3">                            <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
+                              {token.image && (
+                                <Image
+                                  src={token.image}
+                                  alt={token.species}
+                                  fill
+                                  className="object-cover"
+                                />
+                              )}
                             </div>
                             <div>
                               <h4 className="font-semibold text-lg">{token.species}</h4>
@@ -379,14 +343,15 @@ export default function MyTokensPage() {
                   <div className="space-y-4">
                     {filteredTokens.map((token) => (
                       <div key={token.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-slate-50">                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-100">
-                              <Image
-                                src={token.image}
-                                alt={token.species}
-                                fill
-                                className="object-cover"
-                              />
+                          <div className="flex items-center space-x-4">                            <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-100">
+                              {token.image && (
+                                <Image
+                                  src={token.image}
+                                  alt={token.species}
+                                  fill
+                                  className="object-cover"
+                                />
+                              )}
                             </div>
                             <div>
                               <h4 className="font-semibold text-xl">{token.species}</h4>
