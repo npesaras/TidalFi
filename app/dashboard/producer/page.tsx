@@ -8,16 +8,13 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+
+// Import icons
 import {
-  Fish,
-  Waves,
-  TrendingUp,
+
   BarChart3,
   Plus,
   Eye,
-  Calendar,
-  Clock,
-  DollarSign,
   Activity,
   Users,
   Grid3X3,
@@ -67,8 +64,10 @@ export default function ProducerDashboard() {
   const currentStock = getTotalCurrentStock()
   const activeTokens = getActiveTokensCount()
   const totalValue = getTotalTokenValue()
+
   // Get recent tokens (last 3)
   const recentTokens = tokens.slice(-3).reverse()
+
   // Get recent transactions (last 5)
   const recentTransactions = getRecentTransactions(5)
 
@@ -772,7 +771,8 @@ export default function ProducerDashboard() {
                 </div>
               </CardContent>
             </Card>
-
+            
+            {/* Investor Satisfaction Chart */}
             <Card>
               <CardHeader>
                 <CardTitle>Investor Satisfaction</CardTitle>
@@ -795,8 +795,8 @@ export default function ProducerDashboard() {
                       <svg className="w-full h-full" viewBox="0 0 400 200">
                         {/* Grid lines */}
                         <defs>
-                          <pattern id="satisfactionGrid" width="57.14" height="40" patternUnits="userSpaceOnUse">
-                            <path d="M 57.14 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
+                          <pattern id="satisfactionGrid" width="66.66" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 66.66 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
                           </pattern>
                         </defs>
                         <rect width="100%" height="100%" fill="url(#satisfactionGrid)" />
@@ -806,35 +806,42 @@ export default function ProducerDashboard() {
                           fill="none"
                           stroke="#f59e0b"
                           strokeWidth="3"
-                          points="0,80 57,60 114,40 171,35 228,25 285,20 342,15 400,12"
+                          points="33,152 100,120 166,80 233,72 300,50 366,40"
                         />
                         
-                        {/* Data points */}
-                        {[0, 57, 114, 171, 228, 285, 342, 400].map((x, i) => (
-                          <circle 
-                            key={i} 
-                            cx={x} 
-                            cy={[80, 60, 40, 35, 25, 20, 15, 12][i]} 
-                            r="4" 
-                            fill="#f59e0b" 
-                            stroke="#fff" 
-                            strokeWidth="2"
-                          />
+                        {/* Data points with proper positioning */}
+                        {[
+                          { x: 33, y: 152, rating: 3.8 },
+                          { x: 100, y: 120, rating: 4.1 },
+                          { x: 166, y: 80, rating: 4.5 },
+                          { x: 233, y: 72, rating: 4.6 },
+                          { x: 300, y: 50, rating: 4.8 },
+                          { x: 366, y: 40, rating: 4.9 }
+                        ].map((point, i) => (
+                          <g key={i}>
+                            <circle 
+                              cx={point.x} 
+                              cy={point.y} 
+                              r="4" 
+                              fill="#f59e0b" 
+                              stroke="#fff" 
+                              strokeWidth="2"
+                            />
+                            {/* Rating labels positioned above points */}
+                            <text 
+                              x={point.x} 
+                              y={point.y - 12} 
+                              textAnchor="middle" 
+                              className="text-xs fill-gray-700 font-medium"
+                            >
+                              {point.rating}
+                            </text>
+                          </g>
                         ))}
-                        
-                        {/* Rating labels */}
-                        <text x="0" y="75" textAnchor="middle" className="text-xs fill-gray-600">3.8</text>
-                        <text x="57" y="55" textAnchor="middle" className="text-xs fill-gray-600">4.1</text>
-                        <text x="114" y="35" textAnchor="middle" className="text-xs fill-gray-600">4.5</text>
-                        <text x="171" y="30" textAnchor="middle" className="text-xs fill-gray-600">4.6</text>
-                        <text x="228" y="20" textAnchor="middle" className="text-xs fill-gray-600">4.8</text>
-                        <text x="285" y="15" textAnchor="middle" className="text-xs fill-gray-600">4.9</text>
-                        <text x="342" y="10" textAnchor="middle" className="text-xs fill-gray-600">4.9</text>
-                        <text x="400" y="7" textAnchor="middle" className="text-xs fill-gray-600">5.0</text>
                       </svg>
                       
-                      {/* X-axis labels */}
-                      <div className="flex justify-between text-xs text-gray-500 mt-2">
+                      {/* X-axis labels - properly spaced */}
+                      <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500 px-8 mt-2">
                         <span>Dec</span>
                         <span>Jan</span>
                         <span>Feb</span>
@@ -845,9 +852,9 @@ export default function ProducerDashboard() {
                       </div>
                     </div>
                     
-                    {/* Average rating display */}
-                    <div className="absolute top-4 right-4 text-center bg-yellow-50 p-3 rounded-lg border">
-                      <div className="text-2xl font-bold text-yellow-600">4.8</div>
+                    {/* Average rating display - better positioned */}
+                    <div className="absolute top-4 right-4 text-center bg-amber-50 p-3 rounded-lg border border-amber-200">
+                      <div className="text-2xl font-bold text-amber-600">4.8</div>
                       <p className="text-xs text-gray-600">Avg Rating</p>
                     </div>
                   </div>
