@@ -171,7 +171,7 @@ export default function MyPondPage() {
                     <CardTitle className="text-sm font-medium text-gray-600">Total Value</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-gray-900">${getTotalTokenValue().toLocaleString()}</div>
+                    <div className="text-3xl font-bold text-gray-900">₱{getTotalTokenValue().toLocaleString()}</div>
                     <p className="text-sm text-gray-600 mt-1">Token value across ponds</p>
                   </CardContent>
                 </Card>

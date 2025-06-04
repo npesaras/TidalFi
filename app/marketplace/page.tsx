@@ -60,7 +60,7 @@ export default function MarketplacePage() {
                   preferredFish: ["Atlantic Salmon", "Sea Bass", "Tuna"],
                   orderFrequency: "Weekly",
                   avgOrderSize: "150-200 kg",
-                  priceRange: "$12-18/kg",
+                  priceRange: "₱12-18/kg",
                   specialRequirements: "Super Premium grade only",
                   lastOrder: "3 days ago",
                   totalOrders: 24,
@@ -77,7 +77,7 @@ export default function MarketplacePage() {
                   preferredFish: ["Rainbow Trout", "Atlantic Salmon", "Arctic Char"],
                   orderFrequency: "Bi-weekly",
                   avgOrderSize: "80-120 kg",
-                  priceRange: "$10-15/kg",
+                  priceRange: "₱10-15/kg",
                   specialRequirements: "Organic certified preferred",
                   lastOrder: "1 week ago",
                   totalOrders: 18,
@@ -94,7 +94,7 @@ export default function MarketplacePage() {
                   preferredFish: ["Sea Bass", "Sea Bream", "Dorado"],
                   orderFrequency: "Weekly",
                   avgOrderSize: "100-150 kg",
-                  priceRange: "$11-16/kg",
+                  priceRange: "₱11-16/kg",
                   specialRequirements: "Mediterranean species focus",
                   lastOrder: "5 days ago",
                   totalOrders: 31,
@@ -111,7 +111,7 @@ export default function MarketplacePage() {
                   preferredFish: ["Atlantic Salmon", "Cod", "Haddock"],
                   orderFrequency: "2x per week",
                   avgOrderSize: "200-300 kg",
-                  priceRange: "$9-14/kg",
+                  priceRange: "₱9-14/kg",
                   specialRequirements: "Consistent supply needed",
                   lastOrder: "2 days ago",
                   totalOrders: 42,
@@ -128,7 +128,7 @@ export default function MarketplacePage() {
                   preferredFish: ["Tuna", "Salmon", "Sea Bass"],
                   orderFrequency: "Daily",
                   avgOrderSize: "50-80 kg",
-                  priceRange: "$15-25/kg",
+                  priceRange: "₱15-25/kg",
                   specialRequirements: "Sashimi grade only",
                   lastOrder: "Yesterday",
                   totalOrders: 156,
@@ -145,7 +145,7 @@ export default function MarketplacePage() {
                   preferredFish: ["Rainbow Trout", "Steelhead", "Pacific Salmon"],
                   orderFrequency: "Weekly",
                   avgOrderSize: "60-100 kg",
-                  priceRange: "$8-13/kg",
+                  priceRange: "₱8-13/kg",
                   specialRequirements: "Sustainable practices required",
                   lastOrder: "4 days ago",
                   totalOrders: 28,
@@ -370,7 +370,7 @@ export default function MarketplacePage() {
                   <div className="text-center">
                     <TrendingUp className="h-12 w-12 mx-auto mb-4 text-green-600" />
                     <p className="font-medium">Pricing Trends Chart</p>
-                    <p className="text-sm text-gray-600">Average price: $9.85/kg (+8.2% YoY)</p>
+                    <p className="text-sm text-gray-600">Average price: ₱9.85/kg (+8.2% YoY)</p>
                   </div>
                 </div>
               </CardContent>
@@ -386,21 +386,21 @@ export default function MarketplacePage() {
                     <div className="flex justify-between items-center">
                       <span>Atlantic Salmon</span>
                       <div className="text-right">
-                        <span className="font-semibold">$11.20/kg</span>
+                        <span className="font-semibold">₱11.20/kg</span>
                         <p className="text-xs text-green-600">+12.5%</p>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span>Sea Bass</span>
                       <div className="text-right">
-                        <span className="font-semibold">$10.80/kg</span>
+                        <span className="font-semibold">₱10.80/kg</span>
                         <p className="text-xs text-green-600">+8.9%</p>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span>Rainbow Trout</span>
                       <div className="text-right">
-                        <span className="font-semibold">$8.50/kg</span>
+                        <span className="font-semibold">₱8.50/kg</span>
                         <p className="text-xs text-green-600">+5.2%</p>
                       </div>
                     </div>
@@ -439,14 +439,14 @@ export default function MarketplacePage() {
                     <div className="p-4 border border-green-200 bg-green-50 rounded-lg">
                       <h4 className="font-semibold text-green-800">Ocean's Table - Urgent Need</h4>
                       <p className="text-sm text-green-700 mt-1">Looking for 200kg Atlantic Salmon - Premium grade</p>
-                      <p className="text-xs text-green-600 mt-1">Willing to pay $18/kg - 20% above market</p>
+                      <p className="text-xs text-green-600 mt-1">Willing to pay ₱18/kg - 20% above market</p>
                     </div>
                     <div className="p-4 border border-blue-200 bg-blue-50 rounded-lg">
                       <h4 className="font-semibold text-blue-800">Sakura Sushi - Weekly Contract</h4>
                       <p className="text-sm text-blue-700 mt-1">
                         Seeking reliable supplier for daily sashimi-grade fish
                       </p>
-                      <p className="text-xs text-blue-600 mt-1">Long-term contract potential - $25/kg premium</p>
+                      <p className="text-xs text-blue-600 mt-1">Long-term contract potential - ₱25/kg premium</p>
                     </div>
                   </div>
                 </CardContent>

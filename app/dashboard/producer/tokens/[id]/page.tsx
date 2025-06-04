@@ -39,11 +39,10 @@ const getProducerTokenData = (id: string) => {
   const tokens = {
     "TF-001": {
       id: "TF-001",
-      species: "Atlantic Salmon",
-      harvest: {
+      species: "Atlantic Salmon",      harvest: {
         quantity: "2,500 kg",
-        totalValue: "$25,000",
-        pricePerKg: "$10.00",
+        totalValue: "₱25,000",
+        pricePerKg: "₱10.00",
         harvestDate: "2024-03-15",
         location: "Farm A - Sector 3",
         coordinates: "63.4305° N, 10.3951° E",
@@ -115,25 +114,24 @@ const getProducerTokenData = (id: string) => {
           details: "75% funding target achieved",
         },
       ],
-      transactions: [
-        {
+      transactions: [        {
           date: "2024-01-20",
           investor: "EcoInvestor.icp",
-          amount: "$2,500",
+          amount: "₱2,500",
           tokens: 250,
           type: "purchase",
         },
         {
           date: "2024-01-18",
           investor: "GreenFund.icp",
-          amount: "$5,000",
+          amount: "₱5,000",
           tokens: 500,
           type: "purchase",
         },
         {
           date: "2024-01-15",
           investor: "SustainableCapital.icp",
-          amount: "$1,000",
+          amount: "₱1,000",
           tokens: 100,
           type: "purchase",
         },

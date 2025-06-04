@@ -18,10 +18,9 @@ export const tokens: Token[] = [
     pond: "pond-a",
     quantity: "2,500 kg",
     harvestDate: "2024-03-15",
-    progress: 75,
-    status: "Growing",
-    funded: "$18,750",
-    total: "$25,000",
+    progress: 75,    status: "Growing",
+    funded: "₱18,750",
+    total: "₱25,000",
     daysRemaining: 12,
   },
   {
@@ -31,9 +30,8 @@ export const tokens: Token[] = [
     quantity: "1,800 kg",
     harvestDate: "2024-02-28",
     progress: 90,
-    status: "Ready Soon",
-    funded: "$13,500",
-    total: "$15,000",
+    status: "Ready Soon",    funded: "₱13,500",
+    total: "₱15,000",
     daysRemaining: 5,
   },
   {
@@ -43,9 +41,8 @@ export const tokens: Token[] = [
     quantity: "3,200 kg",
     harvestDate: "2024-04-20",
     progress: 45,
-    status: "Growing",
-    funded: "$28,800",
-    total: "$32,000",
+    status: "Growing",    funded: "₱28,800",
+    total: "₱32,000",
     daysRemaining: 28,
   },
   {
@@ -55,9 +52,8 @@ export const tokens: Token[] = [
     quantity: "1,500 kg",
     harvestDate: "2024-04-10",
     progress: 65,
-    status: "Growing",
-    funded: "$11,700",
-    total: "$18,000",
+    status: "Growing",    funded: "₱11,700",
+    total: "₱18,000",
     daysRemaining: 18,
   },
   {
@@ -67,9 +63,8 @@ export const tokens: Token[] = [
     quantity: "2,100 kg",
     harvestDate: "2024-03-25",
     progress: 80,
-    status: "Growing",
-    funded: "$16,800",
-    total: "$21,000",
+    status: "Growing",    funded: "₱16,800",
+    total: "₱21,000",
     daysRemaining: 8,
   },
 ]
@@ -89,7 +84,7 @@ export const getTotalTokensCount = (): number => {
 
 export const getTotalTokenValue = (): number => {
   return tokens.reduce((sum, token) => {
-    return sum + parseInt(token.total.replace(/[$,]/g, ''))
+    return sum + parseInt(token.total.replace(/[₱,]/g, ''))
   }, 0)
 }
 

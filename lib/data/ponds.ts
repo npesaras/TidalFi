@@ -28,9 +28,10 @@ export const ponds: Pond[] = [
     status: "optimal",
     waterTemp: "18.5°C",
     oxygenLevel: "8.2 mg/L",
-    phLevel: "7.1",    lastFed: "2 hours ago",
+    phLevel: "7.1",
+    lastFed: "2 hours ago",
     activeTokens: 3,
-    totalValue: "$45,000",
+    totalValue: "₱45,000",
     image: "/pondA.jpg",
   },
   {
@@ -47,7 +48,7 @@ export const ponds: Pond[] = [
     phLevel: "7.3",
     lastFed: "1 hour ago",
     activeTokens: 2,
-    totalValue: "$28,000",
+    totalValue: "₱28,000",
     image: "/pondB.jpg",
   },
   {
@@ -64,7 +65,7 @@ export const ponds: Pond[] = [
     phLevel: "6.9",
     lastFed: "30 minutes ago",
     activeTokens: 4,
-    totalValue: "$62,000",
+    totalValue: "₱62,000",
     image: "/pondC.jpg",
   },
 ]
@@ -98,7 +99,7 @@ export const getTotalActiveTokens = (): number => {
 
 export const getTotalValue = (): string => {
   const totalValue = ponds.reduce((sum, pond) => {
-    return sum + parseInt(pond.totalValue.replace(/[$,]/g, ''))
+    return sum + parseInt(pond.totalValue.replace(/[₱,]/g, ''))
   }, 0)
-  return `$${totalValue.toLocaleString()}`
+  return `₱${totalValue.toLocaleString()}`
 }
