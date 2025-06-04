@@ -246,9 +246,8 @@ export default function MyTokensPage() {
                 <Eye className="h-4 w-4 mr-2" />
                 My Pond
               </Link>
-            </Button>
-            <Button asChild>
-              <Link href="/tokenize">
+            </Button>            <Button asChild>
+              <Link href="/createNewToken">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Token
               </Link>
@@ -407,9 +406,8 @@ export default function MyTokensPage() {
                             <span className={`font-medium ${getRiskColor(token.riskLevel)}`}>{token.riskLevel}</span>
                           </div>
 
-                          <div className="flex space-x-2">
-                            <Button variant="outline" size="sm" className="flex-1" asChild>
-                              <Link href={`/token/${token.id}`}>View Details</Link>
+                          <div className="flex space-x-2">                            <Button variant="outline" size="sm" className="flex-1" asChild>
+                              <Link href={`/viewToken/${token.id}`}>View Details</Link>
                             </Button>
                             {token.status === "Ready Soon" && (
                               <Button size="sm" className="flex-1">
@@ -500,9 +498,8 @@ export default function MyTokensPage() {
                               {token.daysRemaining} days remaining
                             </span>
                           </div>
-                          <div className="flex space-x-2">
-                            <Button variant="outline" size="sm" asChild>
-                              <Link href={`/token/${token.id}`}>View Details</Link>
+                          <div className="flex space-x-2">                            <Button variant="outline" size="sm" asChild>
+                              <Link href={`/viewToken/${token.id}`}>View Details</Link>
                             </Button>
                             {token.status === "Ready Soon" && <Button size="sm">Initiate Harvest</Button>}
                           </div>
