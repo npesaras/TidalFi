@@ -182,7 +182,6 @@ export default function GovernancePage() {
                         <p className="font-medium">{((proposal.totalVotes / proposal.quorum) * 100).toFixed(1)}%</p>
                       </div>
                     </div>
-
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Voting Progress</span>
@@ -192,7 +191,6 @@ export default function GovernancePage() {
                       </div>
                       <Progress value={(proposal.totalVotes / proposal.quorum) * 100} className="h-2" />
                     </div>
-
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Support</span>
@@ -209,7 +207,6 @@ export default function GovernancePage() {
                         ></div>
                       </div>
                     </div>
-
                     <div className="flex items-center justify-between">
                       {proposal.yourVote ? (
                         <Badge variant={proposal.yourVote === "For" ? "default" : "destructive"}>
@@ -218,11 +215,7 @@ export default function GovernancePage() {
                       ) : (
                         <span className="text-sm text-gray-600">You haven't voted yet</span>
                       )}
-
                       <div className="flex space-x-2">
-                        <Button variant="outline" size="sm" asChild>
-                          <Link href={`/governance/${proposal.id}?role=${userRole}`}>View Details</Link>
-                        </Button>
                         {!proposal.yourVote && (
                           <>
                             <Button size="sm" variant="outline" className="text-red-600 border-red-600">
