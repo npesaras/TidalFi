@@ -205,13 +205,13 @@ export default function ViewTokenPage() {
                     )}
                   </CardContent>
                 </Card>
-                
-                {/*Transactions */}
+                  {/* Transactions */}
                 <Card>
                   <CardHeader>
                     <CardTitle>Recent Transactions</CardTitle>
                   </CardHeader>
-                  <CardContent>                    <div className="space-y-4">
+                  <CardContent>
+                    <div className="space-y-4">
                       {token.transactions.map((transaction, index) => (
                         <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
                           <div className="flex items-center space-x-3">
@@ -235,14 +235,14 @@ export default function ViewTokenPage() {
               </TabsContent>
 
               <TabsContent value="iot" className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Card>
+                <div className="grid md:grid-cols-2 gap-4">                  <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         Temperature
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>                      <div className="space-y-2">
+                    <CardContent>
+                      <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Current</span>
                           <span className="font-semibold">{token.iotData.temperature}°C</span>
@@ -259,15 +259,14 @@ export default function ViewTokenPage() {
                         </div>
                       </div>
                     </CardContent>
-                  </Card>
-
-                  <Card>
+                  </Card>                  <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         Oxygen Level
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>                      <div className="space-y-2">
+                    <CardContent>
+                      <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Current</span>
                           <span className="font-semibold">{token.iotData.oxygen} mg/L</span>
@@ -284,15 +283,14 @@ export default function ViewTokenPage() {
                         </div>
                       </div>
                     </CardContent>
-                  </Card>
-
-                  <Card>
+                  </Card>                  <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         Salinity
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>                      <div className="space-y-2">
+                    <CardContent>
+                      <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Current</span>
                           <span className="font-semibold">{token.iotData.salinity} ppt</span>
@@ -309,15 +307,14 @@ export default function ViewTokenPage() {
                         </div>
                       </div>
                     </CardContent>
-                  </Card>
-
-                  <Card>
+                  </Card>                  <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         pH Level
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>                      <div className="space-y-2">
+                    <CardContent>
+                      <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Current</span>
                           <span className="font-semibold">{token.iotData.ph}</span>
@@ -419,9 +416,9 @@ export default function ViewTokenPage() {
                   <CardContent>
                     <div className="space-y-3">
                       {token.documents.map((doc, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                          <div className="flex items-center space-x-3">
-                            <FileText className="h-5 w-5 text-blue-600" />                            <div>
+                        <div key={index} className="flex items-center justify-between p-3 border rounded-lg">                          <div className="flex items-center space-x-3">
+                            <FileText className="h-5 w-5 text-blue-600" />
+                            <div>
                               <div className="font-medium">{doc.name}</div>
                               <div className="text-sm text-gray-600">{doc.size}</div>
                             </div>
@@ -502,9 +499,9 @@ export default function ViewTokenPage() {
                   <Camera className="h-5 w-5" />
                   Photos
                 </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">                  <div className="aspect-video rounded-lg overflow-hidden">
+              </CardHeader>              <CardContent>
+                <div className="space-y-3">
+                  <div className="aspect-video rounded-lg overflow-hidden">
                     <img
                       src={images[selectedImage]}
                       alt="Token image"

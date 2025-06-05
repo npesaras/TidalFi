@@ -157,7 +157,8 @@ export default function MyTokensPage() {
                 <Eye className="h-4 w-4 mr-2" />
                 My Pond
               </Link>
-            </Button>            <Button asChild>
+            </Button>
+            <Button asChild>
               <Link href="/createNewToken">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Token
@@ -181,7 +182,8 @@ export default function MyTokensPage() {
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Value</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>            <CardContent>
+            </CardHeader>
+            <CardContent>
               <div className="text-2xl font-bold">₱{totalValue.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">₱{totalFunded.toLocaleString()} funded</p>
             </CardContent>
@@ -260,9 +262,9 @@ export default function MyTokensPage() {
                             <Badge className={getStatusColor(token.status)}>
                               {getStatusIcon(token.status)}
                               <span className="ml-1">{token.status}</span>
-                            </Badge>
-                          </div>
-                          <div className="flex items-center space-x-3">                            <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
+                            </Badge>                          </div>
+                          <div className="flex items-center space-x-3">
+                            <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
                               {token.image && (
                                 <Image
                                   src={token.image}
