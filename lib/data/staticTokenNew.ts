@@ -16,7 +16,8 @@ export const staticToken: DetailedToken = {
     certifications: ["BAP 3-Star", "Organic Certified", "Local Sustainable"],
     joinDate: "2020",
     bio: "Local Filipino aquaculture farm specializing in sustainable tilapia production in freshwater ponds for over 15 years.",
-  },  harvest: {
+  },
+  harvest: {
     quantity: "2,500 kg",
     totalValue: "₱25,000",
     pricePerKg: "₱10.00",
@@ -39,7 +40,8 @@ export const staticToken: DetailedToken = {
     expectedROI: "12-15%",
     daysLeft: 12,
     soldTokens: 1875,
-  },  sustainability: {
+  },
+  sustainability: {
     overallScore: 92,
     waterQuality: 88,
     feedEfficiency: 95,
@@ -59,59 +61,7 @@ export const staticToken: DetailedToken = {
     turbidity: 15,
     lastUpdated: "2024-01-15 14:30:00",
     alerts: [],
-  },  transactions: [
-    {
-      date: "2024-01-15",
-      investor: "Maria Santos",
-      amount: "₱500",
-      tokens: 50,
-      type: "purchase",
-    },
-    {
-      date: "2024-01-14",
-      investor: "John Dela Cruz",
-      amount: "₱250",
-      tokens: 25,
-      type: "purchase",
-    },
-    {
-      date: "2024-01-13",
-      investor: "Investment Group Alpha",
-      amount: "₱1,000",
-      tokens: 100,
-      type: "purchase",
-    },
-    {
-      date: "2024-01-12",
-      investor: "Sarah Johnson",
-      amount: "₱5,000",
-      tokens: 500,
-      type: "purchase",
-    },
-    {
-      date: "2024-01-11",
-      investor: "Local Seafood Co.",
-      amount: "₱3,000",
-      tokens: 300,
-      type: "purchase",    },
-  ],
-  documents: [
-    {
-      name: "Harvest Plan 2024",
-      type: "PDF",
-      size: "2.4 MB",
-    },
-    {
-      name: "Sustainability Report",
-      type: "PDF",
-      size: "1.8 MB",
-    },
-    {
-      name: "Water Quality Analysis",
-      type: "PDF",
-      size: "950 KB",
-    },
-  ],
+  },
   timeline: [
     {
       date: "2024-01-15",
@@ -128,8 +78,62 @@ export const staticToken: DetailedToken = {
     {
       date: "2024-01-05",
       event: "Feeding Schedule Optimization",
-      type: "management",
+      type: "update",
       details: "Implemented new feeding schedule based on latest growth data, expecting 5% improvement in feed efficiency.",
+    },
+  ],
+  transactions: [
+    {
+      date: "2024-01-15",
+      investor: "Maria Santos",
+      amount: "₱500",
+      tokens: 50,
+      type: "Purchase",
+    },
+    {
+      date: "2024-01-14",
+      investor: "John Dela Cruz",
+      amount: "₱250",
+      tokens: 25,
+      type: "Purchase",
+    },
+    {
+      date: "2024-01-13",
+      investor: "Investment Group Alpha",
+      amount: "₱1,000",
+      tokens: 100,
+      type: "Purchase",
+    },
+    {
+      date: "2024-01-12",
+      investor: "Sarah Johnson",
+      amount: "₱750",
+      tokens: 75,
+      type: "Purchase",
+    },
+    {
+      date: "2024-01-11",
+      investor: "Local Seafood Co.",
+      amount: "₱300",
+      tokens: 30,
+      type: "Purchase",
+    },
+  ],
+  documents: [
+    {
+      name: "Harvest Plan 2024",
+      type: "PDF",
+      size: "2.4 MB",
+    },
+    {
+      name: "Sustainability Report",
+      type: "PDF",
+      size: "1.8 MB",
+    },
+    {
+      name: "Water Quality Analysis",
+      type: "PDF",
+      size: "950 KB",
     },
   ],
 }

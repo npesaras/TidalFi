@@ -34,6 +34,14 @@ import { staticToken } from "@/lib/data/staticToken"
 export default function ViewTokenPage() {
   const token = staticToken
   const [selectedImage, setSelectedImage] = useState(0)
+  
+  // Static images for tilapia farming
+  const images = [
+    "/fishTilapia.jpg",
+    "/pondA.jpg", 
+    "/pondB.jpg",
+    "/pondC.jpg"
+  ]
 
   return (
     <div className="min-h-screen bg-blue-100">
@@ -203,17 +211,16 @@ export default function ViewTokenPage() {
                   <CardHeader>
                     <CardTitle>Recent Transactions</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {token.transactions.map((transaction) => (
-                        <div key={transaction.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  <CardContent>                    <div className="space-y-4">
+                      {token.transactions.map((transaction, index) => (
+                        <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
                           <div className="flex items-center space-x-3">
                             <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                               <Users className="h-5 w-5 text-blue-600" />
                             </div>
                             <div>
-                              <div className="font-medium">{transaction.buyer}</div>
-                              <div className="text-sm text-gray-600">{transaction.quantity}</div>
+                              <div className="font-medium">{transaction.investor}</div>
+                              <div className="text-sm text-gray-600">{transaction.tokens} tokens</div>
                             </div>
                           </div>
                           <div className="text-right">
@@ -236,20 +243,19 @@ export default function ViewTokenPage() {
                         Temperature
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
+                    <CardContent>                      <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Current</span>
-                          <span className="font-semibold">{token.iotData.temperature.current}°C</span>
+                          <span className="font-semibold">{token.iotData.temperature}°C</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Optimal Range</span>
-                          <span className="text-sm">{token.iotData.temperature.optimal}</span>
+                          <span className="text-sm">26-30°C</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">Trend</span>
+                          <span className="text-sm text-gray-600">Status</span>
                           <Badge variant="outline" className="text-xs">
-                            {token.iotData.temperature.trend}
+                            Normal
                           </Badge>
                         </div>
                       </div>
@@ -263,20 +269,19 @@ export default function ViewTokenPage() {
                         Oxygen Level
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
+                    <CardContent>                      <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Current</span>
-                          <span className="font-semibold">{token.iotData.oxygen.current} mg/L</span>
+                          <span className="font-semibold">{token.iotData.oxygen} mg/L</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Optimal Range</span>
-                          <span className="text-sm">{token.iotData.oxygen.optimal}</span>
+                          <span className="text-sm">5-8 mg/L</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">Trend</span>
+                          <span className="text-sm text-gray-600">Status</span>
                           <Badge variant="outline" className="text-xs">
-                            {token.iotData.oxygen.trend}
+                            Good
                           </Badge>
                         </div>
                       </div>
@@ -290,20 +295,19 @@ export default function ViewTokenPage() {
                         Salinity
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
+                    <CardContent>                      <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Current</span>
-                          <span className="font-semibold">{token.iotData.salinity.current} ppt</span>
+                          <span className="font-semibold">{token.iotData.salinity} ppt</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Optimal Range</span>
-                          <span className="text-sm">{token.iotData.salinity.optimal}</span>
+                          <span className="text-sm">0-0.5 ppt</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">Trend</span>
+                          <span className="text-sm text-gray-600">Status</span>
                           <Badge variant="outline" className="text-xs">
-                            {token.iotData.salinity.trend}
+                            Normal
                           </Badge>
                         </div>
                       </div>
@@ -317,20 +321,19 @@ export default function ViewTokenPage() {
                         pH Level
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
+                    <CardContent>                      <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Current</span>
-                          <span className="font-semibold">{token.iotData.ph.current}</span>
+                          <span className="font-semibold">{token.iotData.ph}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Optimal Range</span>
-                          <span className="text-sm">{token.iotData.ph.optimal}</span>
+                          <span className="text-sm">6.5-8.5</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">Trend</span>
+                          <span className="text-sm text-gray-600">Status</span>
                           <Badge variant="outline" className="text-xs">
-                            {token.iotData.ph.trend}
+                            Normal
                           </Badge>
                         </div>
                       </div>
@@ -422,14 +425,13 @@ export default function ViewTokenPage() {
                       {token.documents.map((doc, index) => (
                         <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                           <div className="flex items-center space-x-3">
-                            <FileText className="h-5 w-5 text-blue-600" />
-                            <div>
+                            <FileText className="h-5 w-5 text-blue-600" />                            <div>
                               <div className="font-medium">{doc.name}</div>
-                              <div className="text-sm text-gray-600">{doc.size} • {doc.uploaded}</div>
+                              <div className="text-sm text-gray-600">{doc.size}</div>
                             </div>
                           </div>
-                          <Button variant="outline" size="sm" asChild>
-                            <Link href={doc.url}>Download</Link>
+                          <Button variant="outline" size="sm">
+                            Download
                           </Button>
                         </div>
                       ))}
@@ -506,16 +508,15 @@ export default function ViewTokenPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
-                  <div className="aspect-video rounded-lg overflow-hidden">
+                <div className="space-y-3">                  <div className="aspect-video rounded-lg overflow-hidden">
                     <img
-                      src={token.images[selectedImage]}
+                      src={images[selectedImage]}
                       alt="Token image"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="grid grid-cols-4 gap-2">
-                    {token.images.map((image, index) => (
+                    {images.map((image, index) => (
                       <button
                         key={index}
                         onClick={() => setSelectedImage(index)}
