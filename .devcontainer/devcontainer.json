@@ -1,13 +1,18 @@
 {
-  "name": "Ubuntu 22.04",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
-  "features": {},
-  "postCreateCommand": "sudo apt update && sudo apt install -y build-essential",
+  "name": "Motoko DevContainer",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu", 
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "latest"
+    }
+  },
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y libunwind-dev build-essential curl git && npm install -g mops && bash -c \"DFX_VERSION=$(curl -s https://sdk.dfinity.org/versions/latest.txt) && sh -ci \\\"$(curl -fsSL https://internetcomputer.org/install.sh)\\\"\"",
   "customizations": {
     "vscode": {
       "extensions": [
+        "gwiazdorrr.motoko",
         "ms-vscode.cpptools",
-        "ms-azuretools.vscode-docker"
+        "dbaeumer.vscode-eslint"
       ]
     }
   }
