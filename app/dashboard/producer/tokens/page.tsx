@@ -686,9 +686,9 @@ export default function MyTokensPage() {
                     </ResponsiveContainer>
                   </ChartContainer>
                 </CardContent>
-              </Card>
+              </Card>            
             </div>
-          </TabsContent
+          </TabsContent>
           <TabsContent value="history" className="space-y-6">
             <Card>
               <CardHeader>
