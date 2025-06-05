@@ -138,11 +138,9 @@ export default function ProducerDashboard() {
                 <span>{token.progress}%</span>
               </div>
               <Progress value={token.progress} className="h-2" />
-            </div>
-
-            <div className="flex space-x-2">              
+            </div>            <div className="flex space-x-2">              
               <Button variant="outline" size="sm" className="flex-1 bg-gray-100" asChild>
-                <Link href={`/viewToken/${token.id}`}>View Details</Link>
+                <Link href="/viewToken">View Details</Link>
               </Button>
               {token.status === "Ready Soon" && (
                 <Button size="sm" className="flex-1">
@@ -194,9 +192,8 @@ export default function ProducerDashboard() {
                 </div>
                 <Badge variant={token.status === "Ready Soon" ? "destructive" : "secondary"}>
                   {token.status}
-                </Badge>
-                <div className="flex space-x-2">                  <Button variant="outline" size="sm" asChild>
-                    <Link href={`/viewToken/${token.id}`}>View</Link>
+                </Badge>                <div className="flex space-x-2">                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/viewToken">View</Link>
                   </Button>
                   {token.status === "Ready Soon" && <Button size="sm">Harvest</Button>}
                 </div>

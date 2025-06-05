@@ -317,10 +317,9 @@ export default function MyTokensPage() {
                           <div className="flex items-center justify-between text-sm">
                             <span className="text-gray-600">Risk Level</span>
                             <span className={`font-medium ${getRiskColor(token.riskLevel)}`}>{token.riskLevel}</span>
-                          </div>
-                          <div className="flex space-x-2">                            
+                          </div>                          <div className="flex space-x-2">                            
                             <Button variant="outline" size="sm" className="flex-1" asChild>
-                              <Link href={`/viewToken/${token.id}`}>View Details</Link>
+                              <Link href="/viewToken">View Details</Link>
                             </Button>
                             {token.status === "Ready Soon" && (
                               <Button size="sm" className="flex-1">
@@ -416,9 +415,8 @@ export default function MyTokensPage() {
                               <Clock className="h-4 w-4 mr-1" />
                               {token.daysRemaining} days remaining
                             </span>
-                          </div>
-                          <div className="flex space-x-2">                            <Button variant="outline" size="sm" asChild>
-                              <Link href={`/viewToken/${token.id}`}>View Details</Link>
+                          </div>                          <div className="flex space-x-2">                            <Button variant="outline" size="sm" asChild>
+                              <Link href="/viewToken">View Details</Link>
                             </Button>
                             {token.status === "Ready Soon" && <Button size="sm">Initiate Harvest</Button>}
                           </div>
