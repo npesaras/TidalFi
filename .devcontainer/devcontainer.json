@@ -1,4 +1,14 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2-noble",
-  "features": {}
+  "name": "Ubuntu 22.04",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {},
+  "postCreateCommand": "sudo apt update && sudo apt install -y build-essential",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
 }
