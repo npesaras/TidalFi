@@ -260,17 +260,9 @@ export default function GovernancePage() {
                       yourVote: "Against",
                       finalVotes: "8,900 For / 15,600 Against",
                       date: "2024-01-08",
-                    },
-                    {
-                      id: "PROP-006",
-                      title: "Launch Mobile Application",
-                      result: "Passed",
-                      yourVote: "For",
-                      finalVotes: "22,100 For / 2,800 Against",
-                      date: "2023-12-20",
-                    },
+                    }
                   ].map((vote) => (
-                    <div key={vote.id} className="border rounded-lg p-4 flex items-center justify-between">
+                    <div key={vote.id} className="border rounded-lg p-4 flex items-center justify-between bg-gray-100">
                       <div>
                         <h4 className="font-semibold">{vote.title}</h4>
                         <p className="text-sm text-gray-600">{vote.finalVotes}</p>

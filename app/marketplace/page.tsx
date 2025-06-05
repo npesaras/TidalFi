@@ -76,7 +76,8 @@ export default function MarketplacePage() {
             <TabsTrigger value="restaurants">Restaurant Partners</TabsTrigger>
             <TabsTrigger value="demand">Market Demand</TabsTrigger>
             <TabsTrigger value="pricing">Pricing Trends</TabsTrigger>
-          </TabsList>          <TabsContent value="restaurants" className="space-y-6">
+          </TabsList>
+          <TabsContent value="restaurants" className="space-y-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {restaurants.map((restaurant, index) => (
                 <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -201,7 +202,8 @@ export default function MarketplacePage() {
                 </Card>
               ))}
             </div>
-          </TabsContent>          <TabsContent value="demand" className="space-y-6">
+          </TabsContent>
+          <TabsContent value="demand" className="space-y-6">
             {/* Market Insights Summary */}
             <div className="grid md:grid-cols-4 gap-4 mb-6">
               <Card>

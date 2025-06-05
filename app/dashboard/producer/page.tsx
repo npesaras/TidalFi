@@ -136,13 +136,11 @@ export default function ProducerDashboard() {
               <div className="flex justify-between text-sm">
                 <span>Growth Progress</span>
                 <span>{token.progress}%</span>
-              </div>
-              <Progress value={token.progress} className="h-2" />
+              </div>              <Progress value={token.progress} className="h-2" />
             </div>
-
-            <div className="flex space-x-2">              
+            <div className="flex space-x-2">
               <Button variant="outline" size="sm" className="flex-1 bg-gray-100" asChild>
-                <Link href={`/viewToken/${token.id}`}>View Details</Link>
+                <Link href="/viewToken">View Details</Link>
               </Button>
               {token.status === "Ready Soon" && (
                 <Button size="sm" className="flex-1">
@@ -191,12 +189,11 @@ export default function ProducerDashboard() {
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Harvest Date</p>
                   <p className="font-medium">{token.harvestDate}</p>
-                </div>
-                <Badge variant={token.status === "Ready Soon" ? "destructive" : "secondary"}>
+                </div>                <Badge variant={token.status === "Ready Soon" ? "destructive" : "secondary"}>
                   {token.status}
                 </Badge>
-                <div className="flex space-x-2">                  <Button variant="outline" size="sm" asChild>
-                    <Link href={`/viewToken/${token.id}`}>View</Link>
+                <div className="flex space-x-2"><Button variant="outline" size="sm" asChild>
+                    <Link href="/viewToken">View</Link>
                   </Button>
                   {token.status === "Ready Soon" && <Button size="sm">Harvest</Button>}
                 </div>
@@ -216,9 +213,9 @@ export default function ProducerDashboard() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Good morning! Mario</h1>
-            <p className="text-gray-600">Manage your ponds, harvests, and earnings — all in one place.</p>
-          </div>          <Button asChild>
+            <h1 className="text-3xl font-bold text-gray-900">Good morning! Mario</h1>            <p className="text-gray-600">Manage your ponds, harvests, and earnings — all in one place.</p>
+          </div>
+          <Button asChild>
             <Link href="/createNewToken">
               <Plus className="h-4 w-4 mr-2" />
               Create New Token
