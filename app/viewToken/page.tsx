@@ -239,7 +239,6 @@ export default function ViewTokenPage() {
                   <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <Thermometer className="h-5 w-5" />
                         Temperature
                       </CardTitle>
                     </CardHeader>
@@ -254,7 +253,7 @@ export default function ViewTokenPage() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Status</span>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs bg-blue-200">
                             Normal
                           </Badge>
                         </div>
@@ -265,7 +264,6 @@ export default function ViewTokenPage() {
                   <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <Droplets className="h-5 w-5" />
                         Oxygen Level
                       </CardTitle>
                     </CardHeader>
@@ -280,7 +278,7 @@ export default function ViewTokenPage() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Status</span>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs bg-green-200">
                             Good
                           </Badge>
                         </div>
@@ -291,7 +289,6 @@ export default function ViewTokenPage() {
                   <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <Activity className="h-5 w-5" />
                         Salinity
                       </CardTitle>
                     </CardHeader>
@@ -306,7 +303,7 @@ export default function ViewTokenPage() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Status</span>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs bg-blue-200">
                             Normal
                           </Badge>
                         </div>
@@ -317,7 +314,6 @@ export default function ViewTokenPage() {
                   <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <Activity className="h-5 w-5" />
                         pH Level
                       </CardTitle>
                     </CardHeader>
@@ -332,7 +328,7 @@ export default function ViewTokenPage() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600">Status</span>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs bg-blue-200">
                             Normal
                           </Badge>
                         </div>
