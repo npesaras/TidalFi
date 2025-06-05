@@ -36,7 +36,7 @@ export default function ViewTokenPage() {
   const [selectedImage, setSelectedImage] = useState(0)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-blue-100">
       <DashboardHeader userRole="producer" />
 
       <div className="container mx-auto px-4 py-8">
@@ -70,7 +70,6 @@ export default function ViewTokenPage() {
                 <div className="flex items-start justify-between">
                   <div>
                     <CardTitle className="text-2xl flex items-center gap-3">
-                      <Fish className="h-8 w-8 text-blue-600" />
                       {token.species}
                     </CardTitle>
                     <CardDescription className="text-lg mt-2">
@@ -80,9 +79,6 @@ export default function ViewTokenPage() {
                   <div className="flex items-center space-x-2">
                     <Badge variant="default" className="text-sm">
                       Active
-                    </Badge>
-                    <Badge variant="outline" className="text-sm">
-                      Your Token
                     </Badge>
                   </div>
                 </div>
@@ -115,7 +111,6 @@ export default function ViewTokenPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5" />
                   Investment Progress
                 </CardTitle>
               </CardHeader>
@@ -152,11 +147,10 @@ export default function ViewTokenPage() {
 
             {/* Tabs for detailed information */}
             <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-5">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="iot">IoT Data</TabsTrigger>
                 <TabsTrigger value="sustainability">Sustainability</TabsTrigger>
-                <TabsTrigger value="transactions">Transactions</TabsTrigger>
                 <TabsTrigger value="documents">Documents</TabsTrigger>
               </TabsList>
               
@@ -203,28 +197,28 @@ export default function ViewTokenPage() {
                     )}
                   </CardContent>
                 </Card>
-
+                
+                {/*Transactions */}
                 <Card>
                   <CardHeader>
-                    <CardTitle>Recent Updates</CardTitle>
+                    <CardTitle>Recent Transactions</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {token.updates.map((update, index) => (
-                        <div key={index} className="flex items-start space-x-3">
-                          <div className="flex-shrink-0 mt-1">
-                            {update.type === "milestone" ? (
-                              <CheckCircle className="h-5 w-5 text-green-500" />
-                            ) : (
-                              <Activity className="h-5 w-5 text-blue-500" />
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between">
-                              <h4 className="font-medium">{update.title}</h4>
-                              <span className="text-sm text-gray-500">{update.date}</span>
+                      {token.transactions.map((transaction) => (
+                        <div key={transaction.id} className="flex items-center justify-between p-4 border rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                              <Users className="h-5 w-5 text-blue-600" />
                             </div>
-                            <p className="text-sm text-gray-600 mt-1">{update.description}</p>
+                            <div>
+                              <div className="font-medium">{transaction.buyer}</div>
+                              <div className="text-sm text-gray-600">{transaction.quantity}</div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-semibold">{transaction.amount}</div>
+                            <div className="text-sm text-gray-600">{transaction.date}</div>
                           </div>
                         </div>
                       ))}
@@ -418,35 +412,6 @@ export default function ViewTokenPage() {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="transactions" className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Recent Transactions</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {token.transactions.map((transaction) => (
-                        <div key={transaction.id} className="flex items-center justify-between p-4 border rounded-lg">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                              <Users className="h-5 w-5 text-blue-600" />
-                            </div>
-                            <div>
-                              <div className="font-medium">{transaction.buyer}</div>
-                              <div className="text-sm text-gray-600">{transaction.quantity}</div>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="font-semibold">{transaction.amount}</div>
-                            <div className="text-sm text-gray-600">{transaction.date}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
               <TabsContent value="documents" className="space-y-4">
                 <Card>
                   <CardHeader>
@@ -576,9 +541,6 @@ export default function ViewTokenPage() {
                 <CardTitle>Investment Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full">
-                  Invest in This Token
-                </Button>
                 <Button variant="outline" className="w-full">
                   <Users className="h-4 w-4 mr-2" />
                   View Investors
