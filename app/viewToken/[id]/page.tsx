@@ -123,7 +123,8 @@ export default function TokenDetailsPage() {
                   </div>
                 </div>
 
-                <div className="space-y-3">                <div className="flex justify-between text-sm">
+                <div className="space-y-3">                
+                  <div className="flex justify-between text-sm">
                     <span>Funding Progress</span>
                     <span>
                       ₱{token.investment.funded.toLocaleString()} / ₱{token.investment.totalValue.toLocaleString()} (
