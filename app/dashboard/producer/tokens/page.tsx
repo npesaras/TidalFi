@@ -145,7 +145,6 @@ export default function MyTokensPage() {
   return (
     <div className="min-h-screen bg-blue-100">
       <DashboardHeader userRole="producer" />
-
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -166,7 +165,6 @@ export default function MyTokensPage() {
             </Button>
           </div>
         </div>
-
         {/* Summary Stats */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
           <Card>
@@ -209,14 +207,12 @@ export default function MyTokensPage() {
             </CardContent>
           </Card>
         </div>
-
         <Tabs defaultValue="all-tokens" className="space-y-6">
           <TabsList>
             <TabsTrigger value="all-tokens">All Tokens</TabsTrigger>
             <TabsTrigger value="performance">Performance</TabsTrigger>
             <TabsTrigger value="history">History</TabsTrigger>
           </TabsList>
-
           <TabsContent value="all-tokens" className="space-y-6">
             <Card>
               <CardHeader>
@@ -304,7 +300,6 @@ export default function MyTokensPage() {
                               <p className="font-medium text-green-600">{token.avgReturn}</p>
                             </div>
                           </div>
-
                           <div className="space-y-2">
                             <div className="flex justify-between text-sm">
                               <span>Funding Progress</span>
@@ -312,7 +307,6 @@ export default function MyTokensPage() {
                             </div>
                             <Progress value={(token.funded / token.total) * 100} className="h-2" />
                           </div>
-
                           <div className="space-y-2">
                             <div className="flex justify-between text-sm">
                               <span>Growth Progress</span>
@@ -320,12 +314,10 @@ export default function MyTokensPage() {
                             </div>
                             <Progress value={token.progress} className="h-2" />
                           </div>
-
                           <div className="flex items-center justify-between text-sm">
                             <span className="text-gray-600">Risk Level</span>
                             <span className={`font-medium ${getRiskColor(token.riskLevel)}`}>{token.riskLevel}</span>
                           </div>
-
                           <div className="flex space-x-2">                            
                             <Button variant="outline" size="sm" className="flex-1" asChild>
                               <Link href={`/viewToken/${token.id}`}>View Details</Link>
@@ -372,7 +364,6 @@ export default function MyTokensPage() {
                             <p className="text-sm text-gray-600">Updated: {token.lastUpdate}</p>
                           </div>
                         </div>
-
                         <div className="grid md:grid-cols-6 gap-6 mb-4">
                           <div>
                             <p className="text-sm text-gray-600">Quantity</p>
@@ -399,7 +390,6 @@ export default function MyTokensPage() {
                             <p className={`font-semibold ${getRiskColor(token.riskLevel)}`}>{token.riskLevel}</p>
                           </div>
                         </div>
-
                         <div className="grid md:grid-cols-2 gap-6 mb-4">
                           <div className="space-y-2">
                             <div className="flex justify-between text-sm">
@@ -416,7 +406,6 @@ export default function MyTokensPage() {
                             <Progress value={token.progress} className="h-2" />
                           </div>
                         </div>
-
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4 text-sm text-gray-600">
                             <span className="flex items-center">
@@ -441,7 +430,6 @@ export default function MyTokensPage() {
               </CardContent>
             </Card>
           </TabsContent>
-
           <TabsContent value="performance" className="space-y-6">
             <Card>
               <CardHeader>
@@ -464,7 +452,6 @@ export default function MyTokensPage() {
                 </div>
               </CardContent>
             </Card>
-            
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -514,7 +501,6 @@ export default function MyTokensPage() {
                   </ChartContainer>
                 </CardContent>
               </Card>
-
               <Card>
                 <CardHeader>
                   <CardTitle>Revenue & Profitability</CardTitle>
@@ -572,7 +558,6 @@ export default function MyTokensPage() {
                 </CardContent>
               </Card>
             </div>
-
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -630,7 +615,6 @@ export default function MyTokensPage() {
                   </ChartContainer>
                 </CardContent>
               </Card>
-
               <Card>
                 <CardHeader>
                   <CardTitle>Token Metrics & Returns</CardTitle>
@@ -704,8 +688,7 @@ export default function MyTokensPage() {
                 </CardContent>
               </Card>
             </div>
-          </TabsContent>
-
+          </TabsContent
           <TabsContent value="history" className="space-y-6">
             <Card>
               <CardHeader>
