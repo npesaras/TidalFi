@@ -377,7 +377,8 @@ export default function MyTokensPage() {
                           <div>
                             <p className="text-sm text-gray-600">Quantity</p>
                             <p className="font-semibold">{token.quantity}</p>
-                          </div>                          <div>
+                          </div>                          
+                          <div>
                             <p className="text-sm text-gray-600">Total Value</p>
                             <p className="font-semibold">₱{token.total.toLocaleString()}</p>
                           </div>
