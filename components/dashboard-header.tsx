@@ -86,12 +86,8 @@ export function DashboardHeader({ userRole: propUserRole, forceRole }: Dashboard
                   Delivery
                 </Link>
               </>
-            )}
-            <Link href={`/marketplace?role=${userRole}`} className="text-gray-600 hover:text-blue-600">
+            )}            <Link href={`/marketplace?role=${userRole}`} className="text-gray-600 hover:text-blue-600">
               Marketplace
-            </Link>
-            <Link href={`/governance?role=${userRole}`} className="text-gray-600 hover:text-blue-600">
-              Governance
             </Link>
           </nav>
         </div>

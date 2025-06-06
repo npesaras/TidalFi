@@ -93,16 +93,10 @@ export default function HomePage() {
               <p className="text-gray-600">
                 Built on ICP with Internet Identity for secure, decentralized transactions
               </p>
-            </div>
-            <div className="text-center">
+            </div>            <div className="text-center">
               <Leaf className="h-12 w-12 text-green-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2">Sustainability Tracking</h3>
               <p className="text-gray-600">Real-time IoT monitoring and Government issued certifications</p>
-            </div>
-            <div className="text-center">
-              <TrendingUp className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">DAO Governance</h3>
-              <p className="text-gray-600">Community-driven platform decisions and sustainability standards</p>
             </div>
           </div>
         </div>
