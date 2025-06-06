@@ -38,9 +38,9 @@ export default function DeliveryPage() {
   const [selectedDelivery, setSelectedDelivery] = useState<Delivery>(deliveries[0])
   const [activeTab, setActiveTab] = useState("active")
   const stats = getDeliveryStats()
-
   // Simulate real-time updates
-  useEffect(() => {    const interval = setInterval(() => {
+  useEffect(() => {
+    const interval = setInterval(() => {
       // This would normally fetch real-time data from IoT sensors
       // For demo purposes, we'll just update timestamps
     }, 30000)
@@ -64,33 +64,32 @@ export default function DeliveryPage() {
         return <Package className={iconProps} strokeWidth={2} />
     }
   }
-
   const getStepDetails = (stepId: number) => {
     const details = {
       1: {
-        title: "Harvesting & Collection",
+        title: "Basket",
         description: "Fish being harvested from pond and collected in baskets",
         color: "blue",
         bgColor: "bg-blue-50",
         borderColor: "border-blue-200"
       },
       2: {
-        title: "Packaging & Transit",
+        title: "Delivery",
         description: "Fish packaged with ice and loaded for delivery",
         color: "orange",
         bgColor: "bg-orange-50",
         borderColor: "border-orange-200"
       },
       3: {
-        title: "Arrival Confirmation",
+        title: "Arrived",
         description: "Package arrived at destination, awaiting confirmation",
         color: "purple",
         bgColor: "bg-purple-50",
         borderColor: "border-purple-200"
       },
       4: {
-        title: "Delivery Complete",
-        description: "Fish successfully delivered and quality verified",
+        title: "Payment",
+        description: "Fish successfully delivered and payment processed",
         color: "green",
         bgColor: "bg-green-50",
         borderColor: "border-green-200"
@@ -185,10 +184,10 @@ export default function DeliveryPage() {
             <p className="text-xs text-muted-foreground mt-1">Quality score</p>
           </CardContent>
         </Card>
-      </div>
-
+      </div>      
       {/* Main Content */}
-      <div className="grid gap-8 lg:grid-cols-3">        {/* Delivery List */}
+      <div className="grid gap-8 lg:grid-cols-3">
+        {/* Delivery List */}
         <div className="lg:col-span-1">
           <Card className="shadow-sm border-0 bg-white">
             <CardHeader className="pb-4">
@@ -289,20 +288,23 @@ export default function DeliveryPage() {
               </CardTitle>
               <CardDescription className="text-lg text-gray-600 mt-2">
                 {selectedDelivery.fishType} • {selectedDelivery.quantity} {selectedDelivery.unit}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="px-6 pb-8">              {/* Desktop Progress Steps */}
+              </CardDescription>            
+              </CardHeader>
+            <CardContent className="px-6 pb-8">
+              {/* Desktop Progress Steps */}
               <div className="hidden md:block mb-10">
                 <div className="relative px-4 py-6">
                   {/* Step Container */}
                   <div className="flex items-center justify-between relative">
                     {/* Background Line */}
-                    <div className="absolute top-6 left-0 right-0 h-0.5 bg-gray-200" />
+                    <div className="absolute top-6 left-6 right-6 h-0.5 bg-gray-200" />
                     
                     {/* Progress Line */}
                     <div 
-                      className="absolute top-6 left-0 h-0.5 bg-green-500 transition-all duration-300"
-                      style={{ width: `${((selectedDelivery.currentStep - 1) / (selectedDelivery.steps.length - 1)) * 100}%` }}
+                      className="absolute top-6 left-6 h-0.5 bg-green-500 transition-all duration-300"
+                      style={{ 
+                        width: `${((selectedDelivery.currentStep - 1) / (selectedDelivery.steps.length - 1)) * (100 - 12)}%`
+                      }}
                     />
 
                     {/* Steps */}
@@ -362,11 +364,12 @@ export default function DeliveryPage() {
                                 {step.location}
                               </div>
                             )}
-                          </div>
-                        </div>
+                          </div>                        </div>
                       )
                     })}
-                  </div>                  {/* Progress Bar */}
+                  </div>
+                  
+                  {/* Progress Bar */}
                   <div className="mt-8 bg-gray-200 rounded-full h-2">
                     <div 
                       className="h-2 bg-blue-500 rounded-full transition-all duration-300"
@@ -425,10 +428,11 @@ export default function DeliveryPage() {
                           </div>
                         )}
                       </div>
-                    </div>
-                  )
+                    </div>                  )
                 })}
-              </div>              {/* Current Step Details */}
+              </div>
+              
+              {/* Current Step Details */}
               <div className="grid gap-6 md:grid-cols-2 mt-8 pt-8 border-t border-gray-200">
                 <div className="space-y-4">
                   <h4 className="font-semibold text-lg text-gray-900">Delivery Details</h4>

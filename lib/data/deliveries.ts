@@ -105,8 +105,7 @@ export const deliveries: Delivery[] = [
         status: "normal",
         lastUpdate: "2025-06-06T10:45:00Z"
       }
-    ],
-    steps: [
+    ],    steps: [
       {
         id: 1,
         name: "Basket",
@@ -123,12 +122,12 @@ export const deliveries: Delivery[] = [
       },
       {
         id: 3,
-        name: "Confirm",
+        name: "Arrived",
         status: "pending"
       },
       {
         id: 4,
-        name: "Done!",
+        name: "Payment",
         status: "pending"
       }
     ]
@@ -206,17 +205,16 @@ export const deliveries: Delivery[] = [
         status: "completed",
         timestamp: "2025-06-04T11:00:00Z",
         location: "Transport Hub"
-      },
-      {
+      },      {
         id: 3,
-        name: "Confirm",
+        name: "Arrived",
         status: "active",
         timestamp: "2025-06-06T10:00:00Z",
         location: "Destination"
       },
       {
         id: 4,
-        name: "Done!",
+        name: "Payment",
         status: "pending"
       }
     ]
@@ -294,17 +292,16 @@ export const deliveries: Delivery[] = [
         status: "completed",
         timestamp: "2025-06-03T10:30:00Z",
         location: "Transport Complete"
-      },
-      {
+      },      {
         id: 3,
-        name: "Confirm",
+        name: "Arrived",
         status: "completed",
         timestamp: "2025-06-05T17:45:00Z",
         location: "Davao Market"
       },
       {
         id: 4,
-        name: "Done!",
+        name: "Payment",
         status: "completed",
         timestamp: "2025-06-05T18:00:00Z",
         location: "Delivered"
