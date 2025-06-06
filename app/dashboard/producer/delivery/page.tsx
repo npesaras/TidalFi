@@ -45,9 +45,11 @@ export default function DeliveryPage() {
     deliveries[0],
   );
   const [activeTab, setActiveTab] = useState("active");
+  const [isMounted, setIsMounted] = useState(false);
   const stats = getDeliveryStats();
   // Simulate real-time updates
   useEffect(() => {
+    setIsMounted(true);
     const interval = setInterval(() => {
       // This would normally fetch real-time data from IoT sensors
       // For demo purposes, we'll just update timestamps
@@ -145,20 +147,33 @@ export default function DeliveryPage() {
         return "bg-gray-100 text-gray-800";
     }
   };
-  return (
-    <div className="min-h-screen bg-gray-100 p-6 space-y-8">
-      <DashboardHeader />
 
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-            Delivery Tracking
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Track your fish token deliveries with real-time IoT monitoring
-          </p>
-        </div>
+  // Safe client-side time formatting
+  const safeFormatDeliveryTime = (dateString: string) => {
+    if (!isMounted) return "Loading...";
+    return formatDeliveryTime(dateString);
+  };
+
+  // Safe client-side date formatting
+  const safeFormatDate = (dateString: string) => {
+    if (!isMounted) return "Loading...";
+    return new Date(dateString).toLocaleDateString();
+  };
+  return (
+    <div className="min-h-screen bg-blue-100">
+      <DashboardHeader userRole="producer" />
+
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Delivery Tracking
+            </h1>
+            <p className="text-gray-600">
+              Track your fish token deliveries with real-time IoT monitoring
+            </p>
+          </div>
       </div>
 
       {/* Stats Cards */}
@@ -440,7 +455,7 @@ export default function DeliveryPage() {
 
                             {step.timestamp && (
                               <div className="text-xs text-muted-foreground">
-                                {formatDeliveryTime(step.timestamp)}
+                                {safeFormatDeliveryTime(step.timestamp)}
                               </div>
                             )}
                             {step.location && (
@@ -528,7 +543,7 @@ export default function DeliveryPage() {
                         )}
                         {step.timestamp && (
                           <div className="text-sm text-muted-foreground mt-2 font-medium">
-                            {formatDeliveryTime(step.timestamp)} •{" "}
+                            {safeFormatDeliveryTime(step.timestamp)} •{" "}
                             {step.location}
                           </div>
                         )}
@@ -573,25 +588,19 @@ export default function DeliveryPage() {
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Harvested:</span>
                       <span className="font-medium text-gray-900">
-                        {new Date(
-                          selectedDelivery.harvestDate,
-                        ).toLocaleDateString()}
+                        {safeFormatDate(selectedDelivery.harvestDate)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Packaged:</span>
                       <span className="font-medium text-gray-900">
-                        {new Date(
-                          selectedDelivery.packagedDate,
-                        ).toLocaleDateString()}
+                        {safeFormatDate(selectedDelivery.packagedDate)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">ETA:</span>
                       <span className="font-medium text-gray-900">
-                        {new Date(
-                          selectedDelivery.estimatedDelivery,
-                        ).toLocaleDateString()}
+                        {safeFormatDate(selectedDelivery.estimatedDelivery)}
                       </span>
                     </div>
                   </div>
@@ -635,7 +644,7 @@ export default function DeliveryPage() {
                             <Timer className="h-5 w-5 text-blue-600" />
                             <span className="text-sm font-medium">
                               Harvest started:{" "}
-                              {formatDeliveryTime(selectedDelivery.harvestDate)}
+                              {safeFormatDeliveryTime(selectedDelivery.harvestDate)}
                             </span>
                           </div>
                           <div className="flex items-center gap-3 p-3 bg-white/50 rounded-lg">
@@ -703,22 +712,23 @@ export default function DeliveryPage() {
                 })()}
               </div>
             </CardContent>
-          </Card>{" "}
-          {/* IoT Monitoring - Context Aware */}
+          </Card>
+
+          {/* Survival Rate Monitoring - IoT Fish Freshness */}
           <div className="grid gap-8 md:grid-cols-2">
-            {/* Sensor Data - Only show if step 2 or higher */}
+            {/* IoT Sensor Data - Only show if step 2 or higher */}
             {selectedDelivery.currentStep >= 2 && (
               <Card className="shadow-sm border-0 bg-white">
                 <CardHeader className="pb-4">
                   <CardTitle className="flex items-center gap-3 text-lg font-semibold text-gray-900">
-                    <Zap className="h-6 w-6 text-yellow-600" />
-                    IoT Sensors
+                    <Zap className="h-6 w-6 text-blue-600" />
+                    IoT Fish Freshness Sensors
                     <Badge
                       variant="outline"
                       className={`ml-2 ${
                         selectedDelivery.currentStep < 4
-                          ? "bg-green-50 text-green-700 border-green-200"
-                          : "bg-blue-50 text-blue-700 border-blue-200"
+                          ? "bg-blue-50 text-blue-700 border-blue-200"
+                          : "bg-green-50 text-green-700 border-green-200"
                       }`}
                     >
                       {selectedDelivery.currentStep < 4 ? "Live" : "Final"}
@@ -726,8 +736,8 @@ export default function DeliveryPage() {
                   </CardTitle>
                   <CardDescription className="text-gray-600">
                     {selectedDelivery.currentStep < 4
-                      ? "Real-time monitoring data"
-                      : "Final delivery readings"}
+                      ? "Real-time fish freshness monitoring"
+                      : "Final delivery freshness readings"}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="pb-6">
@@ -765,7 +775,7 @@ export default function DeliveryPage() {
                               {sensor.name}
                             </div>
                             <div className="text-sm text-muted-foreground">
-                              Updated {formatDeliveryTime(sensor.lastUpdate)}
+                              Updated {safeFormatDeliveryTime(sensor.lastUpdate)}
                             </div>
                           </div>
                         </div>
@@ -793,34 +803,33 @@ export default function DeliveryPage() {
               </Card>
             )}
 
-            {/* Quality & Location */}
+            {/* Survival Rate & Fish Freshness Metrics */}
             <Card className="shadow-sm border-0 bg-white">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-lg font-semibold text-gray-900">
-                  <MapPin className="h-6 w-6 text-blue-600" />
+                  <Fish className="h-6 w-6 text-green-600" />
                   {selectedDelivery.currentStep === 1
                     ? "Harvest Info"
                     : selectedDelivery.currentStep >= 2
-                      ? "Quality & Location"
+                      ? "Survival Rate & Freshness"
                       : "Status"}
                 </CardTitle>
                 <CardDescription className="text-gray-600">
                   {selectedDelivery.currentStep === 1
                     ? "Current harvest information"
                     : selectedDelivery.currentStep >= 2
-                      ? "Quality metrics and location data"
+                      ? "Fish survival rate and freshness metrics"
                       : "Current status"}
                 </CardDescription>
               </CardHeader>
               <CardContent className="pb-6">
                 <div className="space-y-6">
-                  {" "}
-                  {/* Quality Score - Only show if step 2 or higher */}
+                  {/* Survival Rate - Only show if step 2 or higher */}
                   {selectedDelivery.currentStep >= 2 && (
                     <div className="p-5 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border-2 border-green-200">
                       <div className="flex items-center justify-between mb-4">
                         <span className="font-bold text-lg text-gray-900">
-                          Quality Score
+                          Fish Survival Rate
                         </span>
                         <Badge
                           className={`${getQualityColor(selectedDelivery.quality.status)} text-sm font-medium border-0`}
@@ -835,8 +844,12 @@ export default function DeliveryPage() {
                         value={selectedDelivery.quality.score}
                         className="h-4"
                       />
+                      <div className="text-sm text-gray-600 mt-3">
+                        Based on water quality, temperature, and oxygen levels
+                      </div>
                     </div>
                   )}
+
                   {/* Current Location - Only show if step 2 or higher */}
                   {selectedDelivery.currentStep >= 2 && (
                     <div className="p-5 bg-blue-50 rounded-xl border-2 border-blue-200">
@@ -855,6 +868,7 @@ export default function DeliveryPage() {
                       </div>
                     </div>
                   )}
+
                   {/* Step 1: Harvest Information */}
                   {selectedDelivery.currentStep === 1 && (
                     <>
@@ -882,9 +896,7 @@ export default function DeliveryPage() {
                           <div className="flex justify-between items-center">
                             <span className="text-gray-600">Harvest Date:</span>
                             <span className="font-semibold text-gray-900">
-                              {new Date(
-                                selectedDelivery.harvestDate,
-                              ).toLocaleDateString()}
+                              {safeFormatDate(selectedDelivery.harvestDate)}
                             </span>
                           </div>
                         </div>
@@ -899,47 +911,83 @@ export default function DeliveryPage() {
                         </div>
                         <div className="text-base text-green-700 font-medium">
                           Fish are being collected from the pond and prepared
-                          for packaging.
+                          for packaging with optimal water conditions.
                         </div>
                       </div>
                     </>
                   )}
-                  {/* Environmental Conditions - Only show if step 2 or higher */}
+
+                  {/* Fish Freshness Metrics - Only show if step 2 or higher */}
                   {selectedDelivery.currentStep >= 2 && (
                     <div className="grid grid-cols-2 gap-4">
                       <div className="p-4 bg-blue-50 rounded-xl text-center border-2 border-blue-200">
                         <Thermometer className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                         <div className="text-sm font-semibold text-gray-600 mb-1">
-                          Temperature
+                          Water Temperature
                         </div>
                         <div className="text-2xl font-bold text-blue-600 mb-1">
                           {selectedDelivery.temperature}°C
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          Optimal
+                          Optimal Range
                         </div>
                       </div>
-                      <div className="p-4 bg-blue-50 rounded-xl text-center border-2 border-blue-200">
-                        <Droplets className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                      <div className="p-4 bg-green-50 rounded-xl text-center border-2 border-green-200">
+                        <Droplets className="h-8 w-8 text-green-600 mx-auto mb-2" />
                         <div className="text-sm font-semibold text-gray-600 mb-1">
-                          Humidity
+                          Oxygen Level
                         </div>
-                        <div className="text-2xl font-bold text-blue-600 mb-1">
+                        <div className="text-2xl font-bold text-green-600 mb-1">
                           {selectedDelivery.humidity}%
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          Good
+                          Excellent
                         </div>
                       </div>
                     </div>
                   )}
-                  {/* Alerts */}
+
+                  {/* Additional Fish Freshness Indicators */}
+                  {selectedDelivery.currentStep >= 2 && (
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 bg-purple-50 rounded-xl text-center border-2 border-purple-200">
+                        <div className="h-8 w-8 mx-auto mb-2 flex items-center justify-center bg-purple-100 rounded-full">
+                          <span className="text-purple-600 font-bold text-sm">pH</span>
+                        </div>
+                        <div className="text-sm font-semibold text-gray-600 mb-1">
+                          Water pH
+                        </div>
+                        <div className="text-2xl font-bold text-purple-600 mb-1">
+                          7.2
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          Ideal
+                        </div>
+                      </div>
+                      <div className="p-4 bg-cyan-50 rounded-xl text-center border-2 border-cyan-200">
+                        <div className="h-8 w-8 mx-auto mb-2 flex items-center justify-center bg-cyan-100 rounded-full">
+                          <span className="text-cyan-600 font-bold text-xs">TDS</span>
+                        </div>
+                        <div className="text-sm font-semibold text-gray-600 mb-1">
+                          Water Quality
+                        </div>
+                        <div className="text-2xl font-bold text-cyan-600 mb-1">
+                          95%
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          Pure
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Freshness Alerts */}
                   {selectedDelivery.quality.alerts.length > 0 && (
                     <div className="p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl">
                       <div className="flex items-center gap-3 mb-3">
                         <AlertTriangle className="h-5 w-5 text-yellow-600" />
                         <span className="font-semibold text-yellow-800 text-base">
-                          Alerts
+                          Freshness Alerts
                         </span>
                       </div>
                       <div className="space-y-2">
@@ -958,6 +1006,7 @@ export default function DeliveryPage() {
               </CardContent>
             </Card>
           </div>
+        </div>
         </div>
       </div>
     </div>
