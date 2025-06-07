@@ -12,7 +12,6 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 // Import icons
 import {
-
   BarChart3,
   Plus,
   Eye,
@@ -22,6 +21,12 @@ import {
   List,
   CheckCircle,
   ArrowUpRight,
+  DollarSign,
+  TrendingUp,
+  CreditCard,
+  Calendar,
+  Fish,
+  Clock,
 } from "lucide-react"
 import { DashboardHeader } from "@/components/dashboard-header"
 
@@ -46,6 +51,8 @@ import {
   transactions, 
   getRecentTransactions, 
   formatTransactionTime,
+  getTransactionsByType,
+  getTotalTransactionValue,
   type Transaction
 } from "@/lib/data/transactions"
 
@@ -501,26 +508,60 @@ export default function ProducerDashboard() {
                 {viewMode === "grid" ? renderTokenGridView() : renderTokenListView()}
               </CardContent>
             </Card>
-          </TabsContent>
-
-          {/* Revenue Overview */}
+          </TabsContent>          {/* Revenue Overview */}
           <TabsContent value="revenue" className="space-y-6">
-            {/* Keep all your original revenue content here */}
+            {/* Revenue Summary Cards */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+                  <DollarSign className="h-4 w-4 text-green-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-green-600">₱500,231</div>
+                  <p className="text-xs text-green-600">+20.1% from last month</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Pending Payments</CardTitle>
+                  <Clock className="h-4 w-4 text-orange-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-orange-600">₱43,200</div>
+                  <p className="text-xs text-gray-600">Processing investor payments</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Monthly Average</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-blue-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-blue-600">₱83,372</div>
+                  <p className="text-xs text-blue-600">Last 6 months average</p>
+                </CardContent>
+              </Card>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-6">
+              {/* Monthly Revenue Chart */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Monthly Revenue</CardTitle>
-                  <CardDescription>Revenue trends over the past 12 months</CardDescription>
+                  <CardTitle>Monthly Revenue Trends</CardTitle>
+                  <CardDescription>Revenue performance over the past 6 months</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 w-full">
                     <div className="relative h-full">
                       {/* Y-axis labels */}
                       <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-4">
-                        <span>₱40000</span>
-                        <span>₱30000</span>
-                        <span>₱20000</span>
-                        <span>₱10000</span>
+                        <span>₱120k</span>
+                        <span>₱90k</span>
+                        <span>₱60k</span>
+                        <span>₱30k</span>
                         <span>₱0</span>
                       </div>
                       
@@ -529,104 +570,153 @@ export default function ProducerDashboard() {
                         <svg className="w-full h-full" viewBox="0 0 400 200">
                           {/* Grid lines */}
                           <defs>
-                            <pattern id="grid" width="66.66" height="40" patternUnits="userSpaceOnUse">
+                            <pattern id="revenueGrid" width="66.66" height="40" patternUnits="userSpaceOnUse">
                               <path d="M 66.66 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
                             </pattern>
                           </defs>
-                          <rect width="100%" height="100%" fill="url(#grid)" />
+                          <rect width="100%" height="100%" fill="url(#revenueGrid)" />
                           
-                          {/* Revenue line */}
+                          {/* Revenue line - representing gradual growth */}
                           <polyline
                             fill="none"
                             stroke="#10b981"
-                            strokeWidth="2"
-                            points="0,180 66,150 133,130 200,110 266,85 333,60 400,40"
+                            strokeWidth="3"
+                            points="0,160 66,140 133,120 200,100 266,80 333,60"
                           />
                           
                           {/* Data points */}
-                          {[0, 66, 133, 200, 266, 333, 400].map((x, i) => (
-                            <circle key={i} cx={x} cy={[180, 150, 130, 110, 85, 60, 40][i]} r="3" fill="#10b981" />
+                          {[
+                            {x: 0, y: 160, value: '₱65k'},
+                            {x: 66, y: 140, value: '₱72k'},
+                            {x: 133, y: 120, value: '₱78k'},
+                            {x: 200, y: 100, value: '₱85k'},
+                            {x: 266, y: 80, value: '₱92k'},
+                            {x: 333, y: 60, value: '₱98k'}
+                          ].map((point, i) => (
+                            <g key={i}>
+                              <circle cx={point.x} cy={point.y} r="4" fill="#10b981" />
+                              <text 
+                                x={point.x} 
+                                y={point.y - 12} 
+                                textAnchor="middle" 
+                                className="text-xs font-semibold fill-gray-700"
+                              >
+                                {point.value}
+                              </text>
+                            </g>
                           ))}
                         </svg>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>              <Card>
-                <CardHeader>
-                  <CardTitle>Revenue by Species</CardTitle>
-                  <CardDescription>Breakdown of earnings by fish type</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-64 w-full">
-                    <div className="relative h-full">
-                      {/* Y-axis labels */}
-                      <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-4">
-                        <span>₱200k</span>
-                        <span>₱150k</span>
-                        <span>₱100k</span>
-                        <span>₱50k</span>
-                        <span>₱0</span>
-                      </div>
-                      
-                      {/* Chart area */}
-                      <div className="ml-12 h-full relative">
-                        <svg className="w-full h-full" viewBox="0 0 400 200">
-                          {/* Grid lines */}
-                          <defs>
-                            <pattern id="speciesGrid" width="133.33" height="40" patternUnits="userSpaceOnUse">
-                              <path d="M 133.33 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" strokeWidth="1"/>
-                            </pattern>
-                          </defs>
-                          <rect width="100%" height="100%" fill="url(#speciesGrid)" />
-                          
-                          {/* Revenue bars with data from centralized source */}
-                          {speciesRevenueData.map((species, index) => {
-                            const barHeight = (species.revenue / 200000) * 180; // Scale to 200k max
-                            const barX = 40 + (index * 120);
-                            const barY = 200 - barHeight;
-                            
-                            return (
-                              <g key={species.id}>
-                                {/* Bar */}
-                                <rect 
-                                  x={barX} 
-                                  y={barY} 
-                                  width="50" 
-                                  height={barHeight} 
-                                  fill={species.color.replace('bg-', '#').replace('blue-500', '3b82f6').replace('green-500', '10b981').replace('purple-500', '8b5cf6')}
-                                  rx="4" 
-                                />
-                                
-                                {/* Value label on top of bar */}
-                                <text 
-                                  x={barX + 25} 
-                                  y={barY - 8} 
-                                  textAnchor="middle" 
-                                  className="text-xs font-semibold fill-gray-700"
-                                >
-                                  {formatCurrency(species.revenue)}
-                                </text>
-                                
-                                {/* Percentage label inside bar */}
-                                <text 
-                                  x={barX + 25} 
-                                  y={barY + 20} 
-                                  textAnchor="middle" 
-                                  className="text-xs font-medium fill-white"
-                                >
-                                  {species.percentage}%
-                                </text>
-                              </g>
-                            );
-                          })}
-                        </svg>
+                        
+                        {/* X-axis labels */}
+                        <div className="absolute bottom-0 left-0 w-full flex justify-between text-xs text-gray-500 pt-2">
+                          <span>Jan</span>
+                          <span>Feb</span>
+                          <span>Mar</span>
+                          <span>Apr</span>
+                          <span>May</span>
+                          <span>Jun</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Revenue by Fish Type */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Revenue by Fish Type</CardTitle>
+                  <CardDescription>Breakdown of earnings by species</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {[
+                      { name: 'Tilapia', amount: '₱180,320', percentage: 36, color: 'bg-blue-500' },
+                      { name: 'Sea Bass', amount: '₱150,270', percentage: 30, color: 'bg-green-500' },
+                      { name: 'Pompano', amount: '₱115,190', percentage: 23, color: 'bg-purple-500' },
+                      { name: 'Others', amount: '₱54,451', percentage: 11, color: 'bg-gray-500' }
+                    ].map((fish, index) => (
+                      <div key={index} className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-medium text-gray-900">{fish.name}</span>
+                          <div className="text-right">
+                            <div className="text-sm font-semibold text-gray-900">{fish.amount}</div>
+                            <div className="text-xs text-gray-500">{fish.percentage}%</div>
+                          </div>
+                        </div>
+                        <Progress value={fish.percentage} className="h-2" />
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+
+            {/* Payment History */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <CreditCard className="h-5 w-5 mr-2" />
+                  Recent Payment History
+                </CardTitle>
+                <CardDescription>Your latest earnings and payment transactions</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {getTransactionsByType('payment').concat(getTransactionsByType('harvest')).slice(0, 6).map((payment) => (
+                    <div key={payment.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                      <div className="flex items-center space-x-4">
+                        <div className="p-2 bg-white rounded-lg">
+                          {payment.type === 'harvest' ? (
+                            <Fish className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <DollarSign className="h-4 w-4 text-blue-600" />
+                          )}
+                        </div>
+                        <div>
+                          <div className="font-semibold text-gray-900">{payment.title}</div>
+                          <div className="text-sm text-gray-500">{payment.description}</div>
+                          <div className="text-xs text-gray-400 mt-1">
+                            {formatTransactionTime(payment.timestamp)}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-semibold text-gray-900">{payment.amount}</div>
+                        <Badge 
+                          variant={payment.status === "completed" ? "default" : "secondary"}
+                          className={
+                            payment.status === "completed" ? "bg-green-100 text-green-800" :
+                            payment.status === "pending" ? "bg-yellow-100 text-yellow-800" :
+                            "bg-red-100 text-red-800"
+                          }
+                        >
+                          {payment.status}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Payment Summary */}
+                <div className="mt-6 pt-4 border-t">
+                  <div className="grid md:grid-cols-3 gap-4 text-center">
+                    <div>
+                      <p className="text-sm text-gray-600">This Month</p>
+                      <p className="text-lg font-semibold text-green-600">₱98,420</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">Last Month</p>
+                      <p className="text-lg font-semibold text-gray-900">₱85,230</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">Growth</p>
+                      <p className="text-lg font-semibold text-blue-600">+15.5%</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="performance" className="space-y-6">

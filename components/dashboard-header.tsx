@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
-import { Waves, User, Settings, LogOut, Bell, Fish, TrendingUp, ShoppingCart, HelpCircle } from "lucide-react"
+import { Waves, User, Settings, LogOut, Bell, Fish, TrendingUp, ShoppingCart, HelpCircle, Truck } from "lucide-react"
 
 interface DashboardHeaderProps {
   userRole?: "producer"
@@ -74,8 +74,7 @@ export function DashboardHeader({ userRole: propUserRole, forceRole }: Dashboard
           <nav className="hidden md:flex items-center space-x-6">
             <Link href={`/dashboard/${userRole}`} className="text-gray-600 hover:text-blue-600 font-medium">
               Dashboard
-            </Link>
-            {userRole === "producer" && (
+            </Link>            {userRole === "producer" && (
               <>
                 <Link href={`/dashboard/producer/pond`} className="text-gray-600 hover:text-blue-600">
                   My Pond
@@ -83,13 +82,15 @@ export function DashboardHeader({ userRole: propUserRole, forceRole }: Dashboard
                 <Link href={`/dashboard/producer/tokens`} className="text-gray-600 hover:text-blue-600">
                   My Tokens
                 </Link>
+                <Link href={`/dashboard/producer/delivery`} className="text-gray-600 hover:text-blue-600">
+                  Delivery
+                </Link>
+                <Link href={`/dashboard/producer/revenue`} className="text-gray-600 hover:text-blue-600">
+                  Revenue
+                </Link>
               </>
-            )}
-            <Link href={`/marketplace?role=${userRole}`} className="text-gray-600 hover:text-blue-600">
+            )}<Link href={`/marketplace?role=${userRole}`} className="text-gray-600 hover:text-blue-600">
               Marketplace
-            </Link>
-            <Link href={`/governance?role=${userRole}`} className="text-gray-600 hover:text-blue-600">
-              Governance
             </Link>
           </nav>
         </div>
